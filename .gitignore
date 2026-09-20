@@ -1,0 +1,18 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Local secrets — never commit these. This repo is public.
+.env
+.env.*
+!.env.example
+*garmin_tokens*.json
+.local/
+
+# Local scratch data (backfill DB dumps, downloaded FIT files, etc.)
+data/
+!data/.gitkeep
+
+# Editor/OS
+.DS_Store
