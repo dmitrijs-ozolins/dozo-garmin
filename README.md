@@ -4,10 +4,13 @@ Garmin Connect data sync — historical backfill + daily automated pull, for
 workout-structure analysis and training-plan adjustment. Design rationale
 lives in [PLAN.md](PLAN.md); this file is the "how to actually run it" doc.
 
-**This repo is public.** No health data, session tokens, or personal
-training-plan/injury details are ever committed to it — they live in an
-external Postgres database and in GitHub Actions secrets. See "Where data
-lives" below before you add anything to this repo.
+**This repo is public.** No raw health data, session tokens, or injury
+details are ever committed to it — they live in an external Postgres
+database and in GitHub Actions secrets. The exception is the training plan:
+`training_plan/` (the plan itself, its analysis, and the progress log with
+pace/heart-rate/VO2max checkpoints) is deliberately committed and fine to
+be public. See "Where data lives" below before you add anything else to
+this repo.
 
 ## Where data lives
 
@@ -15,6 +18,8 @@ lives" below before you add anything to this repo.
 |---|---|---|
 | Activities, laps, wellness, signals, planned workouts, injury log | Postgres (Supabase free tier or similar), via `DATABASE_URL` | Health/personal data — never in git, since the repo is public |
 | Garmin session token | `GARMIN_TOKENS` GitHub Actions secret, auto-rotated by the workflow via a PAT | Grants account access — never in git either |
+| Training plan, plan analysis, progress log (`training_plan/`) | This repo | Deliberately public — summary-level numbers only (paces, HR bands, VO2max checkpoints) |
+| Raw activity exports (`past_workouts/*.tcx`) | Local disk only, git-ignored | Contain GPS tracks (home/route locations) and per-second HR — never in git |
 | Code, schema, workflow | This repo | Nothing sensitive |
 
 ## One-time setup

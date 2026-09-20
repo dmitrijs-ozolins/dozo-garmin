@@ -13,6 +13,7 @@ __pycache__/
 # Local scratch data (backfill DB dumps, downloaded FIT files, etc.)
 data/
 !data/.gitkeep
+past_workouts/
 
 # Editor/OS
 .DS_Store
