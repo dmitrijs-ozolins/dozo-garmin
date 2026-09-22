@@ -1,8 +1,8 @@
 # dozo-garmin
 
-Garmin Connect data sync — historical backfill + daily automated pull, for
-workout-structure analysis and training-plan adjustment. Design rationale
-lives in [PLAN.md](PLAN.md); this file is the "how to actually run it" doc.
+Garmin Connect daily automated sync, for workout analysis and
+training-plan adjustment. Design rationale lives in [PLAN.md](PLAN.md);
+this file is the "how to actually run it" doc.
 
 **This repo is public.** No raw health data, session tokens, or injury
 details are ever committed to it — they live in an external Postgres
@@ -67,20 +67,7 @@ this repo.
    the token — treat it as scheduled manual maintenance, not something CI
    auto-recovers from (see PLAN.md).
 
-## Phase 1 — historical backfill (local, one-time)
-
-```bash
-python scripts/backfill.py --start 2024-09-01 --end 2025-12-31
-```
-
-Pulls every activity in the range plus its lap/split structure into
-Postgres (`activities` + `laps` tables) — the dataset for the
-workout-structure analysis. Doesn't touch wellness data (see the script's
-docstring for why). Add `--fit-dir data/fit` to also save each activity's
-original FIT file locally (gitignored) if the analysis needs
-second-by-second data beyond laps.
-
-## Phase 2 — daily sync (GitHub Actions)
+## Phase 1 — daily sync (GitHub Actions)
 
 `.github/workflows/daily-sync.yml` runs `scripts/daily_sync.py` once a day
 (08:00 UTC) plus on manual `workflow_dispatch`. Each run fetches the

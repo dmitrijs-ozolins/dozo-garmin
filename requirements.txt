@@ -1,0 +1,11 @@
+# Garmin Connect API client (auth + activities + wellness). Pulls its own
+# session-token handling now that upstream `garth` is deprecated — see
+# PLAN.md and garmin_sync/auth.py.
+garminconnect>=0.3.11
+
+# External Postgres store (Supabase free tier or similar) — the repo is
+# public, so health data is never committed to git; see PLAN.md "Storage
+# note" and the data-storage decision recorded there.
+psycopg[binary]>=3.1
+
+python-dotenv>=1.0

@@ -1,9 +1,14 @@
 # Garmin Workout Data Plan
 
-Two problems to solve:
+**Goal: ongoing automated sync** — continuously pull Garmin data so we can
+(a) analyze it and (b) adjust the training plan when a workout is missed or
+there's a bad sleep / injury signal.
 
-1. **Historical backfill** — pull workout history from September 2024 through end of 2025 for a one-time analysis of workout structure (the analysis itself is a separate story).
-2. **Ongoing automated sync** — continuously pull Garmin data so we can (a) analyze it and (b) adjust the training plan when a workout is missed or there's a bad sleep / injury signal.
+(Historical backfill was originally a second problem here — pulling
+workout history from September 2024 onward for a one-time
+workout-structure analysis. Dropped: that history was already obtained
+independently via manual TCX export into `past_workouts/`, so there's no
+scripted backfill to build.)
 
 ## Background: how Garmin API access actually works
 
@@ -22,50 +27,53 @@ Strava is a legitimate, documented **side door** to a subset of your Garmin data
 - Body Battery / stress
 - Training readiness/status
 
-That data is exactly what problem 2 needs (react to bad sleep, etc.), so Strava alone can't cover problem 2. It could be a ToS-clean source for the *activity/structure* half of problem 1, at the cost of running two integrations instead of one.
+That's exactly what the plan-adjustment half of this needs (react to bad sleep, etc.), so Strava alone can't cover it.
 
-**Decision: use `garth` (+ `python-garminconnect`, built on top of it) as the single source for everything** — it gets activities *and* sleep/HRV/wellness data in one place, which we need anyway for problem 2.
+**Decision: use `python-garminconnect` as the single source for everything** — it gets activities *and* sleep/HRV/wellness data in one place.
+
+(Originally scoped around `garth` underneath it, per the upstream README at the time. `garth` is now deprecated — see [its maintainer's note](https://github.com/matin/garth/discussions/222) — and `python-garminconnect` (>=0.3) dropped it in favor of its own built-in token store. Functionally the same idea, simpler mechanics: see Phase 0 below.)
 
 ### CAPTCHA / anti-bot wrinkle for GitHub Actions
 
-Garmin's login increasingly triggers CAPTCHA/anti-bot checks for logins from datacenter IPs — GitHub Actions runners qualify. If the workflow tries a fresh username/password login every run, it will likely get blocked eventually. Mitigation, supported by `garth`:
+Garmin's login increasingly triggers CAPTCHA/anti-bot checks for logins from datacenter IPs — GitHub Actions runners qualify. If the workflow tries a fresh username/password login every run, it will likely get blocked eventually. Mitigation:
 
 - Log in **once, interactively, from a local machine** (handles MFA if enabled).
-- `garth.save(dir)` persists the session — an OAuth1 token good for ~1 year, plus an OAuth2 token `garth` auto-refreshes.
-- Base64 the saved session and store it as a GitHub Actions **encrypted secret** (e.g. `GARMIN_SESSION`).
-- The workflow calls `garth.resume()` from the secret instead of logging in fresh — no password, no CAPTCHA, in the common case.
+- `python-garminconnect` persists the session as a small JSON token file (a refresh-token pair) that it can reload and auto-refresh.
+- Store that token JSON as a GitHub Actions **encrypted secret** (`GARMIN_TOKENS`).
+- The workflow resumes from the secret instead of logging in fresh — no password, no CAPTCHA, in the common case. Since the refresh token can rotate on use, the workflow re-uploads the refreshed token back to the secret after each run (via a scoped PAT), so the next run isn't left holding a stale one.
 - Expect to redo the manual local login roughly once a year (or if Garmin revokes the token) — treat this as scheduled manual maintenance, not something to auto-recover in CI.
 
 ## Plan
 
 ### Phase 0 — Auth bootstrap (local, one-time)
 
-- Install `garminconnect` (wraps `garth`).
-- Log in locally, `garth.save()`, store the resulting session blob as a GitHub Actions secret (`GARMIN_SESSION`).
+- Install `garminconnect`.
+- Log in locally (handles MFA), which writes the session token file.
+- Store its contents as the `GARMIN_TOKENS` GitHub Actions secret.
 - Never put the raw Garmin password in CI — only the derived session token.
 
-### Phase 1 — Historical backfill, Sept 2024–Dec 2025 (local, one-time, not CI)
-
-- Script pages through `get_activities_by_date(start, end)` for the full range.
-- For each activity, pull laps/splits (or the raw FIT file via `download_activity(..., dl_fmt=ORIGINAL)`) — summary alone loses the interval/lap structure needed for the workout-structure analysis; FIT gives second-by-second pace/HR plus lap markers.
-- Store to a local SQLite DB or Parquet files (one table for activities, one for lap splits). This becomes the dataset for the separate analysis story, and the same schema the daily sync will append to later.
-- No need to run this in CI — it's a single local run against ~16 months of history.
-
-### Phase 2 — Daily automated sync (GitHub Actions, problem 2)
+### Phase 1 — Daily automated sync (GitHub Actions)
 
 - Scheduled workflow: `schedule:` cron trigger + `workflow_dispatch` for manual runs.
-- Each run: `garth.resume()` from the secret → fetch yesterday's activity(ies), sleep, HRV, resting HR, Body Battery, training status.
-- Append to the same SQLite/Parquet store, commit back to the (private) repo via a bot commit — data volume is tiny (KB/day), so git-as-a-datastore is fine.
-- Diff against a **planned-workout file** maintained in the repo (simple YAML/JSON) to flag: missed session, sleep score below threshold, resting-HR spike, etc.
-- **Injury** isn't something Garmin can report — it needs manual input (e.g. an `injury-log.yaml` file or a labeled GitHub issue the workflow reads).
+- Each run: resume the Garmin session from the `GARMIN_TOKENS` secret → fetch yesterday's activity(ies), sleep, HRV, resting HR, Body Battery, training status.
+- Diff against a **planned-workout record** to flag: missed session, sleep score below threshold, resting-HR spike, etc.
+- **Injury** isn't something Garmin can report — it needs manual input.
 - Keep "detect an anomaly" separate from "decide how to adjust the plan" — the sync step should emit clean structured signals (missed / low-sleep / HR-spike / manual-injury-flag) for a later plan-adjuster module to consume.
 - Notify on flags however is convenient — commit a status file, comment on an issue, or ping Slack/Pushover.
 
 ### Storage note
 
-Keep the repo **private** — it will contain health data plus the session secret. A SQLite file committed by the workflow is the simplest option; only move to an external DB (e.g. Supabase/Postgres free tier) if git-as-storage is outgrown.
+The repo is **public**, so nothing sensitive goes into git:
+
+- Activities, laps, wellness, signals, planned workouts, and the injury log live in an external Postgres database (Supabase free tier or similar), not committed.
+- The Garmin session token lives only in the `GARMIN_TOKENS` GitHub Actions secret (auto-rotated by the workflow via a separate scoped PAT), never in git.
+- The training plan itself (and its progress log/checkpoints) is the one thing deliberately committed and public — it's summary-level, not raw health data.
+- Raw per-activity exports (`past_workouts/*.tcx`) stay local-only and gitignored — they carry GPS tracks and per-second HR.
+
+See `README.md` for the concrete setup and current implementation status.
 
 ## Open follow-ups
 
-- Sketch the actual repo layout (`fetch.py`, workflow YAML, DB schema).
-- Or start with the Phase 1 backfill script first, since that unblocks the analysis story sooner.
+- Plan-adjuster module: act on the `signals` table's anomaly detections (currently detection-only, by design).
+- Notifications on new signals (Slack/Pushover) — not wired up yet.
+- Verify `garmin_sync/wellness.py`'s field mappings against a real account's data once the daily sync has run for a while; several of them are best-effort against Garmin's undocumented API.

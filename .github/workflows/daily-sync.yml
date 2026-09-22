@@ -1,0 +1,55 @@
+name: Daily Garmin sync
+
+# Phase 2 of PLAN.md. Resumes the Garmin session from the GARMIN_TOKENS
+# secret (never logs in fresh with a password — see PLAN.md's CAPTCHA
+# note), pulls the previous day's activities + wellness data into the
+# external Postgres DB (DATABASE_URL secret), and re-uploads GARMIN_TOKENS
+# if Garmin rotated the refresh token during the run.
+
+on:
+  schedule:
+    - cron: "0 8 * * *" # 08:00 UTC daily
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Day to sync (YYYY-MM-DD). Leave blank for yesterday."
+        required: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: daily-garmin-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install -r requirements.txt
+
+      - name: Run daily sync
+        env:
+          GARMIN_TOKENS: ${{ secrets.GARMIN_TOKENS }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          SYNC_DATE: ${{ github.event.inputs.date }}
+        run: |
+          args=(--dump-tokens-to /tmp/garmin_tokens.json)
+          if [ -n "$SYNC_DATE" ]; then
+            args+=(--date "$SYNC_DATE")
+          fi
+          python scripts/daily_sync.py "${args[@]}"
+
+      - name: Re-upload rotated session token
+        if: success()
+        env:
+          GH_TOKEN: ${{ secrets.GH_SECRETS_PAT }}
+        run: |
+          gh secret set GARMIN_TOKENS --repo "${{ github.repository }}" < /tmp/garmin_tokens.json
