@@ -9,3 +9,7 @@ garminconnect>=0.3.11
 psycopg[binary]>=3.1
 
 python-dotenv>=1.0
+
+# Telegram bot notifications when scripts/daily_sync.py finds a new signal
+# (missed workout, low sleep, RHR spike, injury flag) — see garmin_sync/notify.py.
+requests>=2.31

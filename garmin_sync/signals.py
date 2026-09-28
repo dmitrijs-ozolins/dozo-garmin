@@ -23,33 +23,37 @@ LOW_SLEEP_SCORE_THRESHOLD = 60
 RHR_SPIKE_BPM_ABOVE_BASELINE = 7
 
 
-def check_missed_workout(conn: psycopg.Connection, day: str) -> None:
+def check_missed_workout(conn: psycopg.Connection, day: str) -> list[dict]:
     planned = conn.execute(
         "SELECT workout_type, description FROM planned_workouts WHERE day = %(day)s",
         {"day": day},
     ).fetchall()
     if not planned:
-        return
+        return []
     row = conn.execute(
         "SELECT count(*) AS n FROM activities WHERE start_time_local::date = %(day)s",
         {"day": day},
     ).fetchone()
-    if row and row["n"] == 0:
-        for session in planned:
-            insert_signal(
-                conn, day, "missed_workout", "warning",
-                f"Planned {session['workout_type'] or 'workout'} "
-                f"({session['description'] or ''}) not found in Garmin activities",
-            )
+    if not row or row["n"] != 0:
+        return []
+    return [
+        insert_signal(
+            conn, day, "missed_workout", "warning",
+            f"Planned {session['workout_type'] or 'workout'} "
+            f"({session['description'] or ''}) not found in Garmin activities",
+        )
+        for session in planned
+    ]
 
 
-def check_low_sleep(conn: psycopg.Connection, day: str, threshold: int = LOW_SLEEP_SCORE_THRESHOLD) -> None:
+def check_low_sleep(conn: psycopg.Connection, day: str, threshold: int = LOW_SLEEP_SCORE_THRESHOLD) -> list[dict]:
     row = conn.execute(
         "SELECT sleep_score FROM wellness_daily WHERE day = %(day)s",
         {"day": day},
     ).fetchone()
     if row and row["sleep_score"] is not None and row["sleep_score"] < threshold:
-        insert_signal(conn, day, "low_sleep", "warning", f"Sleep score {row['sleep_score']} < {threshold}")
+        return [insert_signal(conn, day, "low_sleep", "warning", f"Sleep score {row['sleep_score']} < {threshold}")]
+    return []
 
 
 def check_rhr_spike(
@@ -57,12 +61,12 @@ def check_rhr_spike(
     day: str,
     baseline_days: int = 28,
     spike_bpm: int = RHR_SPIKE_BPM_ABOVE_BASELINE,
-) -> None:
+) -> list[dict]:
     today_row = conn.execute(
         "SELECT resting_hr FROM wellness_daily WHERE day = %(day)s", {"day": day}
     ).fetchone()
     if not today_row or today_row["resting_hr"] is None:
-        return
+        return []
     baseline_row = conn.execute(
         """
         SELECT avg(resting_hr) AS avg_rhr FROM wellness_daily
@@ -73,17 +77,20 @@ def check_rhr_spike(
     ).fetchone()
     baseline = baseline_row["avg_rhr"] if baseline_row else None
     if baseline is None:
-        return
+        return []
     delta = today_row["resting_hr"] - baseline
     if delta >= spike_bpm:
-        insert_signal(
-            conn, day, "rhr_spike", "warning",
-            f"Resting HR {today_row['resting_hr']} is {delta:.1f} bpm above the "
-            f"{baseline_days}-day baseline ({baseline:.1f})",
-        )
+        return [
+            insert_signal(
+                conn, day, "rhr_spike", "warning",
+                f"Resting HR {today_row['resting_hr']} is {delta:.1f} bpm above the "
+                f"{baseline_days}-day baseline ({baseline:.1f})",
+            )
+        ]
+    return []
 
 
-def check_manual_injury_flags(conn: psycopg.Connection, day: str) -> None:
+def check_manual_injury_flags(conn: psycopg.Connection, day: str) -> list[dict]:
     """Re-raises a signal for every day an injury stays 'active' (until
     resolved via scripts/plan_cli.py resolve-injury), so a plan-adjuster
     reading "today's signals" always sees it.
@@ -92,12 +99,15 @@ def check_manual_injury_flags(conn: psycopg.Connection, day: str) -> None:
         "SELECT severity, note FROM injury_log WHERE status = 'active' AND day <= %(day)s",
         {"day": day},
     ).fetchall()
-    for row in rows:
-        insert_signal(conn, day, "manual_injury", row["severity"] or "warning", row["note"] or "")
+    return [
+        insert_signal(conn, day, "manual_injury", row["severity"] or "warning", row["note"] or "") for row in rows
+    ]
 
 
-def run_all_checks(conn: psycopg.Connection, day: str) -> None:
-    check_missed_workout(conn, day)
-    check_low_sleep(conn, day)
-    check_rhr_spike(conn, day)
-    check_manual_injury_flags(conn, day)
+def run_all_checks(conn: psycopg.Connection, day: str) -> list[dict]:
+    return [
+        *check_missed_workout(conn, day),
+        *check_low_sleep(conn, day),
+        *check_rhr_spike(conn, day),
+        *check_manual_injury_flags(conn, day),
+    ]

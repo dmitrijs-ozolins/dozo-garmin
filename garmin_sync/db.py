@@ -240,7 +240,7 @@ def upsert_wellness_day(conn: psycopg.Connection, day_data: dict[str, Any]) -> N
     )
 
 
-def insert_signal(conn: psycopg.Connection, day: str, signal_type: str, severity: str, detail: str) -> None:
+def insert_signal(conn: psycopg.Connection, day: str, signal_type: str, severity: str, detail: str) -> dict:
     conn.execute(
         """
         INSERT INTO signals (day, signal_type, severity, detail)
@@ -248,6 +248,7 @@ def insert_signal(conn: psycopg.Connection, day: str, signal_type: str, severity
         """,
         {"day": day, "signal_type": signal_type, "severity": severity, "detail": detail},
     )
+    return {"day": day, "signal_type": signal_type, "severity": severity, "detail": detail}
 
 
 def log_sync_run(

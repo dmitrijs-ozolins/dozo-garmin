@@ -28,6 +28,7 @@ from dotenv import load_dotenv
 from garmin_sync.activities import fetch_activities, fetch_laps, to_activity_row, to_lap_row
 from garmin_sync.auth import dump_tokens, login_from_env
 from garmin_sync.db import connect, init_db, log_sync_run, upsert_activity, upsert_laps, upsert_wellness_day
+from garmin_sync.notify import format_signals_message, send_telegram_message
 from garmin_sync.signals import run_all_checks
 from garmin_sync.wellness import fetch_wellness_day
 
@@ -65,11 +66,19 @@ def main() -> None:
             upsert_laps(conn, activity_id, [to_lap_row(lap, i) for i, lap in enumerate(laps)])
 
         upsert_wellness_day(conn, wellness)
-        run_all_checks(conn, day)
+        signals = run_all_checks(conn, day)
         log_sync_run(conn, "daily", day, day, len(activities), "ok")
         conn.commit()
 
     logger.info("Synced %d activities + wellness for %s", len(activities), day)
+
+    if signals:
+        try:
+            send_telegram_message(format_signals_message(day, signals))
+        except Exception:
+            # Notification is best-effort -- a bad/missing Telegram config
+            # shouldn't turn an otherwise-successful sync into a failed run.
+            logger.exception("Failed to send Telegram notification for %d signal(s)", len(signals))
 
     # Refresh happens transparently inside garmin.login()/connectapi() calls
     # above; the token this session ends with may differ from GARMIN_TOKENS.

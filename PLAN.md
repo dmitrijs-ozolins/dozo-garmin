@@ -59,7 +59,7 @@ Garmin's login increasingly triggers CAPTCHA/anti-bot checks for logins from dat
 - Diff against a **planned-workout record** to flag: missed session, sleep score below threshold, resting-HR spike, etc.
 - **Injury** isn't something Garmin can report — it needs manual input.
 - Keep "detect an anomaly" separate from "decide how to adjust the plan" — the sync step should emit clean structured signals (missed / low-sleep / HR-spike / manual-injury-flag) for a later plan-adjuster module to consume.
-- Notify on flags however is convenient — commit a status file, comment on an issue, or ping Slack/Pushover.
+- Notify on flags however is convenient — a Telegram bot ping at the end of the sync is what's wired up (`garmin_sync/notify.py`).
 
 ### Storage note
 
@@ -75,5 +75,5 @@ See `README.md` for the concrete setup and current implementation status.
 ## Open follow-ups
 
 - Plan-adjuster module: act on the `signals` table's anomaly detections (currently detection-only, by design).
-- Notifications on new signals (Slack/Pushover) — not wired up yet.
+- Notifications on new signals: wired up via Telegram (`garmin_sync/notify.py`, called from `scripts/daily_sync.py`).
 - Verify `garmin_sync/wellness.py`'s field mappings against a real account's data once the daily sync has run for a while; several of them are best-effort against Garmin's undocumented API.

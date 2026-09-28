@@ -18,6 +18,7 @@ this repo.
 |---|---|---|
 | Activities, laps, wellness, signals, planned workouts, injury log | Postgres (Supabase free tier or similar), via `DATABASE_URL` | Health/personal data — never in git, since the repo is public |
 | Garmin session token | `GARMIN_TOKENS` GitHub Actions secret, auto-rotated by the workflow via a PAT | Grants account access — never in git either |
+| Telegram bot token / chat id | `TELEGRAM_BOT_TOKEN` / `TELEGRAM_CHAT_ID` GitHub Actions secrets | Grants bot messaging access — never in git |
 | Training plan, plan analysis, progress log (`training_plan/`) | This repo | Deliberately public — summary-level numbers only (paces, HR bands, VO2max checkpoints) |
 | Raw activity exports (`past_workouts/*.tcx`) | Local disk only, git-ignored | Contain GPS tracks (home/route locations) and per-second HR — never in git |
 | Code, schema, workflow | This repo | Nothing sensitive |
@@ -62,6 +63,12 @@ this repo.
      `GARMIN_TOKENS` whenever Garmin rotates the refresh token — without
      this, the cached session eventually goes stale and the workflow starts
      failing (see `garmin_sync/auth.py`).
+   - `TELEGRAM_BOT_TOKEN` / `TELEGRAM_CHAT_ID` — optional, for a Telegram
+     ping whenever a sync finds a new signal (missed workout, low sleep,
+     RHR spike, injury flag). Create a bot via [@BotFather](https://t.me/BotFather)
+     for the token; DM the bot once, then `GET
+     api.telegram.org/bot<token>/getUpdates` to read back your chat id. If
+     unset, the sync just skips notifying (see `garmin_sync/notify.py`).
 
    Expect to redo step 3 roughly once a year, or whenever Garmin revokes
    the token — treat it as scheduled manual maintenance, not something CI
