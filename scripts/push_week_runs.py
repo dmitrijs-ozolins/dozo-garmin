@@ -145,7 +145,7 @@ def build_w2_tuesday() -> RunningWorkout:
 
 
 def build_w2_thursday() -> RunningWorkout:
-    # Ф1 Нед2 Чт 01.10 — 4km w + 10x200m uphill 5-7% (p: walk down + 2' jog) + 2km c
+    # Ф1 Нед2 Ср 30.09 (moved from Чт 01.10: 10k race Sat) — 4km w + 10x200m uphill 5-7% (p: walk down + 2' jog) + 2km c
     warmup = distance_step(1, 4000, StepType.WARMUP, "warmup")
     # No HR target on the rep: 200m is too short for HR to catch up; press lap after recovery.
     work = distance_step(1, 200, StepType.INTERVAL, "interval")
@@ -165,8 +165,18 @@ def build_w2_thursday() -> RunningWorkout:
 
 
 def build_w2_friday() -> RunningWorkout:
-    # Ф1 Нед2 Пт 02.10 — Run 8km @HR<=145
-    return build_friday()
+    # Ф1 Нед2 Пт 02.10 — pre-race: 5km easy + 4x100m strides
+    easy = distance_step(1, 5000, StepType.INTERVAL, "interval", hr_target(120, 140))
+    stride = distance_step(1, 100, StepType.INTERVAL, "interval")
+    jog = distance_step(2, 150, StepType.RECOVERY, "recovery")
+    strides = create_repeat_group(iterations=4, workout_steps=[stride, jog], step_order=2)
+    return RunningWorkout(
+        workoutName="Phase1: Easy 6km + strides",
+        estimatedDurationInSecs=2100,
+        description="Pre-race: 5km easy HR<=140 + 4x100m strides (fast & relaxed, ~3:20-3:30/km) "
+        "with 150m easy jog (phase_1_special_prep_1.md)",
+        workoutSegments=[WorkoutSegment(segmentOrder=1, sportType=RUNNING_SPORT_TYPE, workoutSteps=[easy, strides])],
+    )
 
 
 def build_w2_saturday() -> RunningWorkout:
@@ -188,12 +198,12 @@ def build_w2_saturday() -> RunningWorkout:
 
 
 def build_w2_sunday() -> RunningWorkout:
-    # Ф1 Нед2 Вс 04.10 — Run 14km @HR145
-    step = distance_step(1, 14000, StepType.INTERVAL, "interval", hr_target(140, 150))
+    # Ф1 Нед2 Вс 04.10 — day after 10k race: 11km very easy @HR<=140 (was 14km @HR145)
+    step = distance_step(1, 11000, StepType.INTERVAL, "interval", hr_target(120, 140))
     return RunningWorkout(
-        workoutName="Phase1: Long run 14km",
-        estimatedDurationInSecs=4400,
-        description="Long run, HR ~145 (phase_1_special_prep_1.md)",
+        workoutName="Phase1: Recovery 11km",
+        estimatedDurationInSecs=3800,
+        description="Day after 10k race: very easy, HR <=140 (phase_1_special_prep_1.md)",
         workoutSegments=[WorkoutSegment(segmentOrder=1, sportType=RUNNING_SPORT_TYPE, workoutSteps=[step])],
     )
 
@@ -206,9 +216,9 @@ WEEKS = {
     ],
     2: [
         ("2026-09-29", build_w2_tuesday),
-        ("2026-10-01", build_w2_thursday),
+        ("2026-09-30", build_w2_thursday),
         ("2026-10-02", build_w2_friday),
-        ("2026-10-03", build_w2_saturday),
+        # Sat 03.10: 10k race replaces build_w2_saturday (10x500m)
         ("2026-10-04", build_w2_sunday),
     ],
 }

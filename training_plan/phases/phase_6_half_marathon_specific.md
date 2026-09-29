@@ -1,29 +1,29 @@
-# ФАЗА 6: 15.03 - 18.04.2027 - ПОЛУМАРАФОНСКАЯ СПЕЦИАЛЬНАЯ ПОДГОТОВКА (5 недель)
+# PHASE 6: 15.03 - 18.04.2027 - HALF MARATHON SPECIFIC PREPARATION (5 weeks)
 
-[← Общий план](../Half_Marathon_Training_Plan_May2027.md) · зоны и темпы, журнал прогресса — там же
+[← Main plan](../Half_Marathon_Training_Plan_May2027.md) · zones, paces and progress log are there
 
-Цель: ПОЛУМАРАФОНСКИЙ ТЕМП И ОБЪЕМ
+Goal: HALF MARATHON PACE AND VOLUME
 
-📝 TODO пересмотреть ближе к фазе (март 2027): сейчас в неделе 3 качественных дня подряд по факту
-   (Чт темп/интервалы на ПМ-темпе или быстрее, Сб быстрые интервалы 800м, Вс длинный в Z3-Z4) —
-   для 44 лет это может быть многовато одновременно. Решение отложено до чекпоинта ближе к дате,
-   по факту восстановления (RHR, сон) и данным из журнала прогресса.
+📝 TODO revisit closer to the phase (March 2027): the week currently has 3 quality days in effect
+   (Thu tempo/intervals at HM pace or faster, Sat fast 800m intervals, Sun long run in Z3-Z4) —
+   for a 44-year-old that may be too much at once. Decision postponed to a checkpoint closer to the date,
+   based on actual recovery (RHR, sleep) and progress log data.
 
-Структура недели УСЛОЖНЯЕТСЯ:
-   Пн: Зал (стандартный)
-   Вт: Базовый 13км Z2
-   Ср: Зал (стандартный)
-   Чт: Бассейн 1.5км + ПОЛУМАРАФОННЫЙ ТЕМП (4км w + 10км на полумарафонском темпе 3:47-3:52 + 2км c)
-        или Интервалы 3км (4км w + 4x3km(3:55-3:50), p2min + 2км c)
-   Пт: Восстановительный 8км Z1
-   Сб: Быстрые интервалы (4км w + 8x800m(3:30-3:25), p90s + 2км c)
-   Вс: ДЛИННЫЙ НА ПОЛУМАРАФОНСКОМ ТЕМПЕ 18-20км Z3-Z4
+Week structure gets HARDER:
+   Mon: Gym (standard)
+   Tue: Base 13km Z2
+   Wed: Gym (upper body + core)
+   Thu: Pool 1.5km + HALF MARATHON PACE (4km w + 10km at HM pace 3:47-3:52 + 2km c)
+        or 3km intervals (4km w + 4x3km (3:55-3:50), p2min + 2km c)
+   Fri: Recovery 8km Z1
+   Sat: Fast intervals (4km w + 8x800m (3:30-3:25), p90s + 2km c)
+   Sun: LONG AT HALF MARATHON PACE 18-20km Z3-Z4
 
-   Еженедельно: 60-65км
+   Weekly: 60-65km
 
-ПО НЕДЕЛЯМ:
-   - Неделя 1-2: Полумарафонский темп на Вс длинном (18км)
-   - Неделя 3-4: Полумарафонский темп + длинный 20км
-   - Неделя 5 (easy): 50km для восстановления
+BY WEEK:
+   - Weeks 1-2: HM pace within the Sunday long run (18km)
+   - Weeks 3-4: HM pace + long run 20km
+   - Week 5 (easy): 50km for recovery
 
-💡 ПОЛУМАРАФОНСКИЙ ТЕМП: 3:47-3:52/км (цель 1:20-1:21)
+💡 HALF MARATHON PACE: 3:47-3:52/km (target 1:20-1:21)

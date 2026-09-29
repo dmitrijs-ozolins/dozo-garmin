@@ -1,67 +1,69 @@
-# ФАЗА 1: 21.09 – 25.10.2026 — Специальная подготовка I (5 недель)
+# PHASE 1: 21.09 – 25.10.2026 — Specific Preparation I (5 weeks)
 
-[← Общий план](../Half_Marathon_Training_Plan_May2027.md) · зоны и темпы, журнал прогресса — там же
+[← Main plan](../Half_Marathon_Training_Plan_May2027.md) · zones, paces and progress log are there
 
-Цель: сразу войти в специальную работу — горки + короткие интервалы (шаблон: ноябрь 2024).
+Goal: go straight into specific work — hills + short intervals (template: November 2024).
 
-**Обозначения:** w = разминка, c = заминка, S = растяжка, p = пауза. `@HR145-160` = бежать в этом пульсовом коридоре.
+**Legend:** w = warm-up, c = cool-down, S = stretching, p = recovery. `@HR145-160` = run within this HR band.
 
-**Ориентиры темпа (текущая форма, данные сентября 2026):**
+**Pace guide (current form, September 2026 data):**
 
-| Пульс | Темп | Где используется |
+| HR | Pace | Used for |
 |---|---|---|
-| ≤138 | 5:40–6:00/км | Fri easy |
-| 140–148 | 5:05–5:30/км | Sun long |
-| 145–160 | ≈4:40–5:20/км | Tue base |
+| ≤138 | 5:40–6:00/km | Fri easy |
+| 140–148 | 5:05–5:30/km | Sun long |
+| 145–160 | ≈4:40–5:20/km | Tue base |
 
-Интервалы: время указано **за один повтор** (500 м за 2:08 = 4:16/км; 600 м за 2:34 = 4:17/км).
+Intervals: time is given **per rep** (500m in 2:08 = 4:16/km; 600m in 2:34 = 4:17/km).
 
-**Горки (Чт):** темпа для них нет — ни в данных сентября 2026, ни в шаблоне ноябрь 2024
-(у тренера тоже был только уклон и счёт повторов, без времени). На подъёме 5-7% пульс и
-темп на плоской дистанции не сравнить один к одному, поэтому цель — по усилию:
-   • Эффорт RPE 8-9/10 — тяжело, но контролируемо, без падения формы к концу повтора.
-   • Ориентир по пульсу: 90-95% от HRmax 188 → **169-179**. Если выше 179 — сбросить темп.
-   • Пауза — полная: спуск шагом, затем добить до 2' трусцой, прежде чем начинать следующий.
-   • Запиши фактическое время каждого повтора (часы должны считать это как лапы) — после
-     первой-второй сессии дополню таблицу реальными цифрами, как для Z1-Z3.
+**Hills (Thu):** there is no pace for them — neither in the September 2026 data nor in the November 2024
+template (the coach also only gave gradient and rep count, no times). On a 5-7% climb, HR and
+pace can't be compared one-to-one with flat running, so the target is effort-based:
+   • Effort RPE 8-9/10 — hard but controlled, no loss of form by the end of the rep.
+   • HR guide: 90-95% of HRmax 188 → **169-179**. If above 179 — ease off.
+   • Full recovery: walk down, then jog to 2' before starting the next rep.
+   • Record the actual time of each rep (the watch should log them as laps) — after
+     the first one or two sessions I'll add real numbers to the table, as for Z1-Z3.
 
-| Неделя | Даты | Всего км |
+| Week | Dates | Total km |
 |---|---|---|
 | 1 | 21.09–27.09 | **54** |
 | 2 | 28.09–04.10 | **60** |
 | 3 | 05.10–11.10 | **64** |
 | 4 | 12.10–18.10 | **68** |
-| 5 (разгрузка) | 19.10–25.10 | **54** |
+| 5 (recovery) | 19.10–25.10 | **54** |
 
-Итого по фазе: 300 км, в среднем 60 км/нед, пик 68.
+Phase total: 300 km, avg 60 km/wk, peak 68.
 
-## Неделя 1: 21.09–27.09 — 54 км
+## Week 1: 21.09–27.09 — 54 km
 
 | Day | Workout | km |
 |---|---|---|
 | Mon 21.09 | Gym day | — |
 | Tue 22.09 | **Run 10km @HR145-160** | 10 |
 | Wed 23.09 | Gym day | — |
-| Thu 24.09 | **Run** 4km w + 8x200m uphill 5-7%, эффорт HR169-179 (p: walk down + 2' jog) + 2km c + S | 10 |
+| Thu 24.09 | **Run** 4km w + 8x200m uphill 5-7%, effort HR169-179 (p: walk down + 2' jog) + 2km c + S | 10 |
 | Fri 25.09 AM | Pool 1.5km | — |
 | Fri 25.09 PM | **Run 8km @HR≤145** | 8 |
 | Sat 26.09 | **Run** 4km w + 8x500m in 2:08 (p500m jog 2:30) + 2km c + S | 14 |
 | Sun 27.09 | **Run 12km @HR145** | 12 |
 
-## Неделя 2: 28.09–04.10 — 60 км
+## Week 2: 28.09–04.10 — ~55 km (10K race week)
+
+Originally 60 km; restructured around the 10K race on Sat 03.10 (target 3:48/km, reference: 5K 18:02 on 19.09).
 
 | Day | Workout | km |
 |---|---|---|
 | Mon 28.09 | Gym day | — |
-| Tue 29.09 | **Run 10km @HR145-160** | 10 |
-| Wed 30.09 | Gym day | — |
-| Thu 01.10 AM | Pool 1.5km | — |
-| Thu 01.10 PM | **Run** 4km w + 10x200m uphill 5-7%, эффорт HR169-179 (p: walk down + 2' jog) + 2km c + S | 12 |
-| Fri 02.10 | **Run 8km @HR≤145** | 8 |
-| Sat 03.10 | **Run** 4km w + 10x500m in 2:07 (p500m jog 2:30) + 2km c + S | 16 |
-| Sun 04.10 | **Run 14km @HR145** | 14 |
+| Tue 29.09 | **Run 10km @HR145-160** (keep ~150, not above 155) | 10 |
+| Wed 30.09 AM | Gym day (upper body + core) | — |
+| Wed 30.09 PM | **Run** 4km w + 10x200m uphill 5-7%, effort HR169-179 (p: walk down + 2' jog) + 2km c + S — *moved from Thu; if legs feel "wooden", stop at 8* | 12 |
+| Thu 01.10 | Pool 1.5km, no running | — |
+| Fri 02.10 | **Run 5km @HR≤140 + 4x100m strides** (p150m jog) | 6 |
+| Sat 03.10 | 🏁 **10K race** (w ~3km + c ~2km). km 1 3:50-3:52 → km 2-7 3:47-3:49 → km 8-10 by feel | 15 |
+| Sun 04.10 | **Run 11km @HR≤140** (instead of 14km @HR145) | 11 |
 
-## Неделя 3: 05.10–11.10 — 64 км
+## Week 3: 05.10–11.10 — 64 km
 
 | Day | Workout | km |
 |---|---|---|
@@ -69,12 +71,12 @@
 | Tue 06.10 | **Run 12km @HR145-160** | 12 |
 | Wed 07.10 | Gym day | — |
 | Thu 08.10 AM | Pool 1.5km | — |
-| Thu 08.10 PM | **Run** 4km w + 12x200m uphill 5-7%, эффорт HR169-179 (p: walk down + 2' jog) + 2km c + S | 13 |
+| Thu 08.10 PM | **Run** 4km w + 12x200m uphill 5-7%, effort HR169-179 (p: walk down + 2' jog) + 2km c + S | 13 |
 | Fri 09.10 | **Run 8km @HR≤145** | 8 |
 | Sat 10.10 | **Run** 4km w + 10x600m in 2:34 (p500m jog 2:30) + 2km c + S | 17 |
 | Sun 11.10 | **Run 14km @HR145** | 14 |
 
-## Неделя 4: 12.10–18.10 — 68 км
+## Week 4: 12.10–18.10 — 68 km
 
 | Day | Workout | km |
 |---|---|---|
@@ -82,12 +84,12 @@
 | Tue 13.10 | **Run 14km @HR145-160** | 14 |
 | Wed 14.10 | Gym day | — |
 | Thu 15.10 AM | Pool 1.5km | — |
-| Thu 15.10 PM | **Run** 4km w + 12x200m uphill 5-7%, эффорт HR169-179 (p: walk down + 2' jog) + 2km c + S | 13 |
+| Thu 15.10 PM | **Run** 4km w + 12x200m uphill 5-7%, effort HR169-179 (p: walk down + 2' jog) + 2km c + S | 13 |
 | Fri 16.10 | **Run 8km @HR≤145** | 8 |
 | Sat 17.10 | **Run** 4km w + 12x600m in 2:32 (p500m jog 2:30) + 2km c + S | 19 |
 | Sun 18.10 | **Run 14km @HR145** | 14 |
 
-## Неделя 5 (разгрузка): 19.10–25.10 — 54 км
+## Week 5 (recovery): 19.10–25.10 — 54 km
 
 | Day | Workout | km |
 |---|---|---|
@@ -95,7 +97,7 @@
 | Tue 20.10 | **Run 10km @HR145-160** | 10 |
 | Wed 21.10 | Gym day | — |
 | Thu 22.10 AM | Pool 1.5km | — |
-| Thu 22.10 PM | **Run** 4km w + 8x200m uphill 5-7%, эффорт HR169-179 (p: walk down + 2' jog) + 2km c + S | 10 |
+| Thu 22.10 PM | **Run** 4km w + 8x200m uphill 5-7%, effort HR169-179 (p: walk down + 2' jog) + 2km c + S | 10 |
 | Fri 23.10 | **Run 8km @HR≤145** | 8 |
 | Sat 24.10 | **Run** 4km w + 8x500m in 2:06 (p500m jog 2:30) + 2km c + S | 14 |
 | Sun 25.10 | **Run 12km @HR145** | 12 |

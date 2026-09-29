@@ -140,6 +140,7 @@ Compare like with like: pace within the same HR band, flat course, no heat/wind.
 | 19.09.26 (race) | | | | | Riga 5K — **18:02 chip time** (3:36/km). 10K equivalent ≈ 37:35 |
 | 22.09.26 (P1, wk1, Tue) | | | | | 12.53km (2km warm-up + 10.53km work), HR 150-157, pace 4:37-4:52 (~4:45) — faster than the HR145-160 estimate (was 4:40-5:20), a good sign |
 | 26.09.26 (P1, wk1, Sat) | | — | — | — | SWAP: run 8x500m → indoor bike 8x3:00 sub-threshold (Norwegian) / 1:15. 212-227W at HR 133→152 (max 160), felt hard — legs are the limiter, not cardio (bike HR is not a measure of effort). FTP ~205-215W. Not included in pace comparison |
+| 29.09.26 | | | | | ⚠️ New HR strap (Polar) from today — HR data before this date is less reliable; compare HR-based numbers from 29.09 onward |
 | 25.10.26 (end P1) | | | | | target: Z3 ~4:13, Z2 ~5:15 |
 | 29.11.26 (end P2) | | | | | target: VO2max 56, Z3 ~4:09. 🧪 Lab VO2max/threshold test — do it in this recovery week (fresh legs, 9-10 weeks of specific prep done); the result becomes the main reference for revising P3+ paces instead of Garmin/field estimates |
 | 03.01.27 (end P3) | | | | | target: VO2max 57, Z3 ~4:05 |

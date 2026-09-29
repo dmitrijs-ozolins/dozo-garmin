@@ -1,25 +1,25 @@
-# ФАЗА 4: 04.01 - 07.02.2027 - НАРАСТАНИЕ (5 недель)
+# PHASE 4: 04.01 - 07.02.2027 - BUILD-UP (5 weeks)
 
-[← Общий план](../Half_Marathon_Training_Plan_May2027.md) · зоны и темпы, журнал прогресса — там же
+[← Main plan](../Half_Marathon_Training_Plan_May2027.md) · zones, paces and progress log are there
 
-Цель: Объем и темп, подготовка к пиковой фазе
+Goal: Volume and pace, preparing for the peak phase
 
-⚠️ Темпы (Z3 8км, интервалы 1км) — целевые, на чекпоинте 03.01 сверить с журналом прогресса:
-   если Z3 медленнее 4:09 или VO2max не дошёл до 57 — сдвинуть темпы Ф4 на +5-8 сек/км (см. правило
-   пересмотра в общем плане).
+⚠️ Paces (Z3 8km, 1km intervals) are targets; at the 03.01 checkpoint compare with the progress log:
+   if Z3 is slower than 4:09 or VO2max hasn't reached 57 — shift P4 paces by +5-8 s/km (see the revision
+   rule in the main plan).
 
-Структура недели:
-   Пн: Зал (стандартный)
-   Вт: Базовый 15км Z2
-   Ср: Зал (стандартный)
-   Чт: Бассейн 1.5км + Темповой бег (4км w + 8км Z3, p500m jog + 2км c)
-   Пт: Восстановительный 8-10км Z1
-   Сб: Интервалы 1км (4км w + 8-10x1km(3:50-3:45), p90s + 2км c)
-   Вс: Длинный 18км Z2
+Week structure:
+   Mon: Gym (standard)
+   Tue: Base 15km Z2
+   Wed: Gym (upper body + core)
+   Thu: Pool 1.5km + Tempo run (4km w + 8km Z3, p500m jog + 2km c)
+   Fri: Recovery 8-10km Z1
+   Sat: 1km intervals (4km w + 8-10x1km (3:50-3:45), p90s + 2km c)
+   Sun: Long 18km Z2
 
-   Еженедельно: 65-70км
+   Weekly: 65-70km
 
-ПО НЕДЕЛЯМ:
-   - Неделя 1-3: 65-70km, увеличивающаяся интенсивность
-   - Неделя 4: 70km с максимальной интенсивностью
-   - Неделя 5 (easy): 55km для восстановления
+BY WEEK:
+   - Weeks 1-3: 65-70km, increasing intensity
+   - Week 4: 70km at maximum intensity
+   - Week 5 (easy): 55km for recovery

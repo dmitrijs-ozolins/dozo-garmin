@@ -1,25 +1,25 @@
-# ФАЗА 5: 08.02 - 14.03.2027 - ПИКОВАЯ ПОДГОТОВКА (5 недель)
+# PHASE 5: 08.02 - 14.03.2027 - PEAK PREPARATION (5 weeks)
 
-[← Общий план](../Half_Marathon_Training_Plan_May2027.md) · зоны и темпы, журнал прогресса — там же
+[← Main plan](../Half_Marathon_Training_Plan_May2027.md) · zones, paces and progress log are there
 
-Цель: МАКСИМАЛЬНЫЙ ОБЪЕМ И ИНТЕНСИВНОСТЬ перед ПМ подготовкой
+Goal: MAXIMUM VOLUME AND INTENSITY before HM-specific preparation
 
-⚠️ Темпы (Z3 10км, интервалы 2км) — целевые, на чекпоинте 07.02 сверить с журналом прогресса:
-   если Z3 медленнее 4:05 или VO2max не дошёл до 58 — сдвинуть темпы Ф5-Ф7 пропорционально и
-   пересчитать прогноз результата гонки (см. правило пересмотра в общем плане).
+⚠️ Paces (Z3 10km, 2km intervals) are targets; at the 07.02 checkpoint compare with the progress log:
+   if Z3 is slower than 4:05 or VO2max hasn't reached 58 — shift P5-P7 paces proportionally and
+   recalculate the race forecast (see the revision rule in the main plan).
 
-Структура недели:
-   Пн: Зал (стандартный)
-   Вт: Длинный базовый 16км Z2
-   Ср: Зал (стандартный)
-   Чт: Бассейн 1.5км + Темповой быстрый бег (4км w + 10км Z3, p500m + 2км c)
-   Пт: Восстановительный 8-10км Z1
-   Сб: Интервалы 2км (4км w + 5-6x2km(3:50), p2min jog + 2км c)
-   Вс: ДЛИННЫЙ 20-24км Z2
+Week structure:
+   Mon: Gym (standard)
+   Tue: Long base 16km Z2
+   Wed: Gym (upper body + core)
+   Thu: Pool 1.5km + Fast tempo run (4km w + 10km Z3, p500m + 2km c)
+   Fri: Recovery 8-10km Z1
+   Sat: 2km intervals (4km w + 5-6x2km (3:50), p2min jog + 2km c)
+   Sun: LONG 20-24km Z2
 
-   Еженедельно: 70-75км (ПИК ОБЪЕМА)
+   Weekly: 70-75km (PEAK VOLUME)
 
-ПО НЕДЕЛЯМ:
-   - Неделя 1-2: 70km, длинный бег 20км
-   - Неделя 3-4: 75km, длинный бег 22-24км
-   - Неделя 5 (easy): 50km для восстановления
+BY WEEK:
+   - Weeks 1-2: 70km, long run 20km
+   - Weeks 3-4: 75km, long run 22-24km
+   - Week 5 (easy): 50km for recovery

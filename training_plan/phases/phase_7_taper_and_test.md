@@ -1,50 +1,48 @@
-# ФАЗА 7: 19.04 - 16.05.2027 - TAPERING & ФИНАЛЬНЫЙ ТЕСТ (4 недели)
+# PHASE 7: 19.04 - 16.05.2027 - TAPERING & FINAL TEST (4 weeks)
 
-[← Общий план](../Half_Marathon_Training_Plan_May2027.md) · зоны и темпы, журнал прогресса — там же
+[← Main plan](../Half_Marathon_Training_Plan_May2027.md) · zones, paces and progress log are there
 
-Цель: Отдохнуть перед гонкой, провести финальный тест, достичь пика формы
+Goal: Rest before the race, run the final test, reach peak form
 
-НЕДЕЛЯ 1 (19-25.04): ЕЩЕ НОРМАЛЬНО, НО С ФИНАЛЬНЫМ ТЕСТОМ
-   Пн: Зал (стандартный)
-   Вт: Бег 12км Z2
-   Ср: Зал (стандартный)
-   Чт: Бассейн 1.5км + Подготовка к тесту (легкий бег 8км Z1)
-   Пт: ФИНАЛЬНЫЙ ТЕСТ — 10км полумарафонский темп (3:47-3:52) (или 5км максимально)
-        Измерить: темп, пульс (для сравнения: Riga Half 2025 — ср. пульс 172), ощущения
-   Сб: Восстановительный 8км Z1
-   Вс: ОЧЕНЬ ЛЕГКИЙ ДЛИННЫЙ 14км Z1
+WEEK 1 (19-25.04): STILL NORMAL, BUT WITH THE FINAL TEST
+   Mon: Gym (standard)
+   Tue: Run 12km Z2
+   Wed: Gym (upper body + core)
+   Thu: Pool 1.5km + Test prep (easy run 8km Z1)
+   Fri: FINAL TEST — 10km at half marathon pace (3:47-3:52) (or 5km all-out)
+        Measure: pace, HR (for comparison: Riga Half 2025 — avg HR 172), feel
+   Sat: Recovery 8km Z1
+   Sun: VERY EASY LONG 14km Z1
 
-   Еженедельно: ~52км
+   Weekly: ~52km
 
-НЕДЕЛЯ 2 (26.04-02.05): ПЛАВНОЕ СНИЖЕНИЕ
-   Пн: Зал (лёгкий)
-   Вт: Бег 10км Z2
-   Ср: Зал (лёгкий)
-   Чт: Бассейн 1км (очень лёгкий)
-   Пт: День отдыха
-   Сб: Темповой бег 8км (4км w + 4км Z3 + c) — проверка ног
-   Вс: Легкий 12км Z1
+WEEK 2 (26.04-02.05): GRADUAL REDUCTION
+   Mon: Gym (light)
+   Tue: Run 10km Z2
+   Wed: Gym (light)
+   Thu: Pool 1km (very easy)
+   Fri: Rest day
+   Sat: Tempo run 8km (4km w + 4km Z3 + c) — legs check
+   Sun: Easy 12km Z1
 
-   Еженедельно: ~38км
+   Weekly: ~38km
 
-НЕДЕЛЯ 3 (03-09.05): ОЧЕНЬ ЛЕГКО
-   Пн: Зал (очень лёгкий)
-   Вт: Бег 8км Z1
-   Ср: Зал (очень лёгкий) или йога
-   Чт: Бассейн 1км восстановительный
-   Пт: День отдыха
-   Сб: Лёгкий бег 6км Z1 + 4x1min Z4, p2min Z1 (стимуляция нервной системы)
-   Вс: Очень легкий 10км Z1
+WEEK 3 (03-09.05): VERY EASY
+   Mon: Gym (very light)
+   Tue: Run 8km Z1
+   Wed: Gym (very light) or yoga
+   Thu: Pool 1km recovery
+   Fri: Rest day
+   Sat: Easy run 6km Z1 + 4x1min Z4, p2min Z1 (nervous system activation)
+   Sun: Very easy 10km Z1
 
-   Еженедельно: ~28км
+   Weekly: ~28km
 
-НЕДЕЛЯ 4 (10-16.05): НЕДЕЛЯ ГОНКИ
-   Пн (10): Зал (очень лёгкий, 20min) или день отдыха
-   Вт (11): Лёгкий бег 6км Z1
-   Ср (12): День отдыха или очень лёгкий 5км Z1
-   Чт (13): Бассейн 30min легкий или день отдыха
-   Пт (14): День отдыха
-   Сб (15): Лёгкий бег 5км Z1 (+ 3x1min на ПМ темпе)
-   Вс (16): День отдыха / 20 min shakeout
-
-   Еженедельно: ~16км
+WEEK 4 (10-16.05): RACE WEEK
+   Mon (10): Gym (very light, 20min) or rest day
+   Tue (11): Easy run 6km Z1
+   Wed (12): Rest day or very easy 5km Z1
+   Thu (13): Pool 30min easy or rest day
+   Fri (14): Rest day
+   Sat (15): Easy run 5km Z1 (+ 3x1min at HM pace)
+   Sun (16): Rest day / 20 min shakeout
