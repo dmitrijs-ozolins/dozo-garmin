@@ -133,6 +133,7 @@ Volumes are approximate (including warm-ups, cool-downs and jog recoveries).
 📈 PROGRESS LOG (back to VO2max 58 form)
 
 Compare like with like: pace within the same HR band, flat course, no heat/wind.
+Treadmill runs are never used for pace comparison unless explicitly marked otherwise.
 
 | Date | VO2max (Garmin) | Z3: pace at HR 163-168 | Z2: pace at HR 140-145 | Z1: pace at HR 130-137 | Comment |
 |------|-----------------|-----------------------------|------------------------------|------------------------------|-------------|
