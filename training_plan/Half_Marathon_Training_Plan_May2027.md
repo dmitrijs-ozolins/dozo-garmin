@@ -1,86 +1,86 @@
 
 ╔════════════════════════════════════════════════════════════════════════════════════════════════╗
-║                  🎯 ПЛАН ПОДГОТОВКИ К ПОЛУМАРАФОНУ МАЙ 2027 (17-19 мая)                      ║
-║                   Дима, 44 года | VO2max 55 → цель 58 | Max HR 188 | Латвия                    ║
+║                  🎯 HALF MARATHON TRAINING PLAN — MAY 2027 (17-19 May)                        ║
+║                   Dima, 44 | VO2max 55 → target 58 | Max HR 188 | Latvia                       ║
 ╚════════════════════════════════════════════════════════════════════════════════════════════════╝
 
-⏰ ВРЕМЕННОЙ ГОРИЗОНТ: 21 сентября 2026 - 16 мая 2027 (34 недели, гонка 17-19 мая)
+⏰ TIME HORIZON: 21 September 2026 - 16 May 2027 (34 weeks, race 17-19 May)
 
-✅ СТАРТ: сразу со СПЕЦИАЛЬНОЙ ПОДГОТОВКИ. Восстановление после сезона пройдено, фаза
-   «Восстановление + база» и отдельный «Базовый период» убраны из плана.
-   Опора — реальные октябрь-ноябрь 2024 (эффективный период с хорошим прогрессом):
-   горки 200м, интервалы 500-800м, лёгкие беговые по пульсу 145, зал Пн/Ср.
+✅ START: straight into SPECIFIC PREPARATION. Post-season recovery is done; the
+   "Recovery + base" phase and the separate "Base period" were removed from the plan.
+   Template — the real October-November 2024 (an effective period with good progress):
+   200m hills, 500-800m intervals, easy runs at HR 145, gym Mon/Wed.
 
-🎯 ГЛАВНАЯ ЗАДАЧА: вернуть VO2max 55 → 58 и скорость на пороге (Z3: 4:10-4:25 → 4:00-4:10
-   при том же пульсе). Прогресс ведём по «Журналу прогресса» (см. ниже).
-   Темпы Ф1-Ф2 — под ТЕКУЩУЮ форму (сентябрь 2026), Ф3-Ф7 — целевые на уровне VO2max 58,
-   их сверяем с журналом на чекпоинтах.
+🎯 MAIN GOAL: get VO2max back 55 → 58 and threshold speed (Z3: 4:10-4:25 → 4:00-4:10
+   at the same HR). Progress is tracked in the "Progress log" (see below).
+   Paces for P1-P2 are set for CURRENT form (September 2026); P3-P7 are targets at VO2max 58
+   and get checked against the log at each checkpoint.
 
 ════════════════════════════════════════════════════════════════════════════════════════════════
 
-📋 ПЕРИОДИЗАЦИЯ ПЛАНА
+📋 PERIODIZATION
 ════════════════════════════════════════════════════════════════════════════════════════════════
 
-| Фаза | Даты | Нед. | Фокус | Объем (км/нед) | Интенсивность |
+| Phase | Dates | Wks | Focus | Volume (km/wk) | Intensity |
 |------|------|------|-------|----------------|---------------|
-| **[1](phases/phase_1_special_prep_1.md)** | 21.09 - 25.10.2026 | 5 | Спец. подготовка I: горки 200м + интервалы 500-600м | 54-68 | Moderate-High |
-| **[2](phases/phase_2_special_prep_2.md)** | 26.10 - 29.11.2026 | 5 | Спец. подготовка II: VO2max интервалы 600м-1км | 62-68 | High |
-| **[3](phases/phase_3_special_prep_3.md)** | 30.11.2026 - 03.01.2027 | 5 | Спец. подготовка III: пороговые 5→2км + скоростные 200-500м | 63-68 | High |
-| **[4](phases/phase_4_build_up.md)** | 04.01 - 07.02.2027 | 5 | Нарастание: темп + интервалы 1км | 65-70 | High |
-| **[5](phases/phase_5_peak.md)** | 08.02 - 14.03.2027 | 5 | Пиковая подготовка: максимальный объем | 70-75 | High |
-| **[6](phases/phase_6_half_marathon_specific.md)** | 15.03 - 18.04.2027 | 5 | Специальная ПМ: полумарафонский темп | 60-65 | High |
-| **[7](phases/phase_7_taper_and_test.md)** | 19.04 - 16.05.2027 | 4 | Tapering + финальный тест | 52 → 16 | Mod-High → Low |
-| **Гонка** | 17-19.05.2027 | — | Полумарафон, затем отдых/переход | — | Peak |
+| **[1](phases/phase_1_special_prep_1.md)** | 21.09 - 25.10.2026 | 5 | Specific prep I: 200m hills + 500-600m intervals | 54-68 | Moderate-High |
+| **[2](phases/phase_2_special_prep_2.md)** | 26.10 - 29.11.2026 | 5 | Specific prep II: VO2max intervals 600m-1km | 62-68 | High |
+| **[3](phases/phase_3_special_prep_3.md)** | 30.11.2026 - 03.01.2027 | 5 | Specific prep III: threshold 5→2km + speed 200-500m | 63-68 | High |
+| **[4](phases/phase_4_build_up.md)** | 04.01 - 07.02.2027 | 5 | Build-up: tempo + 1km intervals | 65-70 | High |
+| **[5](phases/phase_5_peak.md)** | 08.02 - 14.03.2027 | 5 | Peak: maximum volume | 70-75 | High |
+| **[6](phases/phase_6_half_marathon_specific.md)** | 15.03 - 18.04.2027 | 5 | HM-specific: half marathon pace | 60-65 | High |
+| **[7](phases/phase_7_taper_and_test.md)** | 19.04 - 16.05.2027 | 4 | Taper + final test | 52 → 16 | Mod-High → Low |
+| **Race** | 17-19.05.2027 | — | Half marathon, then rest/transition | — | Peak |
 
-Каждая 5-я неделя фазы — разгрузочная (-20%), кроме фазы 7 (там taper).
-
-════════════════════════════════════════════════════════════════════════════════════════════════
-
-⚙️ СТРУКТУРА ТИПИЧНОЙ НЕДЕЛИ
-════════════════════════════════════════════════════════════════════════════════════════════════
-
-**ПОСТОЯННЫЕ ЗАНЯТИЯ:**
-   🏋️ Понедельник (зал):    40-50 min | Ноги + Кор (Spēks Kājām + Core)
-   🏋️ Среда (зал):          40-50 min | Ноги + Кор (Spēks Kājām + Core)
-   🏊 Четверг (утро):        30-45 min | Бассейн (1.5-2км) или триатлонная работа
-
-**БЕГОВЫЕ ДНИ (варьируются по периодам):**
-   🏃 Вторник:        Базовый бег 10-16км, пульс 145-160, 50-80 min
-   🏃 Четверг (вечер): Горки / скоростные повторы / темповой бег (чередующийся)
-   🏃 Пятница:        Восстановительный 8-10км, Z1-Z2 (или динамический в фазе 3)
-   🏃 Суббота:        Качественный бег (интервалы/пороговые), 60-90 min
-   🏃 Воскресенье:    Длинный бег, плавное нарастание, 70-135 min
+Every 5th week of a phase is a recovery week (-20%), except phase 7 (taper).
 
 ════════════════════════════════════════════════════════════════════════════════════════════════
 
-📍 ДЕТАЛЬНЫЙ ПЛАН ПО ФАЗАМ (каждая фаза — в отдельном файле)
+⚙️ TYPICAL WEEK STRUCTURE
+════════════════════════════════════════════════════════════════════════════════════════════════
 
-   • [Фаза 1](phases/phase_1_special_prep_1.md) — 21.09 - 25.10.2026 — СПЕЦИАЛЬНАЯ ПОДГОТОВКА I (5 недель)
-   • [Фаза 2](phases/phase_2_special_prep_2.md) — 26.10 - 29.11.2026 — СПЕЦИАЛЬНАЯ ПОДГОТОВКА II (5 недель)
-   • [Фаза 3](phases/phase_3_special_prep_3.md) — 30.11.2026 - 03.01.2027 — СПЕЦИАЛЬНАЯ ПОДГОТОВКА III (5 недель)
-   • [Фаза 4](phases/phase_4_build_up.md) — 04.01 - 07.02.2027 - НАРАСТАНИЕ (5 недель)
-   • [Фаза 5](phases/phase_5_peak.md) — 08.02 - 14.03.2027 - ПИКОВАЯ ПОДГОТОВКА (5 недель)
-   • [Фаза 6](phases/phase_6_half_marathon_specific.md) — 15.03 - 18.04.2027 - ПОЛУМАРАФОНСКАЯ СПЕЦИАЛЬНАЯ ПОДГОТОВКА (5 недель)
-   • [Фаза 7](phases/phase_7_taper_and_test.md) — 19.04 - 16.05.2027 - TAPERING & ФИНАЛЬНЫЙ ТЕСТ (4 недели)
+**FIXED SESSIONS:**
+   🏋️ Monday (gym):       40-50 min | Legs + Core (Spēks Kājām + Core)
+   🏋️ Wednesday (gym):    40-50 min | Upper body + Core
+   🏊 Thursday (AM):      30-45 min | Pool (1.5-2km) or triathlon work
 
-Легенда таблиц: w = разминка, c = заминка, S = растяжка, DS = динамическая разминка, p = пауза (трусца).
+**RUNNING DAYS (vary by phase):**
+   🏃 Tuesday:         Base run 10-16km, HR 145-160, 50-80 min
+   🏃 Thursday (PM):   Hills / speed reps / tempo run (alternating)
+   🏃 Friday:          Recovery 8-10km, Z1-Z2 (or progression run in phase 3)
+   🏃 Saturday:        Quality run (intervals/threshold), 60-90 min
+   🏃 Sunday:          Long run, gradual build, 70-135 min
 
 ════════════════════════════════════════════════════════════════════════════════════════════════
 
-🏁 ГОНКА: 17-19 МАЯ 2027 - ПОЛУМАРАФОН
+📍 DETAILED PLAN BY PHASE (each phase in its own file)
 
-Прогноз результата (VO2max 58; ориентир — Riga Half 18.05.2025: 21.3км за 1:23:00 по Garmin,
-ср. темп 3:53/км, ср. пульс 172):
-   • Реалистично: 1:21-1:22 (3:50-3:53/км)
-   • Цель: 1:20 (3:47/км)
-   • Амбициозно: 1:19 (3:45/км) — при хорошем дне
-   Прогноз действует при возврате VO2max 58 к февралю; пересчитываем по чекпоинтам.
+   • [Phase 1](phases/phase_1_special_prep_1.md) — 21.09 - 25.10.2026 — SPECIFIC PREPARATION I (5 weeks)
+   • [Phase 2](phases/phase_2_special_prep_2.md) — 26.10 - 29.11.2026 — SPECIFIC PREPARATION II (5 weeks)
+   • [Phase 3](phases/phase_3_special_prep_3.md) — 30.11.2026 - 03.01.2027 — SPECIFIC PREPARATION III (5 weeks)
+   • [Phase 4](phases/phase_4_build_up.md) — 04.01 - 07.02.2027 - BUILD-UP (5 weeks)
+   • [Phase 5](phases/phase_5_peak.md) — 08.02 - 14.03.2027 - PEAK PREPARATION (5 weeks)
+   • [Phase 6](phases/phase_6_half_marathon_specific.md) — 15.03 - 18.04.2027 - HALF MARATHON SPECIFIC (5 weeks)
+   • [Phase 7](phases/phase_7_taper_and_test.md) — 19.04 - 16.05.2027 - TAPERING & FINAL TEST (4 weeks)
+
+Table legend: w = warm-up, c = cool-down, S = stretching, DS = dynamic warm-up, p = recovery (jog).
 
 ════════════════════════════════════════════════════════════════════════════════════════════════
 
-📊 ИТОГОВАЯ СТАТИСТИКА ПЛАНА
+🏁 RACE: 17-19 MAY 2027 - HALF MARATHON
 
-| Фаза | Даты | Недели | Объем км | Среднее км/нед | Пик недели | Интенсивность |
+Result forecast (VO2max 58; reference — Riga Half 18.05.2025: 21.3km in 1:23:00 per Garmin,
+avg pace 3:53/km, avg HR 172):
+   • Realistic: 1:21-1:22 (3:50-3:53/km)
+   • Target: 1:20 (3:47/km)
+   • Ambitious: 1:19 (3:45/km) — on a good day
+   The forecast assumes VO2max is back to 58 by February; recalculated at each checkpoint.
+
+════════════════════════════════════════════════════════════════════════════════════════════════
+
+📊 PLAN SUMMARY
+
+| Phase | Dates | Weeks | Volume km | Avg km/wk | Peak week | Intensity |
 |------|------|--------|----------|----------------|-----------|----------------|
 | 1 | 21.09-25.10.26 | 5 | 300 | 60 | 68 | Mod-High |
 | 2 | 26.10-29.11.26 | 5 | 312 | 62 | 68 | High |
@@ -89,71 +89,72 @@
 | 5 | 08.02-14.03.27 | 5 | 340 | 68 | 75 | High |
 | 6 | 15.03-18.04.27 | 5 | 306 | 61 | 65 | High |
 | 7 | 19.04-16.05.27 | 4 | 134 | 34 | 52 | Mod (taper) |
-| ИТОГО | Sep26-May27 | 34 | 2,037 | 60 | 75 | Variable |
+| TOTAL | Sep26-May27 | 34 | 2,037 | 60 | 75 | Variable |
 
-Объемы — ориентировочные (с разминками, заминками и паузами-трусцой).
-
-════════════════════════════════════════════════════════════════════════════════════════════════
-
-💡 ПРАКТИЧЕСКИЕ ЗАМЕТКИ
-
-🔄 ВОССТАНОВЛЕНИЕ ДЛЯ IRONMAN:
-   • Бассейн 1-1.5км один раз в неделю (четверг) — достаточно для адаптации
-   • В июне после полумарафона увеличить на 2-3 сессии плавания
-   • Велосипедные тренировки добавлять после апреля (пока фокус на беге)
-   • Триатлонная подготовка начнется в июне полноценно
-
-⚡ ВОССТАНОВЛЕНИЕ ВНУТРИ НЕДЕЛЬ:
-   • Зал всегда — хорошая основа для всех аспектов
-   • Бассейн четвергом — идеально для восстановления после чемпионата
-   • Обеспечить 8+ часов сна каждую ночь (важно!)
-   • Питание: достаточно углеводов, белков 1.6-2г/кг массы
-
-⚠️ МОНИТОРИНГ:
-   • Отслеживать RHR (пульс в покое) — должен не повышаться выше обычного
-   • Проверять VO2max каждый месяц в Garmin — база 55, цель 58 (журнал прогресса ниже)
-   • Если пульс повышен более чем на 5 bpm → risk of overtraining
-   • Первые 2 недели фазы 1: если пульс на лёгких бегах выше 150 при темпе 5:05-5:30 —
-     не форсировать, держаться по пульсу, а не по темпу
-   • Беговые ощущения: должны быть положительные, энергия на тренировках
-
-🎯 ТЕМПЫ НА РАЗНЫЕ ЗОНЫ: СЕЙЧАС (сентябрь 2026, VO2max 55) → ЦЕЛЬ (VO2max 58)
-   Зона            | Сейчас                                   | Цель
-   Z1 Recovery     | 5:40-6:00/км, пульс ≤138 (факт 4.09)     | ~5:35
-   Z2 Easy         | 5:05-5:30/км, пульс 140-148 (факт 6.09)  | 5:00-5:15
-   Z3 Tempo/порог  | 4:10-4:25/км, пульс 163-168 (факт 8.09)  | 4:00-4:10, пульс 165-172
-   Z4 VO2max       | ~3:50-4:05/км (оценка: 800м ≈ 3:08)      | 3:35-3:55 (800м ≈ 2:56, 1км ≈ 3:45-3:50, 2км ≈ 3:50)
-   Z5 Speed        | ~3:20-3:30/км (оценка: 200м ≈ 3:20)      | <3:30 (200м ≈ 3:10, 300м ≈ 3:15, 400м ≈ 3:20)
-   (Z4/Z5 «сейчас» — оценка по ~5% от целевых; уточняем по первым качественным сессиям.)
-
-   ПМ ТЕМП (целевой): 3:47-3:52/км (21.1км за 1:20-1:21)
+Volumes are approximate (including warm-ups, cool-downs and jog recoveries).
 
 ════════════════════════════════════════════════════════════════════════════════════════════════
 
-📈 ЖУРНАЛ ПРОГРЕССА (вернуть форму уровня VO2max 58)
+💡 PRACTICAL NOTES
 
-Сравниваем одно и то же: темп в одном и том же пульсовом коридоре, ровная трасса, без жары/ветра.
+🔄 IRONMAN MAINTENANCE:
+   • Pool 1-1.5km once a week (Thursday) — enough to keep adaptation
+   • In June, after the half marathon, add 2-3 swim sessions
+   • Add bike sessions after April (running focus for now)
+   • Full triathlon training starts in June
 
-| Дата | VO2max (Garmin) | Z3: темп при пульсе 163-168 | Z2: темп при пульсе 140-145 | Z1: темп при пульсе 130-137 | Комментарий |
+⚡ RECOVERY WITHIN THE WEEK:
+   • Gym is always a good foundation for everything
+   • Thursday pool — ideal for recovery
+   • 8+ hours of sleep every night (important!)
+   • Nutrition: enough carbs, protein 1.6-2 g/kg body weight
+
+⚠️ MONITORING:
+   • Track RHR (resting heart rate) — it should not rise above normal
+   • Check VO2max in Garmin monthly — baseline 55, target 58 (progress log below)
+   • If RHR is up by more than 5 bpm → risk of overtraining
+   • First 2 weeks of phase 1: if HR on easy runs is above 150 at 5:05-5:30 pace —
+     don't force it, run by HR, not by pace
+   • Running feel: should be positive, with energy in sessions
+
+🎯 ZONE PACES: NOW (September 2026, VO2max 55) → TARGET (VO2max 58)
+   Zone            | Now                                      | Target
+   Z1 Recovery     | 5:40-6:00/km, HR ≤138 (actual 4.09)      | ~5:35
+   Z2 Easy         | 5:05-5:30/km, HR 140-148 (actual 6.09)   | 5:00-5:15
+   Z3 Tempo/thresh | 4:10-4:25/km, HR 163-168 (actual 8.09)   | 4:00-4:10, HR 165-172
+   Z4 VO2max       | ~3:50-4:05/km (est.: 800m ≈ 3:08)        | 3:35-3:55 (800m ≈ 2:56, 1km ≈ 3:45-3:50, 2km ≈ 3:50)
+   Z5 Speed        | ~3:20-3:30/km (est.: 200m ≈ 3:20)        | <3:30 (200m ≈ 3:10, 300m ≈ 3:15, 400m ≈ 3:20)
+   (Z4/Z5 "now" — estimated at ~5% off the targets; refine after the first quality sessions.)
+
+   HM PACE (target): 3:47-3:52/km (21.1km in 1:20-1:21)
+
+════════════════════════════════════════════════════════════════════════════════════════════════
+
+📈 PROGRESS LOG (back to VO2max 58 form)
+
+Compare like with like: pace within the same HR band, flat course, no heat/wind.
+
+| Date | VO2max (Garmin) | Z3: pace at HR 163-168 | Z2: pace at HR 140-145 | Z1: pace at HR 130-137 | Comment |
 |------|-----------------|-----------------------------|------------------------------|------------------------------|-------------|
-| 01-10.09.26 (база) | 55 | 4:10-4:25 (8.09, 14км) | 5:18 (6.09, 17км, пульс 140) | 5:51 (4.09, 9.6км) | Старт плана |
-| 22.09.26 (Ф1, нед.1, Вт) | | | | | 12.53км (2км разминка + 10.53км работы), пульс 150-157, темп 4:37-4:52 (~4:45) — быстрее оценки для HR145-160 (была 4:40-5:20), хороший знак |
-| 26.09.26 (Ф1, нед.1, Сб) | | — | — | — | ЗАМЕНА: бег 8x500м → велотренажёр 8x3:00 подпорог (норв.) / 1:15. 212-227W при пульсе 133→152 (макс 160), по ощущениям тяжело — ограничивают ноги, а не кардио (пульс на вело не показатель усилия). FTP ~205-215W. В сравнение темпов не входит |
-| 25.10.26 (конец Ф1) | | | | | цель: Z3 ~4:13, Z2 ~5:15 |
-| 29.11.26 (конец Ф2) | | | | | цель: VO2max 56, Z3 ~4:09. 🧪 Лабораторный тест VO2max/порог — сделать на этой разгрузочной неделе (свежие ноги, уже 9-10 недель спецподготовки); результат — основной ориентир для пересмотра темпов Ф3+ вместо оценки по Garmin/полю |
-| 03.01.27 (конец Ф3) | | | | | цель: VO2max 57, Z3 ~4:05 |
-| 07.02.27 (конец Ф4) | | | | | цель: VO2max 58, Z3 ~4:00-4:05 |
+| 01-10.09.26 (baseline) | 55 | 4:10-4:25 (8.09, 14km) | 5:18 (6.09, 17km, HR 140) | 5:51 (4.09, 9.6km) | Plan start |
+| 19.09.26 (race) | | | | | Riga 5K — **18:02 chip time** (3:36/km). 10K equivalent ≈ 37:35 |
+| 22.09.26 (P1, wk1, Tue) | | | | | 12.53km (2km warm-up + 10.53km work), HR 150-157, pace 4:37-4:52 (~4:45) — faster than the HR145-160 estimate (was 4:40-5:20), a good sign |
+| 26.09.26 (P1, wk1, Sat) | | — | — | — | SWAP: run 8x500m → indoor bike 8x3:00 sub-threshold (Norwegian) / 1:15. 212-227W at HR 133→152 (max 160), felt hard — legs are the limiter, not cardio (bike HR is not a measure of effort). FTP ~205-215W. Not included in pace comparison |
+| 25.10.26 (end P1) | | | | | target: Z3 ~4:13, Z2 ~5:15 |
+| 29.11.26 (end P2) | | | | | target: VO2max 56, Z3 ~4:09. 🧪 Lab VO2max/threshold test — do it in this recovery week (fresh legs, 9-10 weeks of specific prep done); the result becomes the main reference for revising P3+ paces instead of Garmin/field estimates |
+| 03.01.27 (end P3) | | | | | target: VO2max 57, Z3 ~4:05 |
+| 07.02.27 (end P4) | | | | | target: VO2max 58, Z3 ~4:00-4:05 |
 
-Справка — уровень 2024-2025: Z2 5:05-5:09 при пульсе 143-149 (май 2025), Z1 5:33-5:46 при пульсе 133-135
-(май 2025), пороговые 3x3км по 4:00 (дек 2024), Riga Half 3:53/км при пульсе 172 (май 2025).
+Reference — 2024-2025 level: Z2 5:05-5:09 at HR 143-149 (May 2025), Z1 5:33-5:46 at HR 133-135
+(May 2025), threshold 3x3km at 4:00 (Dec 2024), Riga Half 3:53/km at HR 172 (May 2025).
 
-Правило пересмотра (проверяем на КАЖДОМ чекпоинте, не только 29.11):
-   • 29.11: если Z3 не быстрее 4:15 или VO2max не дошёл до 56 → сдвинуть темпы Ф3 на +5-8 сек/км.
-   • 03.01: если Z3 не быстрее 4:09 или VO2max не дошёл до 57 → сдвинуть темпы Ф4 на +5-8 сек/км
-     (держать темпы Ф3, а не форсировать по календарю).
-   • 07.02: если Z3 не быстрее 4:05 или VO2max не дошёл до 58 → сдвинуть темпы Ф5-Ф7 пропорционально
-     и пересчитать прогноз результата гонки (раздел «Гонка» выше).
-В каждом случае сначала смотрим на восстановление (RHR, сон, разгрузочные недели) — и только потом
-корректируем темпы, вместо того чтобы форсировать по расписанию.
+Revision rule (checked at EVERY checkpoint, not only 29.11):
+   • 29.11: if Z3 is not faster than 4:15 or VO2max hasn't reached 56 → shift P3 paces by +5-8 s/km.
+   • 03.01: if Z3 is not faster than 4:09 or VO2max hasn't reached 57 → shift P4 paces by +5-8 s/km
+     (hold P3 paces rather than forcing it by the calendar).
+   • 07.02: if Z3 is not faster than 4:05 or VO2max hasn't reached 58 → shift P5-P7 paces proportionally
+     and recalculate the race forecast ("Race" section above).
+In every case, look at recovery first (RHR, sleep, recovery weeks) — and only then
+adjust paces, instead of forcing it by the schedule.
 
 ════════════════════════════════════════════════════════════════════════════════════════════════
