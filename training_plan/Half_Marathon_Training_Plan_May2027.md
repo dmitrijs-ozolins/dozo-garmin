@@ -141,7 +141,8 @@ Treadmill runs are never used for pace comparison unless explicitly marked other
 | 19.09.26 (race) | | | | | Riga 5K — **18:02 chip time** (3:36/km). 10K equivalent ≈ 37:35 |
 | 22.09.26 (P1, wk1, Tue) | | | | | 12.53km (2km warm-up + 10.53km work), HR 150-157, pace 4:37-4:52 (~4:45) — faster than the HR145-160 estimate (was 4:40-5:20), a good sign |
 | 26.09.26 (P1, wk1, Sat) | | — | — | — | SWAP: run 8x500m → indoor bike 8x3:00 sub-threshold (Norwegian) / 1:15. 212-227W at HR 133→152 (max 160), felt hard — legs are the limiter, not cardio (bike HR is not a measure of effort). FTP ~205-215W. Not included in pace comparison |
-| 29.09.26 | | | | | ⚠️ New HR strap (Polar) from today — HR data before this date is less reliable; compare HR-based numbers from 29.09 onward |
+| 29.09.26 (P1, wk2, Tue) | | | | | ⚠️ New HR strap (Polar) from today — HR data before this date is less reliable; compare HR-based numbers from 29.09 onward. Outdoor 14km (plan 10), 4:27-4:39 (~4:32) at HR 152-159 (avg 155), clean HR trace. vs 22.09: ~10 s/km faster at ~same HR — partly may be strap offset, confirm on next runs |
+| 30.09.26 (P1, wk2, Wed) | | — | — | — | Hills on TREADMILL, 5% incline, 16 reps (intentional; 14 on 24.09): first 6-7 reps at 18.4 km/h, rest at 19 km/h; one 2' recovery not recorded (double lap press). HR peaks 169-174 (reach target at end of rep / start of recovery). Treadmill — no pace comparison |
 | 25.10.26 (end P1) | | | | | target: Z3 ~4:13, Z2 ~5:15 |
 | 29.11.26 (end P2) | | | | | target: VO2max 56, Z3 ~4:09. 🧪 Lab VO2max/threshold test — do it in this recovery week (fresh legs, 9-10 weeks of specific prep done); the result becomes the main reference for revising P3+ paces instead of Garmin/field estimates |
 | 03.01.27 (end P3) | | | | | target: VO2max 57, Z3 ~4:05 |
