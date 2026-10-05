@@ -79,6 +79,25 @@ def distance_step(order: int, meters: float, step_type_id: int, step_type_key: s
     return ExecutableStep(**kwargs)
 
 
+def time_step(order: int, seconds: float, step_type_id: int, step_type_key: str, target: dict | None = None) -> ExecutableStep:
+    kwargs = dict(
+        stepOrder=order,
+        stepType={"stepTypeId": step_type_id, "stepTypeKey": step_type_key, "displayOrder": step_type_id},
+        endCondition={
+            "conditionTypeId": ConditionType.TIME,
+            "conditionTypeKey": "time",
+            "displayOrder": 2,
+            "displayable": True,
+        },
+        endConditionValue=seconds,
+        targetType=target["targetType"] if target else NO_TARGET,
+    )
+    if target:
+        kwargs["targetValueOne"] = target["one"]
+        kwargs["targetValueTwo"] = target["two"]
+    return ExecutableStep(**kwargs)
+
+
 def lap_button_step(order: int, step_type_id: int, step_type_key: str) -> ExecutableStep:
     return ExecutableStep(
         stepOrder=order,
@@ -208,6 +227,77 @@ def build_w2_sunday() -> RunningWorkout:
     )
 
 
+def build_w3_tuesday() -> RunningWorkout:
+    # Ф1 Нед3 Вт 06.10 — Run 12km @HR145-160
+    step = distance_step(1, 12000, StepType.INTERVAL, "interval", hr_target(145, 160))
+    return RunningWorkout(
+        workoutName="Phase1: Base 12km",
+        estimatedDurationInSecs=3480,
+        description="Base run, HR 145-160 (phase_1_special_prep_1.md)",
+        workoutSegments=[WorkoutSegment(segmentOrder=1, sportType=RUNNING_SPORT_TYPE, workoutSteps=[step])],
+    )
+
+
+def build_w3_thursday() -> RunningWorkout:
+    # Ф1 Нед3 Чт 08.10 — treadmill 5%: 20' w @HR<=140 + 16x200m @19 km/h (~38s), HR<=179 (p: 2' easy) + 10' c
+    # Time-based steps: treadmill distance on the watch is unreliable, and the
+    # warm-up is by time/HR, not distance.
+    warmup = time_step(1, 20 * 60, StepType.WARMUP, "warmup", hr_target(120, 140))
+    work = time_step(1, 38, StepType.INTERVAL, "interval")
+    recovery = time_step(2, 120, StepType.RECOVERY, "recovery")
+    repeats = create_repeat_group(iterations=16, workout_steps=[work, recovery], step_order=2)
+    cooldown = time_step(3, 10 * 60, StepType.COOLDOWN, "cooldown")
+    return RunningWorkout(
+        workoutName="Phase1: 16x200m hills (treadmill)",
+        estimatedDurationInSecs=20 * 60 + 16 * (38 + 120) + 10 * 60,
+        description="Treadmill 5%: 20' warmup HR<=140 + 16x200m @19 km/h (~38s), HR<=179 "
+        "(>179 ease off) with 2' easy + 10' cooldown + stretch (phase_1_special_prep_1.md)",
+        workoutSegments=[
+            WorkoutSegment(segmentOrder=1, sportType=RUNNING_SPORT_TYPE, workoutSteps=[warmup, repeats, cooldown])
+        ],
+    )
+
+
+def build_w3_friday() -> RunningWorkout:
+    # Ф1 Нед3 Пт 09.10 — Run 8km @HR<=145
+    step = distance_step(1, 8000, StepType.INTERVAL, "interval", hr_target(125, 145))
+    return RunningWorkout(
+        workoutName="Phase1: Recovery 8km",
+        estimatedDurationInSecs=2520,
+        description="Recovery run, HR <=145 (phase_1_special_prep_1.md)",
+        workoutSegments=[WorkoutSegment(segmentOrder=1, sportType=RUNNING_SPORT_TYPE, workoutSteps=[step])],
+    )
+
+
+def build_w3_saturday() -> RunningWorkout:
+    # Ф1 Нед3 Сб 10.10 — 4km w + 10x600m in 2:34 (p500m jog 2:30) + 2km c
+    warmup = distance_step(1, 4000, StepType.WARMUP, "warmup")
+    work = distance_step(1, 600, StepType.INTERVAL, "interval", pace_target(4 * 60 + 13, 4 * 60 + 21))
+    recovery = distance_step(2, 500, StepType.RECOVERY, "recovery")
+    repeats = create_repeat_group(iterations=10, workout_steps=[work, recovery], step_order=2)
+    cooldown = distance_step(3, 2000, StepType.COOLDOWN, "cooldown")
+    return RunningWorkout(
+        workoutName="Phase1: 10x600m intervals",
+        estimatedDurationInSecs=5400,
+        description="4km warmup + 10x600m in 2:34 (~4:17/km) (500m jog recovery ~2:30) "
+        "+ 2km cooldown + stretch (phase_1_special_prep_1.md)",
+        workoutSegments=[
+            WorkoutSegment(segmentOrder=1, sportType=RUNNING_SPORT_TYPE, workoutSteps=[warmup, repeats, cooldown])
+        ],
+    )
+
+
+def build_w3_sunday() -> RunningWorkout:
+    # Ф1 Нед3 Вс 11.10 — Run 14km @HR145
+    step = distance_step(1, 14000, StepType.INTERVAL, "interval", hr_target(140, 150))
+    return RunningWorkout(
+        workoutName="Phase1: Long run 14km",
+        estimatedDurationInSecs=4400,
+        description="Long run, HR ~145 (phase_1_special_prep_1.md)",
+        workoutSegments=[WorkoutSegment(segmentOrder=1, sportType=RUNNING_SPORT_TYPE, workoutSteps=[step])],
+    )
+
+
 WEEKS = {
     1: [
         ("2026-09-25", build_friday),
@@ -220,6 +310,13 @@ WEEKS = {
         ("2026-10-02", build_w2_friday),
         # Sat 03.10: 10k race replaces build_w2_saturday (10x500m)
         ("2026-10-04", build_w2_sunday),
+    ],
+    3: [
+        ("2026-10-06", build_w3_tuesday),
+        ("2026-10-08", build_w3_thursday),
+        ("2026-10-09", build_w3_friday),
+        ("2026-10-10", build_w3_saturday),
+        ("2026-10-11", build_w3_sunday),
     ],
 }
 
