@@ -22,7 +22,7 @@ pace can't be compared one-to-one with flat running, so the target is effort-bas
    • Effort RPE 8-9/10 — hard but controlled, no loss of form by the end of the rep.
    • HR guide: 90-95% of HRmax 188 → **169-179**. If above 179 — ease off.
    • Full recovery: walk down, then jog to 2' before starting the next rep.
-   • **Actual (treadmill, 5%):** 24.09 — 14 reps; 30.09 — 16 reps, 6-7 @18.4 km/h then 19 km/h, HR peaks 163-174.
+   • **Actual (treadmill, 5%):** 24.09 — 14 reps; 30.09 — 16 reps, 6-7 @18.4 km/h then 19 km/h, HR peaks 163-174; 08.10 — 16 reps all @19 km/h, jog recoveries 7-7.9 km/h, HR peaks 174-178 (180 on the last), felt hard.
      Progression from here: **cap at 16 reps, progress by speed** (19 → 19.5 km/h) or incline (5 → 6%), not by count.
      Warm-up/cool-down on hill days by time and HR (20' @ HR ≤140), not distance.
    • Record the actual time of each rep (the watch should log them as laps) — after
