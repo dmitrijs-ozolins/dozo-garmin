@@ -89,7 +89,7 @@ Originally 60 km; restructured around the 10K race on Sat 03.10 (target 3:48/km,
 | Thu 15.10 AM | Pool 1.5km | — |
 | Thu 15.10 PM | **Run** (treadmill) 20' w + **14x200m @19.5 km/h, 5%** (or 19 km/h @6%) if 08.10 went well, else repeat 16x @19; HR ≤179 (p: 2' easy) + 10' c + S | 13 |
 | Fri 16.10 | **Run 8km @HR≤145** | 8 |
-| Sat 17.10 | **Run** 4km w + 12x600m in 2:32 (p500m jog 2:30) + 2km c + S | 19 |
+| Sat 17.10 | **Run** 4km w + 12x600m in 2:32 — even splits 2:30-2:34, first rep 2:33-2:34 (p500m jog 2:30-2:38 = 5:00-5:15/km, not faster) + 2km c + S | 19 |
 | Sun 18.10 | **Run 14km @HR145** | 14 |
 
 ## Week 5 (recovery): 19.10–25.10 — 54 km
@@ -102,5 +102,5 @@ Originally 60 km; restructured around the 10K race on Sat 03.10 (target 3:48/km,
 | Thu 22.10 AM | Pool 1.5km | — |
 | Thu 22.10 PM | **Run** (treadmill 5%) 20' w + **10x200m @19 km/h** (recovery week) (p: 2' easy) + 10' c + S | 10 |
 | Fri 23.10 | **Run 8km @HR≤145** | 8 |
-| Sat 24.10 | **Run** 4km w + 8x500m in 2:06 (p500m jog 2:30) + 2km c + S | 14 |
+| Sat 24.10 | **Run** 4km w + 8x500m in 2:06 (p500m jog 2:30-2:38 = 5:00-5:15/km) + 2km c + S | 14 |
 | Sun 25.10 | **Run 12km @HR145** | 12 |

@@ -298,6 +298,55 @@ def build_w3_sunday() -> RunningWorkout:
     )
 
 
+def build_w4_tuesday() -> RunningWorkout:
+    # Ф1 Нед4 Вт 13.10 — Run 14km @HR145-160
+    step = distance_step(1, 14000, StepType.INTERVAL, "interval", hr_target(145, 160))
+    return RunningWorkout(
+        workoutName="Phase1: Base 14km",
+        estimatedDurationInSecs=3850,
+        description="Base run, HR 145-160 (phase_1_special_prep_1.md)",
+        workoutSegments=[WorkoutSegment(segmentOrder=1, sportType=RUNNING_SPORT_TYPE, workoutSteps=[step])],
+    )
+
+
+def build_w4_thursday() -> RunningWorkout:
+    # Ф1 Нед4 Чт 15.10 — treadmill 5%: 20' w @HR<=140 + 14x200m @19.5 km/h (~37s), HR<=179 (p: 2' easy) + 10' c
+    warmup = time_step(1, 20 * 60, StepType.WARMUP, "warmup", hr_target(120, 140))
+    work = time_step(1, 37, StepType.INTERVAL, "interval")
+    recovery = time_step(2, 120, StepType.RECOVERY, "recovery")
+    repeats = create_repeat_group(iterations=14, workout_steps=[work, recovery], step_order=2)
+    cooldown = time_step(3, 10 * 60, StepType.COOLDOWN, "cooldown")
+    return RunningWorkout(
+        workoutName="Phase1: 14x200m hills @19.5 (treadmill)",
+        estimatedDurationInSecs=20 * 60 + 14 * (37 + 120) + 10 * 60,
+        description="Treadmill 5%: 20' warmup HR<=140 + 14x200m @19.5 km/h (~37s), HR<=179 "
+        "(>179 ease off) with 2' easy + 10' cooldown + stretch (phase_1_special_prep_1.md)",
+        workoutSegments=[
+            WorkoutSegment(segmentOrder=1, sportType=RUNNING_SPORT_TYPE, workoutSteps=[warmup, repeats, cooldown])
+        ],
+    )
+
+
+def build_w4_saturday() -> RunningWorkout:
+    # Ф1 Нед4 Сб 17.10 — 4km w + 12x600m in 2:32 (p500m jog 2:30) + 2km c
+    warmup = distance_step(1, 4000, StepType.WARMUP, "warmup")
+    work = distance_step(1, 600, StepType.INTERVAL, "interval", pace_target(4 * 60 + 9, 4 * 60 + 17))
+    # Jog capped at 5:00/km: on 10.10 jogs drifted to 4:41-4:56 and HR never dropped below ~150.
+    recovery = distance_step(2, 500, StepType.RECOVERY, "recovery", pace_target(5 * 60, 5 * 60 + 15))
+    repeats = create_repeat_group(iterations=12, workout_steps=[work, recovery], step_order=2)
+    cooldown = distance_step(3, 2000, StepType.COOLDOWN, "cooldown")
+    return RunningWorkout(
+        workoutName="Phase1: 12x600m intervals",
+        estimatedDurationInSecs=5500,
+        description="4km warmup + 12x600m in 2:32 (~4:13/km), even splits, first rep 2:33-2:34 "
+        "(500m jog 2:30-2:38 = 5:00-5:15/km, not faster) "
+        "+ 2km cooldown + stretch (phase_1_special_prep_1.md)",
+        workoutSegments=[
+            WorkoutSegment(segmentOrder=1, sportType=RUNNING_SPORT_TYPE, workoutSteps=[warmup, repeats, cooldown])
+        ],
+    )
+
+
 WEEKS = {
     1: [
         ("2026-09-25", build_friday),
@@ -317,6 +366,13 @@ WEEKS = {
         ("2026-10-09", build_w3_friday),
         ("2026-10-10", build_w3_saturday),
         ("2026-10-11", build_w3_sunday),
+    ],
+    4: [
+        ("2026-10-13", build_w4_tuesday),
+        ("2026-10-15", build_w4_thursday),
+        ("2026-10-16", build_w3_friday),
+        ("2026-10-17", build_w4_saturday),
+        ("2026-10-18", build_w3_sunday),
     ],
 }
 
