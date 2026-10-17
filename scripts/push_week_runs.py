@@ -21,6 +21,7 @@ from garmin_sync.auth import DEFAULT_TOKENSTORE
 from garminconnect import Garmin
 from garminconnect.workout import (
     ConditionType,
+    CyclingWorkout,
     ExecutableStep,
     RepeatGroup,
     RunningWorkout,
@@ -31,6 +32,7 @@ from garminconnect.workout import (
 )
 
 RUNNING_SPORT_TYPE = {"sportTypeId": 1, "sportTypeKey": "running", "displayOrder": 1}
+CYCLING_SPORT_TYPE = {"sportTypeId": 2, "sportTypeKey": "cycling", "displayOrder": 2}
 NO_TARGET = {"workoutTargetTypeId": TargetType.NO_TARGET, "workoutTargetTypeKey": "no.target", "displayOrder": 1}
 
 
@@ -43,6 +45,18 @@ def hr_target(low_bpm: float, high_bpm: float) -> dict:
         },
         "one": low_bpm,
         "two": high_bpm,
+    }
+
+
+def power_target(low_w: float, high_w: float) -> dict:
+    return {
+        "targetType": {
+            "workoutTargetTypeId": TargetType.POWER_ZONE,
+            "workoutTargetTypeKey": "power.zone",
+            "displayOrder": 2,
+        },
+        "one": low_w,
+        "two": high_w,
     }
 
 
@@ -347,6 +361,27 @@ def build_w4_saturday() -> RunningWorkout:
     )
 
 
+def build_w4_saturday_bike() -> CyclingWorkout:
+    # Ф1 Нед4 Сб 17.10 — SWAP (can't run outside): trainer 8x3' @205-215W instead of 12x600m.
+    # Power + RPE, not HR: on the bike legs are the limiter (26.09: 8x3' @212-227W felt hard).
+    warmup = time_step(1, 15 * 60, StepType.WARMUP, "warmup", power_target(120, 160))
+    work = time_step(1, 3 * 60, StepType.INTERVAL, "interval", power_target(205, 215))
+    recovery = time_step(2, 90, StepType.RECOVERY, "recovery", power_target(110, 130))
+    repeats = create_repeat_group(iterations=8, workout_steps=[work, recovery], step_order=2)
+    cooldown = time_step(3, 10 * 60, StepType.COOLDOWN, "cooldown", power_target(110, 130))
+    return CyclingWorkout(
+        workoutName="Phase1: Bike 8x3' @205-215W",
+        estimatedDurationInSecs=15 * 60 + 8 * (3 * 60 + 90) + 10 * 60,
+        description="Trainer, replaces 12x600m. 15' warmup 120->160W + 3x20s spin-ups; "
+        "8x3' @205-215W, cadence 90+, RPE 7-8 (last 2 up to 215-220W if good, drop to 200W "
+        "rather than cut reps) / 1:30 easy ~120W; 10' cooldown. Optional +15-20' easy ~140W. "
+        "Ignore HR (phase_1_special_prep_1.md)",
+        workoutSegments=[
+            WorkoutSegment(segmentOrder=1, sportType=CYCLING_SPORT_TYPE, workoutSteps=[warmup, repeats, cooldown])
+        ],
+    )
+
+
 WEEKS = {
     1: [
         ("2026-09-25", build_friday),
@@ -371,7 +406,8 @@ WEEKS = {
         ("2026-10-13", build_w4_tuesday),
         ("2026-10-15", build_w4_thursday),
         ("2026-10-16", build_w3_friday),
-        ("2026-10-17", build_w4_saturday),
+        # Sat 17.10: couldn't run outside -> trainer bike replaces build_w4_saturday (12x600m)
+        ("2026-10-17", build_w4_saturday_bike),
         ("2026-10-18", build_w3_sunday),
     ],
 }
@@ -423,7 +459,8 @@ def main() -> None:
 
     for date_str, builder in WORKOUTS:
         workout = builder()
-        uploaded = garmin.upload_running_workout(workout)
+        upload = garmin.upload_cycling_workout if isinstance(workout, CyclingWorkout) else garmin.upload_running_workout
+        uploaded = upload(workout)
         workout_id = uploaded.get("workoutId")
         if not workout_id:
             print(f"FAILED to upload {workout.workoutName}: {uploaded}")
