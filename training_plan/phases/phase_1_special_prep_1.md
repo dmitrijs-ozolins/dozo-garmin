@@ -34,7 +34,7 @@ pace can't be compared one-to-one with flat running, so the target is effort-bas
 | 2 | 28.09–04.10 | **60** |
 | 3 | 05.10–11.10 | **64** |
 | 4 | 12.10–18.10 | **68** |
-| 5 (recovery) | 19.10–25.10 | **54** |
+| 5 (recovery) | 19.10–25.10 | **~58** (was 54) |
 
 Phase total: 300 km, avg 60 km/wk, peak 68.
 
@@ -92,15 +92,19 @@ Originally 60 km; restructured around the 10K race on Sat 03.10 (target 3:48/km,
 | Sat 17.10 | **Run** 4km w + 12x600m in 2:32 — even splits 2:30-2:34, first rep 2:33-2:34 (p500m jog 2:30-2:38 = 5:00-5:15/km, not faster) + 2km c + S | 19 |
 | Sun 18.10 | **Run 14km @HR145** | 14 |
 
-## Week 5 (recovery): 19.10–25.10 — 54 km
+## Week 5 (recovery): 19.10–25.10 — ~58 km (adjusted 19.10)
+
+Adjusted: week 4 came in at ~35 km of running (Sat 12x600m → trainer 8x3' @205-215W, Sun long run missed —
+2nd Sunday in a row), so the recovery cut is smaller: Tue 10 → 12 km, Sun 12 → 14 km. Hills keep the new
+19.5 km/h with fewer reps. Wed: no gym (event) — not made up; skip it rather than stack it on Thu/Fri.
 
 | Day | Workout | km |
 |---|---|---|
 | Mon 19.10 | Gym day | — |
-| Tue 20.10 | **Run 10km @HR145-160** | 10 |
-| Wed 21.10 | Gym day | — |
+| Tue 20.10 | **Run 12km @HR145-160** | 12 |
+| Wed 21.10 | ~~Gym day~~ — off (go-kart event) | — |
 | Thu 22.10 AM | Pool 1.5km | — |
-| Thu 22.10 PM | **Run** (treadmill 5%) 20' w + **10x200m @19 km/h** (recovery week) (p: 2' easy) + 10' c + S | 10 |
+| Thu 22.10 PM | **Run** (treadmill 5%) 20' w + **10x200m @19.5 km/h** (~37s) (recovery week) (p: 2' easy) + 10' c + S | 10 |
 | Fri 23.10 | **Run 8km @HR≤145** | 8 |
 | Sat 24.10 | **Run** 4km w + 8x500m in 2:06 (p500m jog 2:30-2:38 = 5:00-5:15/km) + 2km c + S | 14 |
-| Sun 25.10 | **Run 12km @HR145** | 12 |
+| Sun 25.10 | **Run 14km @HR145** — priority session of the week | 14 |
