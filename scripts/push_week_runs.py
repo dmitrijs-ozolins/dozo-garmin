@@ -419,6 +419,25 @@ def build_w5_saturday() -> RunningWorkout:
     )
 
 
+def build_w5_saturday_treadmill() -> RunningWorkout:
+    # Ф1 Нед5 Сб 24.10 — SWAP to treadmill: 8x500m in 2:06 (p500m jog 2:30-2:38) as km/h + time steps.
+    # 500m/2:06 = 14.3 km/h; jog 5:00-5:15/km = 11.4-12.0 km/h. Time-based: watch treadmill distance is unreliable.
+    warmup = time_step(1, 20 * 60, StepType.WARMUP, "warmup", hr_target(120, 140))
+    work = time_step(1, 126, StepType.INTERVAL, "interval")
+    recovery = time_step(2, 155, StepType.RECOVERY, "recovery")
+    repeats = create_repeat_group(iterations=8, workout_steps=[work, recovery], step_order=2)
+    cooldown = time_step(3, 10 * 60, StepType.COOLDOWN, "cooldown")
+    return RunningWorkout(
+        workoutName="Phase1: 8x500m @14.3 (treadmill)",
+        estimatedDurationInSecs=20 * 60 + 8 * (126 + 155) + 10 * 60,
+        description="Treadmill 1%: 20' warmup ~10.4 km/h HR<=140 + 8x 2:06 @14.3 km/h (first rep 14.1), "
+        "HR cap ~172 / 2:35 jog @11.5 km/h + 10' cooldown + stretch (phase_1_special_prep_1.md)",
+        workoutSegments=[
+            WorkoutSegment(segmentOrder=1, sportType=RUNNING_SPORT_TYPE, workoutSteps=[warmup, repeats, cooldown])
+        ],
+    )
+
+
 WEEKS = {
     1: [
         ("2026-09-25", build_friday),
@@ -453,7 +472,9 @@ WEEKS = {
         ("2026-10-20", build_w3_tuesday),
         ("2026-10-22", build_w5_thursday),
         ("2026-10-23", build_w3_friday),
-        ("2026-10-24", build_w5_saturday),
+        # Sat 24.10: treadmill -> build_w5_saturday_treadmill replaces build_w5_saturday
+        # (updated in place, workout_id=1735318449)
+        ("2026-10-24", build_w5_saturday_treadmill),
         ("2026-10-25", build_w3_sunday),
     ],
 }

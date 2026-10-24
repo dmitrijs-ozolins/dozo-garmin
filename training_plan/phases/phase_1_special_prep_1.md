@@ -106,5 +106,5 @@ Adjusted: week 4 came in at ~35 km of running (Sat 12x600m → trainer 8x3' @205
 | Thu 22.10 AM | Pool 1.5km | — |
 | Thu 22.10 PM | **Run** (treadmill 5%) 20' w + **10x200m @19.5 km/h** (~37s) (recovery week) (p: 2' easy) + 10' c + S | 10 |
 | Fri 23.10 | **Run 8km @HR≤145** | 8 |
-| Sat 24.10 | **Run** 4km w + 8x500m in 2:06 (p500m jog 2:30-2:38 = 5:00-5:15/km) + 2km c + S | 14 |
+| Sat 24.10 | **Run** 4km w + 8x500m in 2:06 (p500m jog 2:30-2:38 = 5:00-5:15/km) + 2km c + S — *→ treadmill 1%: 20' w ~10.4 km/h + 8x 2:06 @14.3 km/h / 2:35 jog @11.5 km/h + 10' c* | 14 |
 | Sun 25.10 | **Run 14km @HR145** — priority session of the week | 14 |
