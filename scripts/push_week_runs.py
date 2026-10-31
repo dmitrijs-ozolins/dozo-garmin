@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Push a week's running workouts to the Garmin Connect calendar
-(training_plan/phases/phase_1_special_prep_1.md).
+(training_plan/phases/phase_1_special_prep_1.md, phase_2_special_prep_2.md).
 
 Gym/pool days are intentionally left out — Garmin can't represent them
 usefully as structured workouts, and the ask was running only.
@@ -438,6 +438,75 @@ def build_w5_saturday_treadmill() -> RunningWorkout:
     )
 
 
+def build_p2w1_tuesday() -> RunningWorkout:
+    # Ф2 Нед1 Вт 27.10 — Run 12km @HR145-160
+    step = distance_step(1, 12000, StepType.INTERVAL, "interval", hr_target(145, 160))
+    return RunningWorkout(
+        workoutName="Phase2: Base 12km",
+        estimatedDurationInSecs=3300,
+        description="Base run, HR 145-160 (phase_2_special_prep_2.md)",
+        workoutSegments=[WorkoutSegment(segmentOrder=1, sportType=RUNNING_SPORT_TYPE, workoutSteps=[step])],
+    )
+
+
+def build_p2w1_thursday() -> RunningWorkout:
+    # Ф2 Нед1 Чт 29.10 — treadmill 5%: 20' w @HR<=140 + 12x200m @19.5 km/h (~37s), HR<=179 (p: 2' easy) + 10' c
+    warmup = time_step(1, 20 * 60, StepType.WARMUP, "warmup", hr_target(120, 140))
+    work = time_step(1, 37, StepType.INTERVAL, "interval")
+    recovery = time_step(2, 120, StepType.RECOVERY, "recovery")
+    repeats = create_repeat_group(iterations=12, workout_steps=[work, recovery], step_order=2)
+    cooldown = time_step(3, 10 * 60, StepType.COOLDOWN, "cooldown")
+    return RunningWorkout(
+        workoutName="Phase2: 12x200m hills @19.5 (treadmill)",
+        estimatedDurationInSecs=20 * 60 + 12 * (37 + 120) + 10 * 60,
+        description="Treadmill 5%: 20' warmup HR<=140 + 12x200m @19.5 km/h (~37s), HR<=179 "
+        "(>179 ease off) with 2' easy + 10' cooldown + stretch (phase_2_special_prep_2.md)",
+        workoutSegments=[
+            WorkoutSegment(segmentOrder=1, sportType=RUNNING_SPORT_TYPE, workoutSteps=[warmup, repeats, cooldown])
+        ],
+    )
+
+
+def build_p2w1_friday() -> RunningWorkout:
+    # Ф2 Нед1 Пт 30.10 — Run 8km @HR<=145
+    step = distance_step(1, 8000, StepType.INTERVAL, "interval", hr_target(125, 145))
+    return RunningWorkout(
+        workoutName="Phase2: Recovery 8km",
+        estimatedDurationInSecs=2520,
+        description="Recovery run, HR <=145 (phase_2_special_prep_2.md)",
+        workoutSegments=[WorkoutSegment(segmentOrder=1, sportType=RUNNING_SPORT_TYPE, workoutSteps=[step])],
+    )
+
+
+def build_p2w1_saturday() -> RunningWorkout:
+    # Ф2 Нед1 Сб 31.10 — 4km w + 8x800m in 3:08 (p500m jog 2:30-2:38) + 2km c
+    warmup = distance_step(1, 4000, StepType.WARMUP, "warmup")
+    work = distance_step(1, 800, StepType.INTERVAL, "interval", pace_target(3 * 60 + 51, 3 * 60 + 59))
+    recovery = distance_step(2, 500, StepType.RECOVERY, "recovery", pace_target(5 * 60, 5 * 60 + 15))
+    repeats = create_repeat_group(iterations=8, workout_steps=[work, recovery], step_order=2)
+    cooldown = distance_step(3, 2000, StepType.COOLDOWN, "cooldown")
+    return RunningWorkout(
+        workoutName="Phase2: 8x800m intervals",
+        estimatedDurationInSecs=4600,
+        description="4km warmup + 8x800m in 3:08 (~3:55/km), even splits, first rep 3:09-3:10 "
+        "(500m jog 2:30-2:38 = 5:00-5:15/km, not faster) + 2km cooldown + stretch (phase_2_special_prep_2.md)",
+        workoutSegments=[
+            WorkoutSegment(segmentOrder=1, sportType=RUNNING_SPORT_TYPE, workoutSteps=[warmup, repeats, cooldown])
+        ],
+    )
+
+
+def build_p2w1_sunday() -> RunningWorkout:
+    # Ф2 Нед1 Вс 01.11 — Run 14km @HR145
+    step = distance_step(1, 14000, StepType.INTERVAL, "interval", hr_target(140, 150))
+    return RunningWorkout(
+        workoutName="Phase2: Long run 14km",
+        estimatedDurationInSecs=4400,
+        description="Long run, HR ~145 (phase_2_special_prep_2.md)",
+        workoutSegments=[WorkoutSegment(segmentOrder=1, sportType=RUNNING_SPORT_TYPE, workoutSteps=[step])],
+    )
+
+
 WEEKS = {
     1: [
         ("2026-09-25", build_friday),
@@ -476,6 +545,17 @@ WEEKS = {
         # (updated in place, workout_id=1735318449)
         ("2026-10-24", build_w5_saturday_treadmill),
         ("2026-10-25", build_w3_sunday),
+    ],
+    # Phase 2 (phase_2_special_prep_2.md) -- week numbers continue from Phase 1.
+    6: [
+        # Tue 27.10 missed (heavy legs after leg day) -> base run moved to Wed
+        ("2026-10-28", build_p2w1_tuesday),
+        # Thu hills not possible -> hills Fri, recovery Thu; long run Sat so the 800s
+        # (Sun) don't land the day after hills.
+        ("2026-10-29", build_p2w1_friday),
+        ("2026-10-30", build_p2w1_thursday),
+        ("2026-10-31", build_p2w1_sunday),
+        ("2026-11-01", build_p2w1_saturday),
     ],
 }
 

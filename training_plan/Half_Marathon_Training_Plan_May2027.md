@@ -152,7 +152,14 @@ Treadmill runs are never used for pace comparison unless explicitly marked other
 | 15.10.26 (P1, wk4, Thu) | | — | — | — | Hills on TREADMILL, 5%: **14 reps @19.5 km/h** (first time). HR peaks 176 from rep 1, 178 by rep 4, 180-181 on 4 reps (vs 174-178 for 16 @19 on 08.10). Recovery HR 146→160-162. TE 3.7 aer / 3.8 anaer. Treadmill — no pace comparison |
 | 17.10.26 (P1, wk4, Sat) | | — | — | — | SWAP: run 12x600m → indoor bike (Tacx) 8x3' / 1:30: 206-206-206-205-206-212-211-219W, cadence 90-94, HR 138→150. Even and controlled, last 3 built up as planned. Not included in pace comparison |
 | 18.10.26 (P1, wk4, Sun) | | — | — | — | Long run missed again (2nd Sunday in a row), pool 1.15km. Wk4 ≈ 35km running (plan 68) + bike → wk5 recovery cut reduced (Tue 12, Sun 14) |
-| 25.10.26 (end P1) | | | | | target: Z3 ~4:13, Z2 ~5:15 |
+| 20.10.26 (P1, wk5, Tue) | **56** | | | | VO2max 55 → **56** (first time since baseline). Outdoor 11.7km (evening), km 1-11 4:26-4:40 (~4:32) at HR avg 152 (147→155). Same pace as 13.10, HR ≈ same |
+| 22.10.26 (P1, wk5, Thu) | | — | — | — | Hills on TREADMILL, 5%: 10 reps @19.5 km/h (recovery week, plan 10). Rep HR peaks 172-177, recovery peaks 175-180 (plateau from rep 2). Treadmill — no pace comparison |
+| 23.10.26 (P1, wk5, Fri) | 56 | | | 5:10 (km 3-8, HR 132-138) | Recovery 8.2km @5:12, HR avg 133. vs baseline 5:51 → **~40 s/km faster** at the same HR, already past the ~5:35 target |
+| 24.10.26 (P1, wk5, Sat) | | — | — | — | TREADMILL 8x500m @14.3 km/h (4:12/km) / jog. Rep HR 149 → 167 (peaks 157 → 171), steady climb across reps. Treadmill — no pace comparison |
+| 25.10.26 (P1, wk5, Sun) | 56 | | **4:53** (km 3-16, HR 143-146) | | Long run 16.9km (plan 14) @4:58, HR avg 142, very even (no drift km 3-16). vs baseline 5:18 @140 → **~25 s/km faster**; faster than the 2024-25 level (5:05-5:09 @143-149) |
+| 25.10.26 (end P1) | **56** | — (no threshold run in wk5) | **4:53** | 5:10 | target: Z3 ~4:13, Z2 ~5:15 → Z2 well ahead (4:53), VO2max already at the 29.11 target (56). Z3 not measured — the 4:32 @152 base runs suggest it's on track |
+| 26-30.10.26 (P2, wk1) | | — | — | — | Out of plan: no running Mon-Fri (Tue base, Thu hills, Fri recovery all missed) — strength 26.10 + 28.10, pool 1.5km 29.10. Recovery fine: HRV 51 → 64-76, RHR 42 → 39, sleep 7.3-8h (5.7h on 30.10) |
+| 31.10.26 (P2, wk1, Sat) | 56 | | | 5:27 (km 2-21, HR avg 134) | Long run extended to **20.5km** (plan 14) on purpose, to keep endurance after a week with no running. 1:52, @5:27, HR avg 134 / max 150: pure Z1, HR drift only ~132 → 139-141 over the last 5km. Slower than 23.10 at the same HR (5:10, but that was only 8km), still ~24 s/km faster than baseline 5:51. Longest run of the plan so far. Wk1 running ≈ 20.5km + Sun 800s (plan 62) |
 | 29.11.26 (end P2) | | | | | target: VO2max 56, Z3 ~4:09. 🧪 Lab VO2max/threshold test — do it in this recovery week (fresh legs, 9-10 weeks of specific prep done); the result becomes the main reference for revising P3+ paces instead of Garmin/field estimates |
 | 03.01.27 (end P3) | | | | | target: VO2max 57, Z3 ~4:05 |
 | 07.02.27 (end P4) | | | | | target: VO2max 58, Z3 ~4:00-4:05 |
