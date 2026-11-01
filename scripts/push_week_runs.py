@@ -528,6 +528,37 @@ def build_p2w1_sunday() -> RunningWorkout:
     )
 
 
+def build_p2w2_saturday() -> RunningWorkout:
+    # Ф2 Нед2 Сб 07.11 — 4km w + 10x800m in 3:08 (p500m jog 2:30-2:38) + 2km c
+    warmup = distance_step(1, 4000, StepType.WARMUP, "warmup")
+    work = distance_step(1, 800, StepType.INTERVAL, "interval", pace_target(3 * 60 + 51, 3 * 60 + 59))
+    recovery = distance_step(2, 500, StepType.RECOVERY, "recovery", pace_target(5 * 60, 5 * 60 + 15))
+    repeats = create_repeat_group(iterations=10, workout_steps=[work, recovery], step_order=2)
+    cooldown = distance_step(3, 2000, StepType.COOLDOWN, "cooldown")
+    return RunningWorkout(
+        workoutName="Phase2: 10x800m intervals",
+        estimatedDurationInSecs=5300,
+        description="4km warmup + 10x800m in 3:08 (~3:55/km), even splits, first rep 3:09-3:10 "
+        "(500m jog 2:30-2:38 = 5:00-5:15/km, not faster) + 2km cooldown + stretch (phase_2_special_prep_2.md)",
+        workoutSegments=[
+            WorkoutSegment(segmentOrder=1, sportType=RUNNING_SPORT_TYPE, workoutSteps=[warmup, repeats, cooldown])
+        ],
+    )
+
+
+def build_p2w2_sunday() -> RunningWorkout:
+    # Ф2 Нед2 Вс 08.11 — long run 18km @HR<=142 (plan 14; 31.10 showed 20.5km @HR134 is easy),
+    # day after 10x800m -> HR a bit lower than usual; extend to 20 if HR stable at 14km.
+    step = distance_step(1, 18000, StepType.INTERVAL, "interval", hr_target(132, 142))
+    return RunningWorkout(
+        workoutName="Phase2: Long run 18km",
+        estimatedDurationInSecs=5800,
+        description="Long run 18km, HR <=142 (day after 10x800m). If HR stable and legs fine at 14km, "
+        "extend to 20km (phase_2_special_prep_2.md)",
+        workoutSegments=[WorkoutSegment(segmentOrder=1, sportType=RUNNING_SPORT_TYPE, workoutSteps=[step])],
+    )
+
+
 WEEKS = {
     1: [
         ("2026-09-25", build_friday),
@@ -578,6 +609,15 @@ WEEKS = {
         ("2026-10-31", build_p2w1_sunday),
         # Sun 01.11: 800s moved to treadmill, updated in place (workout_id 1743605986).
         ("2026-11-01", build_p2w1_saturday_treadmill),
+    ],
+    # P2 wk2: same as wk1 except Sat 10x800m (was 8) and Sun long run 18km.
+    7: [
+        ("2026-11-03", build_p2w1_tuesday),
+        ("2026-11-05", build_p2w1_thursday),
+        ("2026-11-06", build_p2w1_friday),
+        ("2026-11-07", build_p2w2_saturday),
+        # Sun 08.11: 14 -> 18km (optional 20), updated in place (workout_id 1748318505)
+        ("2026-11-08", build_p2w2_sunday),
     ],
 }
 
