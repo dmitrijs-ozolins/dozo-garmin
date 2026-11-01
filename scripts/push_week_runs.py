@@ -496,6 +496,27 @@ def build_p2w1_saturday() -> RunningWorkout:
     )
 
 
+def build_p2w1_saturday_treadmill() -> RunningWorkout:
+    # Ф2 Нед1 Вс 01.11 — SWAP to treadmill: 8x800m in 3:08 (p500m jog 2:30-2:38) as km/h + time steps.
+    # 800m/3:08 = 15.3 km/h (first rep 3:10 = 15.2); jog 500m/2:35 = 11.6 km/h. Day after 20.5km Z1:
+    # if reps 2-3 feel forced or HR >176 -> stop at 6.
+    warmup = time_step(1, 20 * 60, StepType.WARMUP, "warmup", hr_target(120, 140))
+    work = time_step(1, 188, StepType.INTERVAL, "interval")
+    recovery = time_step(2, 155, StepType.RECOVERY, "recovery")
+    repeats = create_repeat_group(iterations=8, workout_steps=[work, recovery], step_order=2)
+    cooldown = time_step(3, 10 * 60, StepType.COOLDOWN, "cooldown")
+    return RunningWorkout(
+        workoutName="Phase2: 8x800m @15.3 (treadmill)",
+        estimatedDurationInSecs=20 * 60 + 8 * (188 + 155) + 10 * 60,
+        description="Treadmill 1%: 20' warmup ~10.4 km/h HR<=140 + 8x 3:08 @15.3 km/h (first rep 15.2), "
+        "HR cap ~176 (stop at 6 if forced) / 2:35 jog @11.6 km/h + 10' cooldown + stretch "
+        "(phase_2_special_prep_2.md)",
+        workoutSegments=[
+            WorkoutSegment(segmentOrder=1, sportType=RUNNING_SPORT_TYPE, workoutSteps=[warmup, repeats, cooldown])
+        ],
+    )
+
+
 def build_p2w1_sunday() -> RunningWorkout:
     # Ф2 Нед1 Вс 01.11 — Run 14km @HR145
     step = distance_step(1, 14000, StepType.INTERVAL, "interval", hr_target(140, 150))
@@ -555,7 +576,8 @@ WEEKS = {
         ("2026-10-29", build_p2w1_friday),
         ("2026-10-30", build_p2w1_thursday),
         ("2026-10-31", build_p2w1_sunday),
-        ("2026-11-01", build_p2w1_saturday),
+        # Sun 01.11: 800s moved to treadmill, updated in place (workout_id 1743605986).
+        ("2026-11-01", build_p2w1_saturday_treadmill),
     ],
 }
 
