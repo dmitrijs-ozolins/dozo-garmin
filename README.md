@@ -2,7 +2,9 @@
 
 Garmin Connect daily automated sync, for workout analysis and
 training-plan adjustment. Design rationale lives in [PLAN.md](PLAN.md);
-this file is the "how to actually run it" doc.
+this file is the "how to actually run it" doc. The in-progress plan for
+scheduled Garmin calendar updates from a Mac mini is in
+[AUTOMATION_PLAN.md](AUTOMATION_PLAN.md).
 
 **This repo is public.** No raw health data, session tokens, or injury
 details are ever committed to it — they live in an external Postgres
