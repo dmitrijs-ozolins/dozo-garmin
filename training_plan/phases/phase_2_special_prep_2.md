@@ -16,7 +16,7 @@ Week structure:
 BY WEEK:
    - Week 1 (26.10-01.11) ~62km: Tue 12 | Thu 12x200 | Sat 8x800   | Sun 14
    - Week 2 (02-08.11)    ~67km: Tue 12 | Thu 12x200 | Sat 10x800  | Sun 18 @HR≤142, +2 to 20 if HR stable at 14km (was 14 — 31.10 showed 20.5km @HR134 is easy)
-   - Week 3 (09-15.11)    ~67km: Tue 14 | Thu 12x200 | Sat 6x1000  | Sun 18, +2 to 20 if HR stable at 14km (was 16)
-   - Week 4 (16-22.11)    ~70km: Tue 14 | Thu 14x200 | Sat 8x1000  | Sun 20 (was 16) — peak week of the phase
+   - Week 3 (09-15.11)    ~67km: Tue 14 | Thu 12x200 @19.5 km/h, **6%** (05.11: reps 9-12 @6% at the same HR) | Sat 6x1000  | Sun 18, +2 to 20 if HR stable at 14km (was 16)
+   - Week 4 (16-22.11)    ~70km: Tue 14 | Thu 14x200 @19.5 km/h, 6% | Sat 8x1000  | Sun 20 (was 16) — peak week of the phase
    - Week 5 (23-29.11)    ~54km: RECOVERY: Tue 10 | Thu 8x200 | Sat 6x600 (2:30) | Sun 14 (was 12) — keep legs fresh for the lab test
    - CHECKPOINT 29.11: compare with the progress log, adjust P3+ paces
