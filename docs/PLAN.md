@@ -12,26 +12,49 @@ scripted backfill to build.)
 
 ## Background: how Garmin API access actually works
 
-Garmin doesn't publish a self-serve developer API for individuals. What exists is the **Garmin Connect Developer Program / Garmin Health API** — a B2B partner program. Companies like Strava, TrainingPeaks, MyFitnessPal, etc. sign a formal partnership agreement with Garmin to get access; there's no public signup page where you register an app and get a key for *your own* account the way you can with Strava, GitHub, or most normal APIs.
+There are two ways in:
 
-### How Garmin↔Strava works
+- **`python-garminconnect`** (unofficial) — wraps the same internal
+  endpoints the Garmin Connect web app uses. Covers everything this
+  project needs: activities, wellness (sleep, HRV, Body Battery, training
+  readiness/status) and **writes** — uploading structured workouts and
+  scheduling them on the calendar. Downsides: undocumented, can break
+  without notice, and logs in with username/password + MFA (see the
+  CAPTCHA note below).
+- **Garmin Connect [Personal API](https://developer.garmin.com/gc-developer-program/personal/personal-api/)**
+  (official) — for individuals accessing their own data; not for
+  commercial or multi-user apps (that's the separate B2B Developer
+  Program / Health API). Mechanics, per Garmin's FAQ:
+  - Create a key while logged in to Garmin Connect
+    (Settings → [Personal API key](https://connect.garmin.com/app/settings/personalApiToken)).
+    It's shown once; expiry is 30 / 90 / 180 days or 1 year, with an
+    email reminder about a week before.
+  - Exchange it for an access token at
+    `POST https://personal.connectapi.garmin.com/personalapitoken-service/personal-api/personal-api-key/token`
+    (`Authorization: ApiKey <key>`). Tokens last 24h; no refresh tokens —
+    just request a new one.
+  - No password, MFA or CAPTCHA, and no rotating refresh token to
+    persist.
+  - Garmin's reference client,
+    [garmin/connect-personal-api-python](https://github.com/garmin/connect-personal-api-python),
+    is read-only (GET) and wraps: activities (search, details, workouts,
+    file download), sleep, HRV, Body Battery, daily heart rate, HR zones,
+    SpO2, fitness age, wellness activity summaries. Whether the API
+    accepts writes (workout upload, calendar scheduling) and covers
+    training readiness/status isn't confirmed yet — check the
+    [Swagger docs](https://developer.garmin.com/gc-developer-program/personal/swagger-docs/).
 
-1. You connect Garmin to Strava in Garmin Connect's "Connected Apps" settings.
-2. Garmin becomes a registered *partner* and **pushes** a FIT file to Strava's ingestion endpoint server-to-server, automatically, every time your watch finishes syncing an activity.
-3. Once it lands in Strava, Strava's own API (public, free, documented, OAuth2, ~1000 req/day) lets you pull your own activities and per-activity time-series streams (HR, pace, cadence, power, altitude).
+**Direction:** `python-garminconnect` stays the source for now — it's
+what's built and it's the only confirmed way to push workouts to the
+calendar. We want to use the Personal API directly for the scenarios it
+covers, starting with the read side of the daily sync (activities,
+sleep, HRV, Body Battery, resting HR), which would remove the
+token-rotation/CAPTCHA concerns for those calls. Calendar writes stay on
+`python-garminconnect` unless the Swagger docs show write support.
+Record the split as a new ADR (superseding/refining ADR 0002) once it's
+decided.
 
-Strava is a legitimate, documented **side door** to a subset of your Garmin data — but only **workout/activity data**, since that's all Garmin's partner push includes. It carries none of:
-
-- Sleep stages/score
-- HRV / overnight HR
-- Body Battery / stress
-- Training readiness/status
-
-That's exactly what the plan-adjustment half of this needs (react to bad sleep, etc.), so Strava alone can't cover it.
-
-**Decision: use `python-garminconnect` as the single source for everything** — it gets activities *and* sleep/HRV/wellness data in one place.
-
-(Originally scoped around `garth` underneath it, per the upstream README at the time. `garth` is now deprecated — see [its maintainer's note](https://github.com/matin/garth/discussions/222) — and `python-garminconnect` (>=0.3) dropped it in favor of its own built-in token store. Functionally the same idea, simpler mechanics: see Phase 0 below.)
+(`python-garminconnect` was originally scoped around `garth` underneath it, per the upstream README at the time. `garth` is now deprecated — see [its maintainer's note](https://github.com/matin/garth/discussions/222) — and `python-garminconnect` (>=0.3) dropped it in favor of its own built-in token store. Functionally the same idea, simpler mechanics: see Phase 0 below.)
 
 ### CAPTCHA / anti-bot wrinkle for GitHub Actions
 
@@ -76,4 +99,8 @@ See [README.md](../README.md) for the concrete setup and current implementation 
 
 - Plan-adjuster module: act on the `signals` table's anomaly detections (currently detection-only, by design).
 - Notifications on new signals: wired up via Telegram (`garmin_sync/notify.py`, called from `scripts/daily_sync.py`).
+- Personal API: check the Swagger docs for write support and training
+  readiness/status, then decide which calls move off
+  `python-garminconnect` (new ADR). Key expiry (max 1 year) becomes a
+  scheduled renewal, like the token re-bootstrap.
 - Verify `garmin_sync/wellness.py`'s field mappings against a real account's data once the daily sync has run for a while; several of them are best-effort against Garmin's undocumented API.

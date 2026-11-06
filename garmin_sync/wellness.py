@@ -1,6 +1,5 @@
 """Fetch daily wellness data (sleep, HRV, resting HR, Body Battery, training
-readiness/status) — the half of docs/PLAN.md's problem 2 that Strava's activity
-feed can't provide.
+readiness/status) — the inputs docs/PLAN.md's plan adjustment reacts to.
 
 Garmin's wellness endpoints aren't publicly documented and several of these
 response shapes (training status, body battery, stress) are only loosely
