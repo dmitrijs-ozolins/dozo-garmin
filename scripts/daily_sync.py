@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Phase 2 — daily automated sync (PLAN.md).
+"""Phase 2 — daily automated sync (docs/PLAN.md).
 
 Runs in GitHub Actions on a schedule (see .github/workflows/daily-sync.yml)
 or locally for testing. Each run: resumes the Garmin session from

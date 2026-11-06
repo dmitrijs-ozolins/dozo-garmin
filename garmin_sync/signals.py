@@ -1,14 +1,14 @@
-"""Anomaly signals for a future plan-adjuster (PLAN.md Phase 2).
+"""Anomaly signals for a future plan-adjuster (docs/PLAN.md Phase 2).
 
 This module only *detects* — missed session, low sleep score, resting-HR
 spike, manual injury flag — and writes clean structured rows to the
 `signals` table. Deciding how to adjust the training plan in response is a
-separate, later module (per PLAN.md: keep "detect an anomaly" separate
+separate, later module (per docs/PLAN.md: keep "detect an anomaly" separate
 from "decide how to adjust the plan").
 
 Planned workouts and injury flags are read from the `planned_workouts` /
 `injury_log` tables (managed via scripts/plan_cli.py) rather than the
-YAML files PLAN.md originally sketched — this repo is public, so that
+YAML files docs/PLAN.md originally sketched — this repo is public, so that
 data lives in the external DB instead of git. See garmin_sync/db.py.
 """
 

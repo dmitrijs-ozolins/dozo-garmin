@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Phase 0 — one-time interactive Garmin login (PLAN.md).
+"""Phase 0 — one-time interactive Garmin login (docs/PLAN.md).
 
 Run this locally, never in CI: logs in with your Garmin credentials,
 handles MFA if enabled, and writes a small session-token file. Also used

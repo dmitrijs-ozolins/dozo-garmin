@@ -70,7 +70,7 @@ The repo is **public**, so nothing sensitive goes into git:
 - The training plan itself (and its progress log/checkpoints) is the one thing deliberately committed and public — it's summary-level, not raw health data.
 - Raw per-activity exports (`past_workouts/*.tcx`) stay local-only and gitignored — they carry GPS tracks and per-second HR.
 
-See `README.md` for the concrete setup and current implementation status.
+See [README.md](../README.md) for the concrete setup and current implementation status.
 
 ## Open follow-ups
 

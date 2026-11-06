@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Manage planned workouts and injury flags (PLAN.md Phase 2).
+"""Manage planned workouts and injury flags (docs/PLAN.md Phase 2).
 
-PLAN.md originally sketched these as YAML files committed to the repo, but
+docs/PLAN.md originally sketched these as YAML files committed to the repo, but
 this repo is public — personal training-plan and injury details stay out
 of git entirely and live in the same Postgres DB as everything else.
 

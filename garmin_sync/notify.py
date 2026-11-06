@@ -1,5 +1,5 @@
-"""Telegram notifications for new signals (PLAN.md: "Notifications on new
-signals -- not wired up yet"). Cheapest option per PLAN.md: ping a bot at
+"""Telegram notifications for new signals (docs/PLAN.md: "Notifications on new
+signals -- not wired up yet"). Cheapest option per docs/PLAN.md: ping a bot at
 the end of the daily sync when `run_all_checks` finds something.
 
 Needs a bot (via @BotFather) and its token, plus the chat id to send to

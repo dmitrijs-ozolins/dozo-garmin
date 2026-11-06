@@ -1,10 +1,11 @@
 # dozo-garmin
 
 Garmin Connect daily automated sync, for workout analysis and
-training-plan adjustment. Design rationale lives in [PLAN.md](PLAN.md);
+training-plan adjustment. Design rationale lives in [docs/PLAN.md](docs/PLAN.md);
 this file is the "how to actually run it" doc. The in-progress plan for
 scheduled Garmin calendar updates from a Mac mini is in
-[AUTOMATION_PLAN.md](AUTOMATION_PLAN.md).
+[docs/AUTOMATION_PLAN.md](docs/AUTOMATION_PLAN.md). Architecture decisions
+are recorded in [docs/adr/](docs/adr/).
 
 **This repo is public.** No raw health data, session tokens, or injury
 details are ever committed to it — they live in an external Postgres
@@ -74,7 +75,7 @@ this repo.
 
    Expect to redo step 3 roughly once a year, or whenever Garmin revokes
    the token — treat it as scheduled manual maintenance, not something CI
-   auto-recovers from (see PLAN.md).
+   auto-recovers from (see [docs/PLAN.md](docs/PLAN.md)).
 
 ## Phase 1 — daily sync (GitHub Actions)
 
@@ -108,11 +109,8 @@ python scripts/plan_cli.py list-injuries --active-only
 ## What's not built yet
 
 - **Plan-adjuster**: `signals` rows are structured anomaly *detections*
-  only (PLAN.md deliberately keeps "detect" separate from "decide"). Acting
+  only (docs/PLAN.md deliberately keeps "detect" separate from "decide"). Acting
   on them — actually adjusting the training plan — is a separate module.
-- **Notifications**: nothing pings you on a new signal yet. Cheapest next
-  step is probably a Slack/Pushover call at the end of `daily_sync.py`
-  when `run_all_checks` finds something.
 - **Field-mapping verification**: `garmin_sync/wellness.py`'s typed columns
   (sleep score, HRV, training status, Body Battery high/low, ...) are
   best-effort against Garmin's undocumented API, not verified against a
@@ -120,5 +118,5 @@ python scripts/plan_cli.py list-injuries --active-only
   response in a `raw` JSONB column — check a real day's `raw` against the
   typed columns after your first sync and adjust `wellness.py` if anything
   looks off.
-- **Workout-structure analysis itself** — out of scope here per PLAN.md;
+- **Workout-structure analysis itself** — out of scope here per docs/PLAN.md;
   this repo only gets the data into Postgres.

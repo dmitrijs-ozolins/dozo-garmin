@@ -1,10 +1,10 @@
-"""Garmin Connect auth (see PLAN.md, Phase 0 and the CAPTCHA/anti-bot note).
+"""Garmin Connect auth (see docs/PLAN.md, Phase 0 and the CAPTCHA/anti-bot note).
 
 `garminconnect` (>=0.3) no longer depends on the (now-deprecated) `garth`
 package — it ships its own token store: a single small JSON blob
 (refresh-token pair), loadable from a file path *or* directly from a JSON
 string. That's what makes it a good fit for a GitHub Actions secret: no
-directory-tarball/base64 dance like PLAN.md's original garth-based sketch.
+directory-tarball/base64 dance like docs/PLAN.md's original garth-based sketch.
 
 Two entry points:
   * `login_interactive` — Phase 0 bootstrap and any local run. Prompts for
@@ -51,7 +51,7 @@ def login_from_env(env_var: str = "GARMIN_TOKENS") -> Garmin:
     """Non-interactive login for CI: resumes from a token JSON blob in an
     env var (the GARMIN_TOKENS secret). Deliberately does not fall back to
     a credential login — CI has no MFA input and hitting the SSO login
-    endpoint from a datacenter IP is exactly what PLAN.md flags as the
+    endpoint from a datacenter IP is exactly what docs/PLAN.md flags as the
     CAPTCHA risk to avoid.
     """
     tokenstore = os.environ.get(env_var)

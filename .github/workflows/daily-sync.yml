@@ -1,7 +1,7 @@
 name: Daily Garmin sync
 
-# Phase 2 of PLAN.md. Resumes the Garmin session from the GARMIN_TOKENS
-# secret (never logs in fresh with a password — see PLAN.md's CAPTCHA
+# Phase 2 of docs/PLAN.md. Resumes the Garmin session from the GARMIN_TOKENS
+# secret (never logs in fresh with a password — see docs/PLAN.md's CAPTCHA
 # note), pulls the previous day's activities + wellness data into the
 # external Postgres DB (DATABASE_URL secret), and re-uploads GARMIN_TOKENS
 # if Garmin rotated the refresh token during the run.

@@ -1,9 +1,9 @@
 """Postgres storage for Garmin data.
 
-The repo is public, so — unlike PLAN.md's original "commit SQLite to git"
+The repo is public, so — unlike docs/PLAN.md's original "commit SQLite to git"
 sketch — health data is never written to the repo. It lives in an external
 Postgres database (Supabase free tier or similar), reached via the
-DATABASE_URL env var. Schema mirrors what PLAN.md calls for: one table for
+DATABASE_URL env var. Schema mirrors what docs/PLAN.md calls for: one table for
 activities, one for lap splits, one for daily wellness, plus small
 bookkeeping tables for the anomaly signals and sync run history.
 
@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS signals (
     created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
--- Planned workouts and injury flags. PLAN.md originally sketched these as
+-- Planned workouts and injury flags. docs/PLAN.md originally sketched these as
 -- YAML files in the repo, but this repo is public — personal training-plan
 -- and injury details stay out of git entirely and live here instead. Manage
 -- them with scripts/plan_cli.py.
