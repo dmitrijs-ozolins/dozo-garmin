@@ -14,6 +14,9 @@ live in [Half_Marathon_Training_Plan_May2027.md](Half_Marathon_Training_Plan_May
 - VO2max per Garmin: 55 confirmed 25-27.09.2026, **56 since 20.10.2026**.
 - New Polar chest strap since 29.09.2026; the old Garmin HRM 200 gave
   doubtful data. For HR-based comparisons rely on data from 29.09 onward.
+- Session without the strap (wrist HR): don't use its HR or Garmin TE for
+  comparisons — wrist HR lags on intervals and can lock onto cadence
+  (07.11.2026: "peaks" 172-178 ≈ cadence 175-181). Judge by reps/speed + RPE.
 - Keep HRmax at 188 in the plan unless Dima asks (old strap showed 190).
 - Don't use Garmin's race predictor (10k 31:40 on 28.09.26 is unrealistic).
 - Races: Riga 5k 19.09.2026 — use the **chip time 18:02** (3:36/km), not
@@ -43,7 +46,10 @@ fine to judge by HR; just leave pace out ("treadmill, not compared").
   - 24.10.2026 8×500 @ 14.3 (HR peaks 157→171)
   - 01.11.2026 8×800 (3:08): rep 1 @ 15.2, 2-3 @ 15.3, 4-8 @ 15.4;
     peaks 166→173
-- Next 800s: start at 15.3-15.4.
+  - 07.11.2026 10×800 (3:08): rep 1 @ 15.3, 2-10 @ 15.4; felt hard.
+    Wrist HR only (no strap) — HR not usable
+- Next 800s: stay at 15.4 until 10 reps feel controlled; progress reps
+  or speed, not both.
 
 ### Hills (200 m reps)
 

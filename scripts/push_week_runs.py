@@ -559,6 +559,26 @@ def build_p2w2_sunday() -> RunningWorkout:
     )
 
 
+def build_p2w2_saturday_treadmill() -> RunningWorkout:
+    # Ф2 Нед2 Сб 07.11 — SWAP to treadmill: 10x800m in 3:08 (p500m jog 2:35) as km/h + time steps.
+    # 01.11: 8x @15.2-15.4 (reps 4-8 @15.4), peaks 166-173 -> start @15.3, then 15.4; +2 reps, same speed.
+    warmup = time_step(1, 20 * 60, StepType.WARMUP, "warmup", hr_target(120, 140))
+    work = time_step(1, 188, StepType.INTERVAL, "interval")
+    recovery = time_step(2, 155, StepType.RECOVERY, "recovery")
+    repeats = create_repeat_group(iterations=10, workout_steps=[work, recovery], step_order=2)
+    cooldown = time_step(3, 10 * 60, StepType.COOLDOWN, "cooldown")
+    return RunningWorkout(
+        workoutName="Phase2: 10x800m @15.4 (treadmill)",
+        estimatedDurationInSecs=20 * 60 + 10 * (188 + 155) + 10 * 60,
+        description="Treadmill 1%: 20' warmup @10.4 km/h HR<=140 + 10x 3:08 @15.4 km/h (rep 1 @15.3), "
+        "HR cap ~176 / 2:35 jog @11.6 km/h + 10' cooldown @10.4 + stretch. Don't go above 15.4 "
+        "even if it feels easy -- the progression is +2 reps (phase_2_special_prep_2.md)",
+        workoutSegments=[
+            WorkoutSegment(segmentOrder=1, sportType=RUNNING_SPORT_TYPE, workoutSteps=[warmup, repeats, cooldown])
+        ],
+    )
+
+
 WEEKS = {
     1: [
         ("2026-09-25", build_friday),
@@ -615,7 +635,9 @@ WEEKS = {
         ("2026-11-03", build_p2w1_tuesday),
         ("2026-11-05", build_p2w1_thursday),
         ("2026-11-06", build_p2w1_friday),
-        ("2026-11-07", build_p2w2_saturday),
+        # Sat 07.11: 800s moved to treadmill, updated in place (workout_id 1748318495).
+        # Fri 06.11 easy 8km missed -- not made up.
+        ("2026-11-07", build_p2w2_saturday_treadmill),
         # Sun 08.11: 14 -> 18km (optional 20), updated in place (workout_id 1748318505)
         ("2026-11-08", build_p2w2_sunday),
     ],
