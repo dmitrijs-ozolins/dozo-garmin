@@ -579,6 +579,58 @@ def build_p2w2_saturday_treadmill() -> RunningWorkout:
     )
 
 
+def build_p2w3_tuesday() -> RunningWorkout:
+    # Ф2 Нед3 Вт 10.11 — 16km easy-steady @HR140-150 instead of 14km base: Sun 08.11 long run
+    # and Fri 06.11 easy run missed -> replace lost easy volume rather than Garmin's suggested sprints.
+    step = distance_step(1, 16000, StepType.INTERVAL, "interval", hr_target(140, 150))
+    return RunningWorkout(
+        workoutName="Phase2: Easy-steady 16km",
+        estimatedDurationInSecs=4700,
+        description="16km easy-steady, HR 140-150 (replaces 14km base; makes up part of the missed "
+        "Sun long run) (phase_2_special_prep_2.md)",
+        workoutSegments=[WorkoutSegment(segmentOrder=1, sportType=RUNNING_SPORT_TYPE, workoutSteps=[step])],
+    )
+
+
+def build_p2w3_thursday() -> RunningWorkout:
+    # Ф2 Нед3 Чт 12.11 — treadmill 6%: 20' w @HR<=140 + 12x200m @19.5 km/h (~37s), HR<=179 (p: 2' easy) + 10' c
+    # 05.11: reps 9-12 @6% didn't raise HR -> all reps @6% now.
+    warmup = time_step(1, 20 * 60, StepType.WARMUP, "warmup", hr_target(120, 140))
+    work = time_step(1, 37, StepType.INTERVAL, "interval")
+    recovery = time_step(2, 120, StepType.RECOVERY, "recovery")
+    repeats = create_repeat_group(iterations=12, workout_steps=[work, recovery], step_order=2)
+    cooldown = time_step(3, 10 * 60, StepType.COOLDOWN, "cooldown")
+    return RunningWorkout(
+        workoutName="Phase2: 12x200m hills @19.5 6% (treadmill)",
+        estimatedDurationInSecs=20 * 60 + 12 * (37 + 120) + 10 * 60,
+        description="Treadmill 6%: 20' warmup HR<=140 + 12x200m @19.5 km/h (~37s), HR<=179 "
+        "(>179 ease off) with 2' easy + 10' cooldown + stretch (phase_2_special_prep_2.md)",
+        workoutSegments=[
+            WorkoutSegment(segmentOrder=1, sportType=RUNNING_SPORT_TYPE, workoutSteps=[warmup, repeats, cooldown])
+        ],
+    )
+
+
+def build_p2w3_saturday_treadmill() -> RunningWorkout:
+    # Ф2 Нед3 Сб 14.11 — treadmill 1%: 6x1000m in 4:00 = 15.0 km/h (p500m jog 2:35 @11.6), time steps.
+    # Treadmill by default: the last 3 Saturday interval sessions all moved indoors.
+    warmup = time_step(1, 20 * 60, StepType.WARMUP, "warmup", hr_target(120, 140))
+    work = time_step(1, 240, StepType.INTERVAL, "interval")
+    recovery = time_step(2, 155, StepType.RECOVERY, "recovery")
+    repeats = create_repeat_group(iterations=6, workout_steps=[work, recovery], step_order=2)
+    cooldown = time_step(3, 10 * 60, StepType.COOLDOWN, "cooldown")
+    return RunningWorkout(
+        workoutName="Phase2: 6x1000m @15.0 (treadmill)",
+        estimatedDurationInSecs=20 * 60 + 6 * (240 + 155) + 10 * 60,
+        description="Treadmill 1%: 20' warmup @10.4 km/h HR<=140 + 6x 4:00 @15.0 km/h, HR cap ~176 "
+        "/ 2:35 jog @11.6 km/h + 10' cooldown @10.4 + stretch. Wear the HR strap "
+        "(phase_2_special_prep_2.md)",
+        workoutSegments=[
+            WorkoutSegment(segmentOrder=1, sportType=RUNNING_SPORT_TYPE, workoutSteps=[warmup, repeats, cooldown])
+        ],
+    )
+
+
 WEEKS = {
     1: [
         ("2026-09-25", build_friday),
@@ -640,6 +692,14 @@ WEEKS = {
         ("2026-11-07", build_p2w2_saturday_treadmill),
         # Sun 08.11: 14 -> 18km (optional 20), updated in place (workout_id 1748318505)
         ("2026-11-08", build_p2w2_sunday),
+    ],
+    # P2 wk3. Sun 08.11 long run + Mon 09.11 leg day missed: Tue 14km base -> 16km easy-steady.
+    8: [
+        ("2026-11-10", build_p2w3_tuesday),
+        ("2026-11-12", build_p2w3_thursday),
+        ("2026-11-13", build_p2w1_friday),
+        ("2026-11-14", build_p2w3_saturday_treadmill),
+        ("2026-11-15", build_p2w2_sunday),
     ],
 }
 

@@ -16,7 +16,9 @@ Week structure:
 BY WEEK:
    - Week 1 (26.10-01.11) ~62km: Tue 12 | Thu 12x200 | Sat 8x800   | Sun 14
    - Week 2 (02-08.11)    ~67km: Tue 12 | Thu 12x200 | Sat 10x800  | Sun 18 @HR≤142, +2 to 20 if HR stable at 14km (was 14 — 31.10 showed 20.5km @HR134 is easy)
-   - Week 3 (09-15.11)    ~67km: Tue 14 | Thu 12x200 @19.5 km/h, **6%** (05.11: reps 9-12 @6% at the same HR) | Sat 6x1000  | Sun 18, +2 to 20 if HR stable at 14km (was 16)
-   - Week 4 (16-22.11)    ~70km: Tue 14 | Thu 14x200 @19.5 km/h, 6% | Sat 8x1000  | Sun 20 (was 16) — peak week of the phase
-   - Week 5 (23-29.11)    ~54km: RECOVERY: Tue 10 | Thu 8x200 | Sat 6x600 (2:30) | Sun 14 (was 12) — keep legs fresh for the lab test
+   - Week 3 (09-15.11)    ~67km: Mon leg day missed (not made up) | Tue **16 easy-steady @HR140-150** (was 14 base — makes up part of the missed Sun 08.11 long run; Garmin's suggested sprints skipped) | Thu 12x200 @19.5 km/h, **6%** (05.11: reps 9-12 @6% at the same HR) | Sat 6x1000 @4:00 (treadmill 15.0 km/h) | Sun 18, +2 to 20 if HR stable at 14km (was 16)
+   - Week 4 (16-22.11)    ~66km: Tue 14 | Thu 14x200 @19.5 km/h, 6% | Sat 8x1000  | Sun **16** easy (was 20) — 4 days before the lab test
+   - Week 5 (23-29.11)    ~50km: RECOVERY + 🧪 LAB TEST Thu 26.11:
+       Mon 23 gym light, no heavy leg work | Tue 24 8km easy + 4x100m strides | Wed 25 rest or easy swim |
+       **Thu 26 lab VO2max/threshold test** (replaces hills) | Fri 27 8km easy | Sat 28 6x600 (2:30) | Sun 29 14km easy
    - CHECKPOINT 29.11: compare with the progress log, adjust P3+ paces
