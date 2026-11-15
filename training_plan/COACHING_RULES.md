@@ -35,7 +35,7 @@ treadmill/watch pace is inaccurate (e.g. 23.09.2026 treadmill 5:31/km @
 HR 138 vs 25.09 outdoor 5:11/km @ 136). Treadmill HR-based sessions are
 fine to judge by HR; just leave pace out ("treadmill, not compared").
 
-### Intervals (500 / 800 m)
+### Intervals (500 / 800 / 1000 m)
 
 - 1% incline, speeds in **km/h**, all steps **by time** — watch distance
   on the treadmill is unreliable and Dima thinks in treadmill km/h.
@@ -48,8 +48,13 @@ fine to judge by HR; just leave pace out ("treadmill, not compared").
     peaks 166→173
   - 07.11.2026 10×800 (3:08): rep 1 @ 15.3, 2-10 @ 15.4; felt hard.
     Wrist HR only (no strap) — HR not usable
+  - 14.11.2026 6×1000 (4:00) @ 15.0, controlled on all reps, felt easy
+    afterwards. Wrist HR only (no strap) — HR not usable
 - Next 800s: stay at 15.4 until 10 reps feel controlled; progress reps
   or speed, not both.
+- Next 1000s: 8×4:00 @ 15.0 (wk4, 21.11) with the strap — it will be
+  the first 1000s session with usable HR; raise speed only after 8 reps
+  feel controlled and stay under the 176 cap.
 
 ### Hills (200 m reps)
 
@@ -67,7 +72,9 @@ fine to judge by HR; just leave pace out ("treadmill, not compared").
   - 22.10 10 @ 19.5, walk recovery, peaks 175-180 — 19.5 mastered
   - 05.11 12 @ 19.5: reps 1-8 @ 5%, 9-12 @ 6% (self-raised), peaks
     170-176; 6% didn't raise HR
-- Next: 19.5 km/h @ 6%.
+  - 12.11 12 @ 19.5 @ 6% (all reps), peaks 173-176 flat. One 210 spike
+    after rep 10 when stepping off the belt = strap artifact
+- Next: 14 @ 19.5 @ 6% (wk4), then 19.5 → 20 km/h or 6 → 7%.
 
 ## Bike
 
