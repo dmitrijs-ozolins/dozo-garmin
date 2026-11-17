@@ -631,6 +631,21 @@ def build_p2w3_saturday_treadmill() -> RunningWorkout:
     )
 
 
+def build_p2w4_tuesday_treadmill() -> RunningWorkout:
+    # Ф2 Нед4 Вт 17.11 — 14km base moved to treadmill 1%: by time (watch distance unreliable indoors),
+    # 10' @11.0 + 55' @~13.0 km/h ≈ 14km. Day after leg day; last two base runs were at the top of
+    # the band and indoor HR runs higher -> cap 155 instead of 160, let HR set the speed.
+    warmup = time_step(1, 10 * 60, StepType.WARMUP, "warmup", hr_target(120, 145))
+    base = time_step(2, 55 * 60, StepType.INTERVAL, "interval", hr_target(145, 155))
+    return RunningWorkout(
+        workoutName="Phase2: Base 14km (treadmill)",
+        estimatedDurationInSecs=65 * 60,
+        description="Treadmill 1%: 10' @11.0 km/h + 55' @12.8-13.2 km/h, HR 145-155 "
+        "(slow the belt if HR >155) ≈ 14km. Wear the HR strap (phase_2_special_prep_2.md)",
+        workoutSegments=[WorkoutSegment(segmentOrder=1, sportType=RUNNING_SPORT_TYPE, workoutSteps=[warmup, base])],
+    )
+
+
 WEEKS = {
     1: [
         ("2026-09-25", build_friday),
@@ -700,6 +715,11 @@ WEEKS = {
         ("2026-11-13", build_p2w1_friday),
         ("2026-11-14", build_p2w3_saturday_treadmill),
         ("2026-11-15", build_p2w2_sunday),
+    ],
+    # P2 wk4. Tue 17.11 base run on the treadmill, pushed on its own (workout_id 1765766050) --
+    # when syncing the rest of the week, push only the new days so Tuesday is not uploaded twice.
+    9: [
+        ("2026-11-17", build_p2w4_tuesday_treadmill),
     ],
 }
 
