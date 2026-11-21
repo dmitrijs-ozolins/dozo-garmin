@@ -17,6 +17,9 @@ live in [Half_Marathon_Training_Plan_May2027.md](Half_Marathon_Training_Plan_May
 - Session without the strap (wrist HR): don't use its HR or Garmin TE for
   comparisons — wrist HR lags on intervals and can lock onto cadence
   (07.11.2026: "peaks" 172-178 ≈ cadence 175-181). Judge by reps/speed + RPE.
+- Strap spikes above ~190 (12.11 210, 19.11 218, 21.11 205) are
+  artifacts — often a lock onto cadence (HR ≈ 180-184 = cadence). Exclude
+  them; use the rep's peak before the spike.
 - Keep HRmax at 188 in the plan unless Dima asks (old strap showed 190).
 - Don't use Garmin's race predictor (10k 31:40 on 28.09.26 is unrealistic).
 - Races: Riga 5k 19.09.2026 — use the **chip time 18:02** (3:36/km), not
@@ -50,11 +53,14 @@ fine to judge by HR; just leave pace out ("treadmill, not compared").
     Wrist HR only (no strap) — HR not usable
   - 14.11.2026 6×1000 (4:00) @ 15.0, controlled on all reps, felt easy
     afterwards. Wrist HR only (no strap) — HR not usable
+  - 21.11.2026 8×1000 (4:00) @ 15.0, after a hard morning swim: rep avg
+    HR 160→175, peaks 165→174 on reps 1-6; walked part of jog 6; reps 7-8
+    strap artifact (cadence lock), real peaks ~176-178
 - Next 800s: stay at 15.4 until 10 reps feel controlled; progress reps
   or speed, not both.
-- Next 1000s: 8×4:00 @ 15.0 (wk4, 21.11) with the strap — it will be
-  the first 1000s session with usable HR; raise speed only after 8 reps
-  feel controlled and stay under the 176 cap.
+- Next 1000s (P3, after the lab test): repeat 8×4:00 @ 15.0 on fresh
+  legs (no hard swim the same day); if all 8 stay under the 176 cap,
+  then 15.2-15.3.
 
 ### Hills (200 m reps)
 
@@ -74,7 +80,9 @@ fine to judge by HR; just leave pace out ("treadmill, not compared").
     170-176; 6% didn't raise HR
   - 12.11 12 @ 19.5 @ 6% (all reps), peaks 173-176 flat. One 210 spike
     after rep 10 when stepping off the belt = strap artifact
-- Next: 14 @ 19.5 @ 6% (wk4), then 19.5 → 20 km/h or 6 → 7%.
+  - 19.11 12 @ 6% (plan 14), peaks 172-177 flat; one 218 spike after
+    rep 9 = strap artifact
+- Next: 14 @ 19.5 @ 6%, then 19.5 → 20 km/h or 6 → 7%.
 
 ## Bike
 
