@@ -699,6 +699,24 @@ def build_p2w4_sunday() -> RunningWorkout:
     )
 
 
+def build_p2w4_sunday_bike() -> CyclingWorkout:
+    # Ф2 Нед4 Вс 22.11 — SWAP: 16km long run -> easy trainer ride. Day after hard swim + 8x1000m,
+    # 4 days before the lab test: aerobic volume without impact. Watts by feel, HR only as a cap.
+    warmup = time_step(1, 10 * 60, StepType.WARMUP, "warmup", power_target(110, 130))
+    ride = time_step(2, 65 * 60, StepType.INTERVAL, "interval", power_target(130, 160))
+    cooldown = time_step(3, 5 * 60, StepType.COOLDOWN, "cooldown", power_target(100, 120))
+    return CyclingWorkout(
+        workoutName="Phase2: Bike easy 80' @130-160W",
+        estimatedDurationInSecs=80 * 60,
+        description="Trainer, replaces 16km long run. 10' @110-130W + 65' @130-160W, cadence 90-100, "
+        "conversational, HR cap ~135 + 5' easy. Optional +10' easy. Legs heavy -> 110-130W, don't "
+        "stop. No intervals (phase_2_special_prep_2.md)",
+        workoutSegments=[
+            WorkoutSegment(segmentOrder=1, sportType=CYCLING_SPORT_TYPE, workoutSteps=[warmup, ride, cooldown])
+        ],
+    )
+
+
 WEEKS = {
     1: [
         ("2026-09-25", build_friday),
@@ -776,7 +794,8 @@ WEEKS = {
         ("2026-11-19", build_p2w4_thursday),
         ("2026-11-20", build_p2w1_friday),
         ("2026-11-21", build_p2w4_saturday_treadmill),
-        ("2026-11-22", build_p2w4_sunday),
+        # Sun 22.11: long run swapped for an easy trainer ride (run workout 1765902297 unscheduled).
+        ("2026-11-22", build_p2w4_sunday_bike),
     ],
 }
 
