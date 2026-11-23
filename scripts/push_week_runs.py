@@ -717,6 +717,52 @@ def build_p2w4_sunday_bike() -> CyclingWorkout:
     )
 
 
+def build_p2w5_tuesday() -> RunningWorkout:
+    # Ф2 Нед5 Вт 24.11 — day before the lab test (moved Thu 26 -> Wed 25.11): opener instead of
+    # 8km + strides. 5km easy + 4x100m strides, same as the pre-race day before 03.10.
+    easy = distance_step(1, 5000, StepType.INTERVAL, "interval", hr_target(120, 140))
+    stride = distance_step(1, 100, StepType.INTERVAL, "interval")
+    jog = distance_step(2, 150, StepType.RECOVERY, "recovery")
+    strides = create_repeat_group(iterations=4, workout_steps=[stride, jog], step_order=2)
+    return RunningWorkout(
+        workoutName="Phase2: Pre-test 5km + strides",
+        estimatedDurationInSecs=2100,
+        description="Day before the lab test: 5km easy HR<=140 + 4x100m strides (fast & relaxed, "
+        "full recovery) with 150m easy jog. Nothing harder (phase_2_special_prep_2.md)",
+        workoutSegments=[WorkoutSegment(segmentOrder=1, sportType=RUNNING_SPORT_TYPE, workoutSteps=[easy, strides])],
+    )
+
+
+def build_p2w5_saturday_treadmill() -> RunningWorkout:
+    # Ф2 Нед5 Сб 28.11 — recovery week: treadmill 1%, 6x600m in 2:30 = 14.4 km/h (p jog 2:35 @11.6).
+    warmup = time_step(1, 20 * 60, StepType.WARMUP, "warmup", hr_target(120, 140))
+    work = time_step(1, 150, StepType.INTERVAL, "interval")
+    recovery = time_step(2, 155, StepType.RECOVERY, "recovery")
+    repeats = create_repeat_group(iterations=6, workout_steps=[work, recovery], step_order=2)
+    cooldown = time_step(3, 10 * 60, StepType.COOLDOWN, "cooldown")
+    return RunningWorkout(
+        workoutName="Phase2: 6x600m @14.4 (treadmill)",
+        estimatedDurationInSecs=20 * 60 + 6 * (150 + 155) + 10 * 60,
+        description="Recovery week. Treadmill 1%: 20' warmup @10.4 km/h HR<=140 + 6x 2:30 @14.4 km/h "
+        "/ 2:35 jog @11.6 km/h + 10' cooldown @10.4 + stretch. Controlled, not a test. Wear the HR strap "
+        "(phase_2_special_prep_2.md)",
+        workoutSegments=[
+            WorkoutSegment(segmentOrder=1, sportType=RUNNING_SPORT_TYPE, workoutSteps=[warmup, repeats, cooldown])
+        ],
+    )
+
+
+def build_p2w5_sunday() -> RunningWorkout:
+    # Ф2 Нед5 Вс 29.11 — recovery week long run 14km easy @HR<=142.
+    step = distance_step(1, 14000, StepType.INTERVAL, "interval", hr_target(130, 142))
+    return RunningWorkout(
+        workoutName="Phase2: Long run 14km easy",
+        estimatedDurationInSecs=4400,
+        description="Recovery week long run 14km, HR <=142 (phase_2_special_prep_2.md)",
+        workoutSegments=[WorkoutSegment(segmentOrder=1, sportType=RUNNING_SPORT_TYPE, workoutSteps=[step])],
+    )
+
+
 WEEKS = {
     1: [
         ("2026-09-25", build_friday),
@@ -796,6 +842,14 @@ WEEKS = {
         ("2026-11-21", build_p2w4_saturday_treadmill),
         # Sun 22.11: long run swapped for an easy trainer ride (run workout 1765902297 unscheduled).
         ("2026-11-22", build_p2w4_sunday_bike),
+    ],
+    # P2 wk5, recovery + lab test, moved Thu 26 -> Wed 25.11: Tue becomes the pre-test opener,
+    # Wed test (not a Garmin workout), Thu rest/swim.
+    10: [
+        ("2026-11-24", build_p2w5_tuesday),
+        ("2026-11-27", build_p2w1_friday),
+        ("2026-11-28", build_p2w5_saturday_treadmill),
+        ("2026-11-29", build_p2w5_sunday),
     ],
 }
 
