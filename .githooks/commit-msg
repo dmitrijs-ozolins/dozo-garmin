@@ -1,0 +1,49 @@
+#!/bin/sh
+# Issue reference in every commit — ADR 0007
+# (docs/adr/0007-github-issues-as-task-tracker.md).
+#
+# Enable per clone:  git config core.hooksPath .githooks
+#
+# - Message already mentions an issue (#N anywhere)  -> left as is.
+# - Branch is named <N>-<slug>                        -> " (#N)" appended
+#                                                        to the subject.
+# - Otherwise                                         -> commit rejected.
+# Merge commits and fixup!/squash!/amend! commits are let through.
+
+msg_file="$1"
+
+# Merge in progress: git's default "Merge branch ..." message is fine.
+git_dir=$(git rev-parse --git-dir)
+[ -f "$git_dir/MERGE_HEAD" ] && exit 0
+
+# Message without comment lines (editor commits include git's # help text).
+body=$(grep -v '^#' "$msg_file")
+subject=$(printf '%s\n' "$body" | sed -n '/[^[:space:]]/{p;q;}')
+
+# Empty message: let git abort with its own error.
+[ -z "$subject" ] && exit 0
+
+case "$subject" in
+  fixup!* | squash!* | amend!*) exit 0 ;;
+esac
+
+if printf '%s\n' "$body" | grep -Eq '#[0-9]+'; then
+  exit 0
+fi
+
+branch=$(git symbolic-ref --quiet --short HEAD 2>/dev/null)
+issue=$(printf '%s\n' "$branch" | sed -n 's/^\([0-9][0-9]*\)-.*/\1/p')
+
+if [ -z "$issue" ]; then
+  echo "commit-msg: no issue reference." >&2
+  echo "  Commit on a branch named <issue>-<slug> (e.g. 1-progress-log)," >&2
+  echo "  or put #N in the message. See docs/adr/0007-github-issues-as-task-tracker.md." >&2
+  exit 1
+fi
+
+# Append " (#N)" to the first non-blank, non-comment line (the subject).
+tmp="$msg_file.tmp.$$"
+awk -v ref=" (#$issue)" '
+  !done && !/^#/ && /[^[:space:]]/ { sub(/[[:space:]]+$/, ""); print $0 ref; done = 1; next }
+  { print }
+' "$msg_file" > "$tmp" && mv "$tmp" "$msg_file"
