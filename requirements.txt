@@ -1,7 +1,9 @@
 # Garmin Connect API client (auth + activities + wellness). Pulls its own
 # session-token handling now that upstream `garth` is deprecated — see
-# docs/PLAN.md and garmin_sync/auth.py.
-garminconnect>=0.3.11
+# docs/PLAN.md and garmin_sync/auth.py. The `workout` extra pulls in pydantic,
+# which scripts/push_week_runs.py needs: without it garminconnect.workout falls
+# back to plain `object` models and ExecutableStep(...) raises TypeError.
+garminconnect[workout]>=0.3.11
 
 # External Postgres store (Supabase free tier or similar) — the repo is
 # public, so health data is never committed to git; see docs/PLAN.md "Storage
