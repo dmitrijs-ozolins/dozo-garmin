@@ -10,6 +10,9 @@ __pycache__/
 *garmin_tokens*.json
 .local/
 
+# Machine-local Claude Code permissions (docs/MAC_MINI_SETUP.md 7.3)
+.claude/settings.local.json
+
 # Local scratch data (backfill DB dumps, downloaded FIT files, etc.)
 data/
 !data/.gitkeep
