@@ -1,0 +1,28 @@
+name: PR issue link
+
+# Every PR must reference the issue it implements (docs/adr/0007).
+# Runs on GitHub-hosted runners only — safe for PRs from forks, unlike the
+# self-hosted Mac mini runner (docs/adr/0001).
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+permissions: {}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require "Closes/Fixes/Refs #N"
+        env:
+          # Passed via env, never interpolated into the script (injection-safe).
+          TITLE: ${{ github.event.pull_request.title }}
+          BODY: ${{ github.event.pull_request.body }}
+        run: |
+          if printf '%s\n%s\n' "$TITLE" "$BODY" | grep -qiE '(close[sd]?|fix(e[sd])?|resolve[sd]?|refs?) #[0-9]+'; then
+            echo "Issue reference found."
+          else
+            echo "::error::PR must reference its issue, e.g. 'Closes #42' in the description (docs/adr/0007)."
+            exit 1
+          fi

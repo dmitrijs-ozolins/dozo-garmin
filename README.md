@@ -39,6 +39,7 @@ this repo.
    python3 -m venv .venv && source .venv/bin/activate
    pip install -r requirements.txt
    cp .env.example .env   # fill in DATABASE_URL
+   git config core.hooksPath .githooks   # every commit needs an issue ref (docs/adr/0007)
    ```
 
 3. **Phase 0 — bootstrap Garmin auth (local, interactive, one-time):**

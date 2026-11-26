@@ -48,6 +48,17 @@ This repo is public on purpose. Never commit (and flag in review):
 - Garmin login in automation resumes from a stored token, never a
   password login — [ADR 0004](../docs/adr/0004-token-only-garmin-session-in-automation.md).
 
+## Issues, branches, commits, PRs
+
+Every change traces to a GitHub issue
+([ADR 0007](../docs/adr/0007-github-issues-as-task-tracker.md)):
+
+- Branch `<issue>-<short-slug>`, e.g. `42-sync-calendar`.
+- Commit subject ends with `(#N)` — `.githooks/commit-msg` adds it from
+  the branch name.
+- PR description contains `Closes #N` (or `Fixes` / `Refs`); flag PRs in
+  review that don't.
+
 ## Workouts and training analysis
 
 Anything that builds Garmin workouts, edits the training plan, or

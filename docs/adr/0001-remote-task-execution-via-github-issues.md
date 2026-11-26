@@ -1,7 +1,8 @@
-# ADR 0001: Remote task execution via GitHub issues and Claude Code action on a self-hosted Mac mini runner
+# ADR 0001: Remote task execution via GitHub issues and local Claude Code on a self-hosted Mac mini runner
 
 - **Status:** Accepted
-- **Date:** 2026-11-06
+- **Date:** 2026-11-06, revised 2026-11-08 (local `claude -p` instead of
+  `claude-code-action`, before implementation)
 - **Deciders:** Dmitrijs Ozolins
 
 ## Context
@@ -31,11 +32,18 @@ engineering workflow used in business projects, end to end.
    the mini, driven from the phone. Full local access and interactive, but
    it's one live session, not a task queue — remote pair-programming
    rather than fire-and-forget.
-3. **GitHub issue → `anthropics/claude-code-action` on a self-hosted
-   runner on the Mac mini.** Open an issue (GitHub mobile app) mentioning
-   `@claude`; the workflow runs on the mini, implements the task on a
-   branch and opens a PR linked to the issue. Iterate by commenting
-   `@claude ...` on the PR.
+3. **GitHub issue → workflow on a self-hosted runner on the Mac mini.**
+   Open an issue (GitHub mobile app); a workflow runs on the mini,
+   implements the task on a branch and opens a PR linked to the issue.
+   Two ways to run Claude inside that workflow:
+   - **3a. `anthropics/claude-code-action`** — handles `@claude`
+     mentions and progress comments out of the box, but needs a
+     `CLAUDE_CODE_OAUTH_TOKEN` (subscription token) stored as a GitHub
+     secret.
+   - **3b. The locally installed `claude -p`** — uses the mini's own
+     Claude login; no Claude credential in GitHub. Mention handling,
+     progress comments and PR creation are a few `gh` calls in the
+     workflow instead.
 4. **Custom Telegram bot pipeline.** A launchd poller on the mini reads
    bot messages, runs `claude -p` in a git worktree and calls
    `gh pr create`. Reuses the existing bot, but all the plumbing (queue,
@@ -43,9 +51,11 @@ engineering workflow used in business projects, end to end.
 
 ## Decision
 
-**Option 3.** Tasks are GitHub issues; `anthropics/claude-code-action`
-runs on a self-hosted GitHub Actions runner on the Mac mini and delivers
-the result as a pull request.
+**Option 3b.** Tasks are GitHub issues; a workflow on a self-hosted
+GitHub Actions runner on the Mac mini runs the locally installed
+`claude -p` and delivers the result as a pull request (`gh pr create`).
+Issue tracking conventions are in
+[ADR 0007](0007-github-issues-as-task-tracker.md).
 
 Reasons:
 
@@ -60,15 +70,25 @@ Reasons:
   proposed approach on the issue, implementation starts only after
   approval). That fits naturally as additional workflow triggers or
   labels.
+- 3b over 3a: the Claude credential never leaves the mini. Cost is the
+  same either way — both draw on the existing Claude subscription (no
+  API key, no per-use billing); the real budget is the subscription's
+  usage limits, shared with interactive sessions.
 
 ## Consequences
 
 - **Setup required on the mini:**
   - GitHub Actions self-hosted runner installed as a launchd service.
-  - `CLAUDE_CODE_OAUTH_TOKEN` repo secret (from `claude setup-token` on
-    the mini), so runs use the Claude subscription rather than an API key.
-  - A workflow in `.github/workflows/` triggered by issue / comment events
-    with `contents`, `pull-requests` and `issues` write permissions.
+  - Claude Code installed and logged in (subscription) on the mini. The
+    runner must run as that user with access to its login keychain — a
+    LaunchAgent with auto-login, not a headless LaunchDaemon. Fallback:
+    a `claude setup-token` value in a local env file on the mini, still
+    not in GitHub.
+  - A workflow in `.github/workflows/` triggered by issue labels /
+    comments, with `contents`, `pull-requests` and `issues` write
+    permissions, calling `claude -p` then `gh pr create`.
+  - Keep runs bounded to protect usage limits: trigger-only (no polling),
+    a `--max-turns` cap, Sonnet for implementation.
 - **The mini must be always on** — same requirement as the sync
   automation (`pmset` no-sleep + autorestart, auto-login, FileVault
   trade-off), so it's set up once for both.
@@ -81,8 +101,11 @@ Reasons:
     outside contributors.
   - Never run self-hosted jobs on `pull_request` events from forks.
   - Optionally run the runner as a separate macOS user without read access
-    to `~/.dozo-garmin`, granting access deliberately where a task needs
-    it.
+    to `~/.dozo-garmin` (that user then needs its own Claude login),
+    granting access deliberately where a task needs it.
+  - Pass issue titles/bodies to `claude -p` via environment variables or
+    files, never by interpolating `${{ }}` into shell — avoids script
+    injection.
 - Every change arrives as a PR, so review and merge stay manual.
 - Options 1 and 2 remain available ad hoc (cloud session when the mini is
   down and the task is code-only; Remote Control for live steering)
