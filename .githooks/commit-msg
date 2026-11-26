@@ -1,0 +1,37 @@
+#!/bin/sh
+# Every commit references a GitHub issue (docs/adr/0007-github-issues-as-task-tracker.md).
+#
+# - Subject already mentions #N -> accepted as is.
+# - Branch is named <issue>-<slug> -> " (#<issue>)" is appended to the subject.
+# - Otherwise the commit is rejected. Escape hatch: git commit --no-verify.
+#
+# Enable once per clone: git config core.hooksPath .githooks
+
+msg_file="$1"
+
+subject=$(grep -v '^#' "$msg_file" | grep -m1 -v '^[[:space:]]*$')
+case "$subject" in
+  Merge*|Revert*|fixup!*|squash!*|amend!*) exit 0 ;;
+esac
+
+if grep -v '^#' "$msg_file" | grep -qE '#[0-9]+'; then
+  exit 0
+fi
+
+branch=$(git symbolic-ref --short -q HEAD)
+issue=$(printf '%s' "$branch" | sed -nE 's/^([0-9]+)-.*/\1/p')
+
+if [ -n "$issue" ]; then
+  tmp="$msg_file.tmp"
+  awk -v ref=" (#$issue)" '!done && !/^#/ && NF { print $0 ref; done = 1; next } { print }' "$msg_file" > "$tmp" \
+    && mv "$tmp" "$msg_file"
+  exit 0
+fi
+
+cat >&2 <<MSG
+commit-msg: no issue reference.
+  Add one to the subject, e.g. "Update progress log (#12)",
+  or commit on a branch named <issue>-<slug>, e.g. 42-sync-calendar.
+  See docs/adr/0007-github-issues-as-task-tracker.md.
+MSG
+exit 1

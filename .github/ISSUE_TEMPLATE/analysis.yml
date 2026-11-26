@@ -1,0 +1,21 @@
+name: Analysis
+description: Question or idea to investigate before deciding — output is a recommendation, not code
+labels: ["type:analysis"]
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      description: What needs to be decided or understood.
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Constraints, options already known, links.
+  - type: textarea
+    id: output
+    attributes:
+      label: Expected output
+      description: e.g. recommendation comment, draft ADR, follow-up issues.
