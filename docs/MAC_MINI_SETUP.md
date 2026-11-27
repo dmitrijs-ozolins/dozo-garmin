@@ -17,7 +17,8 @@ Related: [AUTOMATION_PLAN.md](AUTOMATION_PLAN.md),
 ## 1. Machine prerequisites (admin)
 
 1. Create the user: System Settings → Users & Groups → Add User →
-   **Standard** account, name `dozo.agent01`.
+   **Standard** account, name `dozo.agent01`. Then lock it down
+   (section 11).
 2. Keep the machine up (check first with `pmset -g`; often already set):
    ```bash
    sudo pmset -a sleep 0 autorestart 1
@@ -355,7 +356,10 @@ ADR 0001 option 3b):
 | `agent:implement` | Implements on branch `<issue>-<slug>`, commits, pushes, opens a PR `Closes #N`, links it on the issue. |
 
 The label is removed when the run ends (success or failure), so adding it
-again re-runs. Only labels you add count; runs queue one at a time.
+again re-runs. Only labels you add, on issues you opened, count; runs
+queue one at a time. The repo is public, so anyone can comment: Claude
+sees the issue body and only your comments and earlier agent output.
+For someone else's issue, copy what you want into a new issue of your own.
 
 Typical flow: write the issue → `agent:analyze` → answer its questions in
 a comment (or edit the issue) → `agent:implement` → review the PR →
@@ -409,9 +413,101 @@ it continues on the same branch and comments on the open PR.
 What the runner's Claude may do: read/edit files in its own checkout
 (`~/actions-runner/_work/…`, separate from `~/Projects/dozo-garmin`, so it
 doesn't collide with the Remote Control session), `git add/commit`,
-`gh issue view`, `py_compile` / `pytest`, and Garmin scripts with
+`py_compile` / `pytest`, and Garmin scripts with
 `--dry-run` only. Pushing, PRs and real Garmin writes are done by the
 fixed workflow steps or by you.
+
+## 11. Lock down the agent user (admin)
+
+`dozo.agent01` runs Claude unattended (`acceptEdits`, the runner) on
+instructions that arrive from GitHub and the phone. Assume anything that
+user can read, a confused or prompt-injected agent can read too and
+commit to this **public** repo. Claude's allow/deny rules (step 7.3) only
+narrow what Claude does. The real boundary is macOS user permissions, so
+set them as if the agent were an untrusted user.
+
+1. **No admin rights.** It must be a Standard account (step 1). Check
+   with `dseditgroup -o checkmember -m dozo.agent01 admin`. If it's an
+   admin, remove it with
+   `sudo dseditgroup -o edit -d dozo.agent01 -t user admin`. Never add it
+   to `admin` "to make brew work".
+2. **Close every other home folder.** macOS creates home folders as
+   `755`. Any user can then list them and read the files at their top
+   level, such as `~/.zshrc`, `~/.gitconfig` and anything saved straight
+   into the home folder. `750` isn't enough, because all users share the
+   `staff` group. Repeat for every user except the agent:
+   ```bash
+   sudo chmod 700 /Users/<admin>             # each other user
+   sudo chmod 700 /Users/dozo.agent01        # and the agent's own
+   ```
+   Desktop, Documents, Downloads and Library are already `700` inside.
+   The only side effect is that other users lose access to that user's
+   `~/Public` Drop Box.
+3. **No shared spots for data.** Every user can read `/Users/Shared`,
+   `/tmp` and any external drive set to *Ignore ownership on this volume*
+   (Finder → Get Info). Don't put files you want kept from the agent
+   there. Copy files to the agent over `scp` or AirDrop into its own home
+   folder.
+4. **Keep the admin's tools admin-owned.** The agent must not be able to
+   write to `/opt/homebrew` or `/Applications`. Otherwise it could
+   replace a binary that the admin later runs, and the next `brew` run
+   would execute the agent's code as the admin. Don't `chown` them to the
+   agent.
+5. **No admin or personal credentials on the agent's side.**
+   - Give the admin a different password from the agent.
+   - Don't type the admin password in the agent's session.
+   - Don't copy the admin's or laptop's SSH keys, `gh` login or PATs
+     into it.
+   - The agent acts only as `dozo-agent01`, a Write collaborator on this
+     repo (step 3). Its GitHub reach is that, and nothing of
+     `dmitrijs-ozolins`'s.
+6. **Remote access only for whom it's needed.**
+   - System Settings → General → Sharing: **Remote Login** and **Screen
+     Sharing** → *Only these users*, or turn them off.
+   - With Remote Login on, use key-only SSH. Add your laptop's public
+     key to the target user's `~/.ssh/authorized_keys` **first**, then
+     turn off password login:
+     ```bash
+     printf 'PasswordAuthentication no\nKbdInteractiveAuthentication no\n' \
+       | sudo tee /etc/ssh/sshd_config.d/100-no-passwords.conf
+     sudo launchctl kickstart -k system/com.openssh.sshd
+     ```
+7. **Machine basics.**
+   - Firewall on: System Settings → Network → Firewall.
+   - Guest User off: Users & Groups.
+   - FileVault on (step 1).
+   - Automatic updates: Software Update → *Install Security Responses
+     and system files* on.
+8. **No extra privacy grants.** Under Privacy & Security, don't grant
+   Full Disk Access, Accessibility or Screen Recording to Terminal,
+   `claude` or the runner in the agent's session. Nothing in this setup
+   needs them.
+
+What stays visible by design:
+- `ps` shows every user's processes and their command lines, so never
+  pass secrets as arguments in the admin's session.
+- System files and `/Applications` stay readable.
+
+Optional extra layer: Claude Code's `/sandbox` (Seatbelt on macOS) also
+confines the agent's own Bash commands. Points 1–4 hold regardless.
+
+### 11.1 Verify
+
+[`scripts/audit_mac_mini.sh`](../scripts/audit_mac_mini.sh) is read-only.
+It runs each check *as the agent*, for example "can `dozo.agent01` enter
+`/Users/<admin>`?", and prints PASS / FAIL / WARN. Run it as the admin from
+a copy the agent can't edit. Never run it from `~dozo.agent01/Projects/…`:
+under `sudo`, root would execute whatever the agent put in that file.
+
+```bash
+# as the admin
+curl -fsSLo ~/audit_mac_mini.sh \
+  https://raw.githubusercontent.com/dmitrijs-ozolins/dozo-garmin/master/scripts/audit_mac_mini.sh
+less ~/audit_mac_mini.sh          # read it before running it as root
+sudo zsh ~/audit_mac_mini.sh      # default user: dozo.agent01
+```
+
+Rerun it after adding a user, macOS upgrades and changes to Sharing.
 
 ## Troubleshooting
 
@@ -427,6 +523,6 @@ fixed workflow steps or by you.
 | `brew install` → permission denied | Homebrew belongs to the admin account — install as admin, or per user (gh: step 2) |
 | `ExecutableStep() takes no arguments` | `pydantic` missing — reinstall `requirements.txt` (step 4) |
 | `gh` not found from Claude | Claude's shell doesn't read `~/.zprofile`; use `~/.local/bin/gh` |
-| Labelled issue, nothing happens | Runner offline (Settings → Actions → Runners), or the label was added by someone else / by a bot |
+| Labelled issue, nothing happens | Runner offline (Settings → Actions → Runners), the label was added by someone else / by a bot, or the issue wasn't opened by you |
 | Runner job: `claude: command not found` | Rewrite `~/actions-runner/.path` (step 10.1.3), then `./svc.sh stop && ./svc.sh start` |
 | Runner job: Claude login / 401 errors | Runner not running in the logged-in GUI session — reinstall with `./svc.sh install` as `agent`, check auto-login |
