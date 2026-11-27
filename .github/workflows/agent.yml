@@ -12,9 +12,13 @@ name: Mac mini agent
 # Safety (public repo + self-hosted runner):
 #   - Triggered only by issue label events, never pull_request, so fork code
 #     can't reach the runner.
-#   - Only labels added by the repo owner count (github.event.sender).
-#   - Issue text is never interpolated into shell; Claude reads the issue
-#     itself via `gh issue view`, the title reaches the shell only via env.
+#   - Only labels added by the repo owner, on issues the owner opened, count
+#     (github.event.sender / issue.user).
+#   - Anyone can comment on a public issue, so Claude never fetches the issue
+#     itself: it gets the body plus only the owner's and earlier agent runs'
+#     comments on stdin, and has no `gh` access (prompt injection).
+#   - Issue text is never interpolated into shell; the title reaches the
+#     shell only via env.
 #   - Claude can't push, open PRs or do real Garmin writes (allowed tools);
 #     the push/PR steps below are fixed shell.
 #   - One run at a time: runs share the Claude subscription's usage limits.
@@ -35,7 +39,8 @@ concurrency:
 jobs:
   agent:
     if: >-
-      github.event.sender.login == 'dmitrijs-ozolins' &&
+      github.event.sender.login == github.repository_owner &&
+      github.event.issue.user.login == github.repository_owner &&
       (github.event.label.name == 'agent:analyze' ||
        github.event.label.name == 'agent:implement')
     runs-on: [self-hosted, macOS, dozo-agent]
@@ -45,6 +50,7 @@ jobs:
       ISSUE: ${{ github.event.issue.number }}
       ISSUE_TITLE: ${{ github.event.issue.title }}
       MODE: ${{ github.event.label.name }}
+      OWNER: ${{ github.repository_owner }}
       RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
     steps:
       - uses: actions/checkout@v4
@@ -61,11 +67,19 @@ jobs:
           uv pip install --python .venv -r requirements.txt
           git config core.hooksPath .githooks
 
+      - name: Fetch the issue (owner's text only)
+        run: |
+          gh issue view "$ISSUE" --json title,body,comments --jq '
+            "# Issue #\(env.ISSUE): \(.title)\n\n\(.body)\n\n## Comments (by \(env.OWNER) and earlier agent runs only)\n\n" +
+            ([.comments[] | select(.author.login == env.OWNER or .author.login == "github-actions")
+              | "### \(.author.login), \(.createdAt)\n\n\(.body)"] | join("\n\n"))
+          ' > "$RUNNER_TEMP/issue.md"
+
       - name: Analyze
         if: env.MODE == 'agent:analyze'
         run: |
           claude -p "You are the Mac mini agent for this repository, analysing GitHub issue #$ISSUE.
-          Read it with: gh issue view $ISSUE --comments
+          The issue and its comments are on stdin; don't fetch it yourself.
           Follow the project instructions (.claude/CLAUDE.md and the files it imports).
           Do NOT change any files. Investigate the code and docs, then write a proposed approach in Markdown:
           1. Goal as you understand it
@@ -75,8 +89,9 @@ jobs:
           5. Risks, and whether a new ADR is needed
           Your final message is posted verbatim as an issue comment, so output only that comment." \
             --model sonnet --max-turns 40 \
-            --allowedTools Read Glob Grep "Bash(gh issue view:*)" "Bash(git log:*)" "Bash(ls:*)" \
-            --output-format text > "$RUNNER_TEMP/analysis.md"
+            --allowedTools Read Glob Grep "Bash(git log:*)" "Bash(ls:*)" \
+            --disallowedTools "Bash(gh:*)" \
+            --output-format text < "$RUNNER_TEMP/issue.md" > "$RUNNER_TEMP/analysis.md"
           gh issue comment "$ISSUE" --body-file "$RUNNER_TEMP/analysis.md"
 
       - name: Implement
@@ -93,7 +108,7 @@ jobs:
           base=$(git rev-parse HEAD)
 
           claude -p "You are the Mac mini agent for this repository, implementing GitHub issue #$ISSUE.
-          Read it with: gh issue view $ISSUE --comments
+          The issue and its comments are on stdin; don't fetch it yourself.
           If the comments contain an approved approach or answers from Dima, they take precedence over the original text.
           Branch $branch is already checked out. Follow the project instructions (.claude/CLAUDE.md and the files it imports).
           Implement the acceptance criteria. Commit in logical steps with git commit; the commit-msg hook appends (#$ISSUE).
@@ -103,13 +118,13 @@ jobs:
           Your final message becomes the PR description: Markdown sections 'What changed', 'How it was verified', 'Open points'. No 'Closes' line." \
             --model sonnet --max-turns 80 --permission-mode acceptEdits \
             --allowedTools Read Edit Write Glob Grep \
-              "Bash(gh issue view:*)" "Bash(git status:*)" "Bash(git diff:*)" "Bash(git log:*)" \
+              "Bash(git status:*)" "Bash(git diff:*)" "Bash(git log:*)" \
               "Bash(git add:*)" "Bash(git commit:*)" "Bash(ls:*)" \
               "Bash(.venv/bin/python -m py_compile:*)" "Bash(.venv/bin/python -m pytest:*)" \
               "Bash(.venv/bin/python scripts/sync_calendar.py --dry-run:*)" \
               "Bash(.venv/bin/python scripts/push_week_runs.py --dry-run:*)" \
-            --disallowedTools "Bash(git push:*)" "Bash(gh pr:*)" \
-            --output-format text > "$RUNNER_TEMP/summary.md"
+            --disallowedTools "Bash(git push:*)" "Bash(gh:*)" \
+            --output-format text < "$RUNNER_TEMP/issue.md" > "$RUNNER_TEMP/summary.md"
 
           if [ "$(git rev-parse HEAD)" = "$base" ]; then
             { echo "🤖 No commits were made for \`$MODE\` — [run log]($RUN_URL)"; echo; cat "$RUNNER_TEMP/summary.md"; } > "$RUNNER_TEMP/comment.md"
