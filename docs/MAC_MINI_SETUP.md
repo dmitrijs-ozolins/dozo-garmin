@@ -343,6 +343,76 @@ The existing sync-alert bot (`garmin_sync/notify.py`) only sends, so it
 can be reused for the channel — alerts and replies then share one chat.
 A separate bot keeps them apart.
 
+## 10. GitHub Actions runner: issue label → work on the mini
+
+Review issues on GitHub (web or mobile app) and add a label; the mini
+picks it up ([`.github/workflows/agent.yml`](../.github/workflows/agent.yml),
+ADR 0001 option 3b):
+
+| Label you add | What the mini does |
+|---|---|
+| `agent:analyze` | Reads the issue and code, posts a proposed approach + numbered questions as an issue comment. No file changes. |
+| `agent:implement` | Implements on branch `<issue>-<slug>`, commits, pushes, opens a PR `Closes #N`, links it on the issue. |
+
+The label is removed when the run ends (success or failure), so adding it
+again re-runs. Only labels you add count; runs queue one at a time.
+
+Typical flow: write the issue → `agent:analyze` → answer its questions in
+a comment (or edit the issue) → `agent:implement` → review the PR →
+merge. Comments on the issue take precedence over the original text.
+Feedback on a PR: comment on the issue and add `agent:implement` again —
+it continues on the same branch and comments on the open PR.
+
+### 10.1 Install the runner (agent)
+
+1. On github.com: repo → Settings → Actions → Runners → **New
+   self-hosted runner** → macOS, ARM64. Keep the page open — it shows
+   the download URL and a one-time registration token.
+2. On the mini, as `agent`:
+   ```bash
+   mkdir -p ~/actions-runner && cd ~/actions-runner
+   # download + extract: copy the two commands (curl …, tar xzf …) from the GitHub page
+   ./config.sh --url https://github.com/dmitrijs-ozolins/dozo-garmin \
+     --token <token from the page> \
+     --name mac-mini --labels dozo-agent --unattended
+   ```
+3. Give the runner the same PATH as your login shell (it needs `claude`,
+   `uv` and `gh`, which live in `~/.local/bin` / Homebrew):
+   ```bash
+   zsh -lc 'echo $PATH' > ~/actions-runner/.path
+   ```
+4. Run it as a service. On macOS `svc.sh` installs a **LaunchAgent**, so
+   it runs inside the auto-logged-in `agent` session with the unlocked
+   keychain — that's where the Claude login lives:
+   ```bash
+   ./svc.sh install && ./svc.sh start && ./svc.sh status
+   ```
+   Settings → Actions → Runners should show `mac-mini` as **Idle**.
+
+### 10.2 Repo settings (once, on github.com)
+
+- Settings → Actions → General → **Fork pull request workflows from
+  outside collaborators** → *Require approval for all outside
+  collaborators*. The agent workflow never runs on PRs anyway; this
+  keeps it that way for any future workflow.
+- Same page → **Workflow permissions**: leave *Read repository contents*
+  as the default — `agent.yml` requests its own write permissions.
+
+### 10.3 First test
+
+1. Open a throwaway issue, e.g. "Agent smoke test: list the ADRs in a
+   comment", add `agent:analyze`.
+2. Within a minute: a "🤖 started" comment, then the analysis comment;
+   the label disappears. Run log: repo → Actions → *Mac mini agent*.
+3. Then the real one: #10 → `agent:analyze` first.
+
+What the runner's Claude may do: read/edit files in its own checkout
+(`~/actions-runner/_work/…`, separate from `~/Projects/dozo-garmin`, so it
+doesn't collide with the Remote Control session), `git add/commit`,
+`gh issue view`, `py_compile` / `pytest`, and Garmin scripts with
+`--dry-run` only. Pushing, PRs and real Garmin writes are done by the
+fixed workflow steps or by you.
+
 ## Troubleshooting
 
 | Symptom | Fix |
@@ -357,3 +427,6 @@ A separate bot keeps them apart.
 | `brew install` → permission denied | Homebrew belongs to the admin account — install as admin, or per user (gh: step 2) |
 | `ExecutableStep() takes no arguments` | `pydantic` missing — reinstall `requirements.txt` (step 4) |
 | `gh` not found from Claude | Claude's shell doesn't read `~/.zprofile`; use `~/.local/bin/gh` |
+| Labelled issue, nothing happens | Runner offline (Settings → Actions → Runners), or the label was added by someone else / by a bot |
+| Runner job: `claude: command not found` | Rewrite `~/actions-runner/.path` (step 10.1.3), then `./svc.sh stop && ./svc.sh start` |
+| Runner job: Claude login / 401 errors | Runner not running in the logged-in GUI session — reinstall with `./svc.sh install` as `agent`, check auto-login |

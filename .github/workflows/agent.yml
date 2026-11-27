@@ -1,0 +1,135 @@
+name: Mac mini agent
+
+# Issue → PR flow (docs/adr/0001, option 3b; labels from docs/adr/0007).
+# Adding a label to an issue runs Claude Code on the Mac mini's self-hosted
+# runner, using the mini's own Claude login (no Claude credential in GitHub):
+#
+#   agent:analyze   -> Claude reads the issue + code and posts a proposed
+#                      approach as an issue comment. No file changes.
+#   agent:implement -> Claude implements on branch <issue>-<slug>, commits;
+#                      this workflow pushes and opens a PR "Closes #N".
+#
+# Safety (public repo + self-hosted runner):
+#   - Triggered only by issue label events, never pull_request, so fork code
+#     can't reach the runner.
+#   - Only labels added by the repo owner count (github.event.sender).
+#   - Issue text is never interpolated into shell; Claude reads the issue
+#     itself via `gh issue view`, the title reaches the shell only via env.
+#   - Claude can't push, open PRs or do real Garmin writes (allowed tools);
+#     the push/PR steps below are fixed shell.
+#   - One run at a time: runs share the Claude subscription's usage limits.
+
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: mac-mini-agent
+  cancel-in-progress: false
+
+jobs:
+  agent:
+    if: >-
+      github.event.sender.login == 'dmitrijs-ozolins' &&
+      (github.event.label.name == 'agent:analyze' ||
+       github.event.label.name == 'agent:implement')
+    runs-on: [self-hosted, macOS, dozo-agent]
+    timeout-minutes: 60
+    env:
+      GH_TOKEN: ${{ github.token }}
+      ISSUE: ${{ github.event.issue.number }}
+      ISSUE_TITLE: ${{ github.event.issue.title }}
+      MODE: ${{ github.event.label.name }}
+      RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+          fetch-depth: 0
+
+      - name: Acknowledge on the issue
+        run: gh issue comment "$ISSUE" --body "🤖 Mac mini agent started \`$MODE\` — [run log]($RUN_URL)"
+
+      - name: Python env
+        run: |
+          uv venv --python 3.12 .venv
+          uv pip install --python .venv -r requirements.txt
+          git config core.hooksPath .githooks
+
+      - name: Analyze
+        if: env.MODE == 'agent:analyze'
+        run: |
+          claude -p "You are the Mac mini agent for this repository, analysing GitHub issue #$ISSUE.
+          Read it with: gh issue view $ISSUE --comments
+          Follow the project instructions (.claude/CLAUDE.md and the files it imports).
+          Do NOT change any files. Investigate the code and docs, then write a proposed approach in Markdown:
+          1. Goal as you understand it
+          2. Proposed design (data formats, modules, commands)
+          3. Files to add or change
+          4. Open questions / decisions for Dima, numbered, each with your recommendation
+          5. Risks, and whether a new ADR is needed
+          Your final message is posted verbatim as an issue comment, so output only that comment." \
+            --model sonnet --max-turns 40 \
+            --allowedTools Read Glob Grep "Bash(gh issue view:*)" "Bash(git log:*)" "Bash(ls:*)" \
+            --output-format text > "$RUNNER_TEMP/analysis.md"
+          gh issue comment "$ISSUE" --body-file "$RUNNER_TEMP/analysis.md"
+
+      - name: Implement
+        if: env.MODE == 'agent:implement'
+        run: |
+          slug=$(printf '%s' "$ISSUE_TITLE" | tr '[:upper:]' '[:lower:]' | tr -cs 'a-z0-9' '-' \
+            | sed 's/^-*//' | cut -c1-40 | sed 's/-*$//')
+          branch="$ISSUE-$slug"
+          if git ls-remote --exit-code --heads origin "$branch" >/dev/null; then
+            git switch -c "$branch" --track "origin/$branch"
+          else
+            git switch -c "$branch"
+          fi
+          base=$(git rev-parse HEAD)
+
+          claude -p "You are the Mac mini agent for this repository, implementing GitHub issue #$ISSUE.
+          Read it with: gh issue view $ISSUE --comments
+          If the comments contain an approved approach or answers from Dima, they take precedence over the original text.
+          Branch $branch is already checked out. Follow the project instructions (.claude/CLAUDE.md and the files it imports).
+          Implement the acceptance criteria. Commit in logical steps with git commit; the commit-msg hook appends (#$ISSUE).
+          Do not push and do not open a PR — the workflow does that.
+          Never make real Garmin writes: only run Garmin-related scripts with --dry-run.
+          If you are blocked, commit nothing and explain why.
+          Your final message becomes the PR description: Markdown sections 'What changed', 'How it was verified', 'Open points'. No 'Closes' line." \
+            --model sonnet --max-turns 80 --permission-mode acceptEdits \
+            --allowedTools Read Edit Write Glob Grep \
+              "Bash(gh issue view:*)" "Bash(git status:*)" "Bash(git diff:*)" "Bash(git log:*)" \
+              "Bash(git add:*)" "Bash(git commit:*)" "Bash(ls:*)" \
+              "Bash(.venv/bin/python -m py_compile:*)" "Bash(.venv/bin/python -m pytest:*)" \
+              "Bash(.venv/bin/python scripts/sync_calendar.py --dry-run:*)" \
+              "Bash(.venv/bin/python scripts/push_week_runs.py --dry-run:*)" \
+            --disallowedTools "Bash(git push:*)" "Bash(gh pr:*)" \
+            --output-format text > "$RUNNER_TEMP/summary.md"
+
+          if [ "$(git rev-parse HEAD)" = "$base" ]; then
+            { echo "🤖 No commits were made for \`$MODE\` — [run log]($RUN_URL)"; echo; cat "$RUNNER_TEMP/summary.md"; } > "$RUNNER_TEMP/comment.md"
+            gh issue comment "$ISSUE" --body-file "$RUNNER_TEMP/comment.md"
+            exit 1
+          fi
+
+          git push -u origin "$branch"
+          if pr=$(gh pr view "$branch" --json url --jq .url 2>/dev/null); then
+            gh pr comment "$branch" --body-file "$RUNNER_TEMP/summary.md"
+          else
+            { echo "Closes #$ISSUE"; echo; cat "$RUNNER_TEMP/summary.md"; } > "$RUNNER_TEMP/pr.md"
+            pr=$(gh pr create --base master --head "$branch" --title "$ISSUE_TITLE (#$ISSUE)" --body-file "$RUNNER_TEMP/pr.md")
+          fi
+          gh issue comment "$ISSUE" --body "🤖 Implementation ready for review: $pr"
+
+      - name: Report failure
+        if: failure()
+        run: gh issue comment "$ISSUE" --body "🤖 \`$MODE\` failed — [run log]($RUN_URL)"
+
+      - name: Remove trigger label
+        if: always()
+        run: gh issue edit "$ISSUE" --remove-label "$MODE"
