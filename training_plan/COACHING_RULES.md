@@ -11,7 +11,7 @@ live in [Half_Marathon_Training_Plan_May2027.md](Half_Marathon_Training_Plan_May
   (Z3 163-168, Z2 140-145, Z1 130-137), fill the progress-log row, and
   report the delta to baseline and to the next checkpoint's target.
 - Baseline is 1-10.09.2026 (TCX in `past_workouts/2026-09`, local only).
-- VO2max per Garmin: 55 confirmed 25-27.09.2026, **56 since 20.10.2026**.
+- VO2max per Garmin: 55 confirmed 25-27.09.2026, 56 since 20.10.2026, **57 since 24.11.2026** (precise 56.9).
 - New Polar chest strap since 29.09.2026; the old Garmin HRM 200 gave
   doubtful data. For HR-based comparisons rely on data from 29.09 onward.
 - Session without the strap (wrist HR): don't use its HR or Garmin TE for
