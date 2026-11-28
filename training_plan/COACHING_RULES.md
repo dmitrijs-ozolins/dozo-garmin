@@ -22,8 +22,9 @@ live in [Half_Marathon_Training_Plan_May2027.md](Half_Marathon_Training_Plan_May
   them; use the rep's peak before the spike.
 - Keep HRmax at 188 in the plan unless Dima asks (old strap showed 190).
 - Lab test 25.11.2026: VO2max **53.8** (lab) is the reference for lab retests; never
-  compare it with Garmin's number. Its HR values are wrist-based (no strap allowed) —
-  provisional; set thresholds from the lactate-vs-speed curve, not lab HR.
+  compare it with Garmin's number. Lab HR comes from the lab's sensors and is valid
+  (LT2 HR 173; LT1 flagged invalid by the doctor). Wrist HR on the watch peaked ~8 bpm
+  lower (171 vs 179). Set final thresholds from the lactate-vs-speed curve.
 - Don't use Garmin's race predictor (10k 31:40 on 28.09.26 is unrealistic).
 - Races: Riga 5k 19.09.2026 — use the **chip time 18:02** (3:36/km), not
   the watch GPS (18:48 / 5.03 km).
