@@ -59,6 +59,8 @@ fine to judge by HR; just leave pace out ("treadmill, not compared").
   - 21.11.2026 8×1000 (4:00) @ 15.0, after a hard morning swim: rep avg
     HR 160→175, peaks 165→174 on reps 1-6; walked part of jog 6; reps 7-8
     strap artifact (cadence lock), real peaks ~176-178
+  - 28.11.2026 6×600 (2:30) @ 14.4, recovery week: rep avg HR 147→156,
+    peaks 155-160 — easy; warm-up started at 9.6 km/h to keep HR low
 - Next 800s: stay at 15.4 until 10 reps feel controlled; progress reps
   or speed, not both.
 - Next 1000s (P3, after the lab test): repeat 8×4:00 @ 15.0 on fresh
