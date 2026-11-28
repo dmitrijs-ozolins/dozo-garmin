@@ -369,10 +369,14 @@ it continues on the same branch and comments on the open PR.
 
 ### 10.1 Install the runner (agent)
 
-1. On github.com: repo → Settings → Actions → Runners → **New
-   self-hosted runner** → macOS, ARM64. Keep the page open — it shows
-   the download URL and a one-time registration token.
-2. On the mini, as `agent`:
+1. On github.com **as `dmitrijs-ozolins`** (adding runners needs repo
+   admin; `dozo-agent01` only has Write): repo → Settings → Actions →
+   Runners → **New self-hosted runner** → macOS, ARM64. Keep the page
+   open — it shows the download URL and a one-time registration token
+   (valid ~1 hour). The token only registers the runner; jobs don't act
+   as either GitHub user.
+2. On the mini, as `dozo.agent01` (the runner runs as whoever runs
+   `config.sh` / `svc.sh`):
    ```bash
    mkdir -p ~/actions-runner && cd ~/actions-runner
    # download + extract: copy the two commands (curl …, tar xzf …) from the GitHub page
@@ -381,17 +385,58 @@ it continues on the same branch and comments on the open PR.
      --name mac-mini --labels dozo-agent --unattended
    ```
 3. Give the runner the same PATH as your login shell (it needs `claude`,
-   `uv` and `gh`, which live in `~/.local/bin` / Homebrew):
+   `uv` and `gh`, which live in `~/.local/bin` / Homebrew). Run it from
+   Terminal.app, not a VS Code terminal, or the editor's folders end up
+   in it too:
    ```bash
    zsh -lc 'echo $PATH' > ~/actions-runner/.path
    ```
-4. Run it as a service. On macOS `svc.sh` installs a **LaunchAgent**, so
-   it runs inside the auto-logged-in `agent` session with the unlocked
-   keychain — that's where the Claude login lives:
+4. Run it as a service. On macOS `svc.sh` installs a **LaunchAgent**:
    ```bash
    ./svc.sh install && ./svc.sh start && ./svc.sh status
    ```
    Settings → Actions → Runners should show `mac-mini` as **Idle**.
+5. Give the runner's Claude a login — pick **one** of the two options.
+   Without this every job fails with `Not logged in · Please run
+   /login`, and in `--output-format text` that message goes into the
+   output file rather than the run log.
+
+   **Option A — the agent's keychain login (current choice).** The plist
+   `svc.sh` generates has `SessionCreate = true`, which starts the
+   runner in its own security session, cut off from the login keychain
+   that holds the `claude` `/login` from step 7.1. Turn it off so the
+   runner joins the logged-in desktop session. Run in Terminal on the
+   mini's desktop, not over SSH:
+   ```bash
+   P=~/Library/LaunchAgents/actions.runner.dmitrijs-ozolins-dozo-garmin.mac-mini.plist
+   cd ~/actions-runner && ./svc.sh stop
+   plutil -replace SessionCreate -bool false "$P"
+   plutil -p "$P" | grep SessionCreate        # => false
+   ./svc.sh start && ./svc.sh status
+   ```
+   Repeat the `plutil` line after any `./svc.sh install` — it rewrites
+   the plist. Needs `dozo.agent01` logged in (auto-login or the password
+   after a reboot), same as the Remote Control server.
+
+   **Option B — a long-lived token in the runner's environment.** Works
+   without the keychain, e.g. if the runner should keep working without
+   a desktop session. `claude setup-token` creates a 1-year token for
+   the same subscription; the runner loads `~/actions-runner/.env` into
+   every job, and Claude Code uses `CLAUDE_CODE_OAUTH_TOKEN` instead of
+   the keychain:
+   ```bash
+   claude setup-token                          # browser login, prints the token
+   cd ~/actions-runner && touch .env && chmod 600 .env
+   echo 'CLAUDE_CODE_OAUTH_TOKEN=<token>' >> .env   # or edit .env, keeping existing lines
+   ./svc.sh stop && ./svc.sh start
+   ```
+   Trade-offs: a plaintext credential on disk (outside the repo, never
+   commit it — ADR 0004's rule for Garmin tokens applies in spirit), and
+   it's visible to every step of every job. Put a renewal reminder in
+   the calendar for a year out. Storing it as a GitHub secret instead
+   would work too, but puts the credential on GitHub for no gain on a
+   single self-hosted runner. Option A's `SessionCreate` change isn't
+   needed with this option.
 
 ### 10.2 Repo settings (once, on github.com)
 
@@ -525,4 +570,6 @@ Rerun it after adding a user, macOS upgrades and changes to Sharing.
 | `gh` not found from Claude | Claude's shell doesn't read `~/.zprofile`; use `~/.local/bin/gh` |
 | Labelled issue, nothing happens | Runner offline (Settings → Actions → Runners), the label was added by someone else / by a bot, or the issue wasn't opened by you |
 | Runner job: `claude: command not found` | Rewrite `~/actions-runner/.path` (step 10.1.3), then `./svc.sh stop && ./svc.sh start` |
-| Runner job: Claude login / 401 errors | Runner not running in the logged-in GUI session — reinstall with `./svc.sh install` as `agent`, check auto-login |
+| Runner job: Claude step exits 1 within a second, empty log | Claude printed `Not logged in` into the output file — runner can't reach the login. Step 10.1.5: `SessionCreate` → false (option A) or `CLAUDE_CODE_OAUTH_TOKEN` (option B) |
+| Runner job: Claude login / 401 errors after a reinstall | `./svc.sh install` reset `SessionCreate` to true — redo step 10.1.5 option A; check `dozo.agent01` is logged in |
+| Runner job: 401 with option B | Token expired (1 year) — `claude setup-token` again, update `~/actions-runner/.env`, restart the service |
